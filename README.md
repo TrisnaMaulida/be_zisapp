@@ -1,6 +1,6 @@
 # be_zisapp
 
-Front End
+Back End
 
 ## commit message
 
@@ -11,8 +11,12 @@ refactor(*scope): message body footer = perubahan pada kode/fitur
 chore = perubahan kecil misal hapus titik(.), koma(,) dsb
 ```
 
-- ` *scope` opsional diganti fitur/bagian yang idkerjakan , `message` pesan di commit , `body` apa yang dirubah/ditambah, `footer` opsional
-  conoth:
+-   `scope` opsional diganti fitur/bagian yang idkerjakan 
+-   `message` pesan di commit 
+-   `body` apa yang dirubah/ditambah(opsional), 
+-   `footer` footnote (opsional)
+
+  contoh:
 
   ```
   fix(login): login selalu gagal
@@ -20,6 +24,11 @@ chore = perubahan kecil misal hapus titik(.), koma(,) dsb
   kurang koma di baris 20
 
   Fixes #1
+  ```
+  atau
+  ```
+  feat(main): hapus data
+  tambah function tambah()
   ```
 
 ## struktur
