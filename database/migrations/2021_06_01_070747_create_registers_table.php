@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRegisterTable extends Migration
+class CreateRegistersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -31,6 +31,6 @@ class CreateRegisterTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('register');
+        Schema::dropIfExists('registers');
     }
 }
