@@ -13,7 +13,7 @@ class CreateRegistersTable extends Migration
      */
     public function up()
     {
-        Schema::create('register', function (Blueprint $table) {
+        Schema::create('registers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama');
             $table->string('email');
