@@ -45,6 +45,7 @@ class PenggunaController extends Controller
         } else {
             //Login Failed
             Session::fails('error', 'Password Salah');
+            return "Login Gagal";
         }
     }
 
@@ -94,9 +95,12 @@ class PenggunaController extends Controller
     }
 
     //get pengguna
-    public function get()
+    public function index()
     {
-        //ini aku bingung mas, maaf ya :)
+        $data['status'] = 200;
+        $data['data'] = Pengguna::all();
+
+        return $data;
     }
 
     //create pengguna

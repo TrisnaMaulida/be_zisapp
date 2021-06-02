@@ -19,8 +19,9 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::get('pengguna', 'PenggunaController@login');
-Route::get('pengguna', 'PenggunaController@register');
+Route::post('pengguna', 'PenggunaController@login');
+Route::post('pengguna', 'PenggunaController@register');
+Route::get('pengguna', 'PenggunaController@index');
 Route::post('pengguna', 'PenggunaController@create');
 Route::put('/pengguna/{id}', 'PenggunaController@update');
 Route::delete('pengguna', 'PenggunaController@delete');
