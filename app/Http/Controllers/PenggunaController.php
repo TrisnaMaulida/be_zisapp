@@ -6,7 +6,6 @@ use App\Pengguna;
 use Illuminate\Support\Facades\Hash;
 use DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PenggunaController extends Controller
@@ -142,6 +141,7 @@ class PenggunaController extends Controller
         $pengguna->save();
 
         return "Data User Berhasil diUpdate";
+        return $pengguna;
     }
 
     //delete pengguna
