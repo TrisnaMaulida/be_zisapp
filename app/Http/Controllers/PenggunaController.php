@@ -37,7 +37,7 @@ class PenggunaController extends Controller
             'password' => $request->input('password'),
         ];
 
-        $pengguna = DB::select('select from penggunas where //disini bingung mas :( ');
+        $pengguna = DB::select('select username, password from penggunas; ');
 
         if ($pengguna) {
             $data['message'] = "Login Berhasil";
