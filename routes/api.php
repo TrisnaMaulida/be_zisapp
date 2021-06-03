@@ -23,5 +23,5 @@ Route::post('login', 'PenggunaController@login');
 Route::post('register', 'PenggunaController@register');
 Route::get('pengguna', 'PenggunaController@index');
 Route::post('pengguna', 'PenggunaController@create');
-Route::put('/pengguna/{id}', 'PenggunaController@update');
-Route::delete('pengguna', 'PenggunaController@delete');
+Route::put('pengguna/{id}', 'PenggunaController@update');
+Route::delete('pengguna/{id}', 'PenggunaController@delete');

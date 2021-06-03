@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Pengguna;
-
-use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Hash;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -37,15 +37,17 @@ class PenggunaController extends Controller
             'password' => $request->input('password'),
         ];
 
-        Auth::attempt($data);
+        $pengguna = DB::select("SELECT * FROM Penggunas WHERE username='" . $request->input("username") . "' AND password='" . $request->input("password") . "'");
 
-        if (Auth::check()) {
-            //login sukses
-            return "Login Berhasil";
+        if ($pengguna) {
+            $data['message'] = "Login Berhasil";
+            $data['data'] = $pengguna;
+            $data['status'] = true;
+            return $pengguna;
         } else {
-            //Login Failed
-            Session::fails('error', 'Password Salah');
-            return "Login Gagal";
+            $data['message'] = "Login Gagal";
+            $data['data'] = null;
+            $data['status'] = false;
         }
     }
 
@@ -83,14 +85,14 @@ class PenggunaController extends Controller
         $pengguna->email = strtolower($request->email);
         $pengguna->username = strtolower($request->username);
         $pengguna->password = Hash::make($request->password);
+        $pengguna->leveluser = strtolower($request->leveluser);
         $simpan = $pengguna->save();
 
         if ($simpan) {
-            Session::flash('success', 'Register Berhasil! Silahkan Login');
-            return "Behasil Yey";
+            $data['message'] = "Register Berhasil";
+            return $pengguna;
         } else {
-            Session::flash('error', ['' => 'Register Gagal']);
-            return "Register Gagal";
+            $data['message'] = "Register Gagal";
         }
     }
 
