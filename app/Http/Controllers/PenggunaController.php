@@ -37,13 +37,17 @@ class PenggunaController extends Controller
             'password' => $request->input('password'),
         ];
 
-        $pengguna = DB::select('select username, password from penggunas; ');
+        $pengguna = DB::select("SELECT * FROM Penggunas WHERE username='" . $request->input("username") . "' AND password='" . $request->input("password") . "'");
 
         if ($pengguna) {
             $data['message'] = "Login Berhasil";
+            $data['data'] = $pengguna;
+            $data['status'] = true;
             return $pengguna;
         } else {
             $data['message'] = "Login Gagal";
+            $data['data'] = null;
+            $data['status'] = false;
         }
     }
 
