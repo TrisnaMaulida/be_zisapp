@@ -28,12 +28,18 @@ class MuzakiController extends Controller
         $muzaki->alamat = $request->alamat;
         $muzaki->phone = $request->phone;
         $muzaki->petugas = $request->petugas;
-        $muzaki->kantor = $request->kantor;
+        $muzaki->kantor_layanan = $request->kantor_layanan;
 
-        $data['status'] = 200;
-        $data['data'] = $muzaki;
-        $data['message'] = "User Baru Berhasil dibuat";
-
+        $simpan = $muzaki->save();
+        if ($simpan) {
+            $data['status'] = true;
+            $data['message'] = "Berhasil menambahkan ";
+            $data['data'] = $muzaki;
+        } else {
+            $data['status'] = false;
+            $data['message'] = "gagal menambahkan ";
+            $data['data'] = null;
+        }
         return $data;
     }
 
@@ -48,7 +54,7 @@ class MuzakiController extends Controller
         $alamat = $request->alamat;
         $phone = $request->phone;
         $petugas = $request->petugas;
-        $kantor = $request->kantor;
+        $kantor_layanan = $request->kantor_layanan;
 
 
         $muzaki = Muzaki::find($id);
@@ -60,19 +66,37 @@ class MuzakiController extends Controller
         $muzaki->alamat = $alamat;
         $muzaki->phone = $phone;
         $muzaki->petugas = $petugas;
-        $muzaki->kantor = $kantor;
-        $muzaki->save();
+        $muzaki->kantor_layanan = $kantor_layanan;
 
-        return "Data Muzaki Berhasil diUpdate";
-        return $muzaki;
+        $update = $muzaki->update();
+        if ($update) {
+            $data['status'] = true;
+            $data['message'] = "Berhasil di Update ";
+            $data['data'] = $muzaki;
+        } else {
+            $data['status'] = false;
+            $data['message'] = "Gagal di Update ";
+            $data['data'] = null;
+        }
+        return $data;
     }
 
     //delete muzaki
     public function delete($id)
     {
         $muzaki = Muzaki::find($id);
-        $muzaki->delete();
+        $delete = $muzaki->delete();
 
-        return "Muzaki berhasil di Hapus";
+        if ($delete) {
+            $data['status'] = true;
+            $data['message'] = "Data Berhasil di Hapus ";
+            $data['data'] = $muzaki;
+        } else {
+            $data['status'] = false;
+            $data['message'] = "Data Gagal di Hapus ";
+            $data['data'] = null;
+        }
+
+        return $data;
     }
 }
