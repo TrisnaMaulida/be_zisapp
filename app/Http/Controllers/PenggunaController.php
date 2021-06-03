@@ -6,7 +6,6 @@ use App\Pengguna;
 use Illuminate\Support\Facades\Hash;
 use DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PenggunaController extends Controller
@@ -116,10 +115,17 @@ class PenggunaController extends Controller
         $pengguna->leveluser = $request->leveluser;
         $pengguna->save();
 
-        $data['status'] = 200;
-        $data['data'] = $pengguna;
-        $data['message'] = "User Baru Berhasil dibuat";
 
+        $simpan = $pengguna->save();
+        if ($simpan) {
+            $data['status'] = true;
+            $data['message'] = "Berhasil menambahkan ";
+            $data['data'] = $pengguna;
+        } else {
+            $data['status'] = false;
+            $data['message'] = "gagal menambahkan ";
+            $data['data'] = null;
+        }
         return $data;
     }
 
@@ -139,17 +145,36 @@ class PenggunaController extends Controller
         $pengguna->username = $username;
         $pengguna->password = $password;
         $pengguna->leveluser = $leveleuser;
-        $pengguna->save();
 
-        return "Data User Berhasil diUpdate";
+        $update = $pengguna->update();
+        if ($update) {
+            $data['status'] = true;
+            $data['message'] = "Berhasil di Update ";
+            $data['data'] = $pengguna;
+        } else {
+            $data['status'] = false;
+            $data['message'] = "Gagal di Update ";
+            $data['data'] = null;
+        }
+        return $data;
     }
 
     //delete pengguna
     public function delete($id)
     {
         $pengguna = Pengguna::find($id);
-        $pengguna->delete();
+        $delete = $pengguna->delete();
 
-        return "USer Berhasil di Hapus";
+        if ($delete) {
+            $data['status'] = true;
+            $data['message'] = "Data Berhasil di Hapus ";
+            $data['data'] = $pengguna;
+        } else {
+            $data['status'] = false;
+            $data['message'] = "Data Gagal di Hapus ";
+            $data['data'] = null;
+        }
+
+        return $data;
     }
 }
