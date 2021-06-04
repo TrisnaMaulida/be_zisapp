@@ -31,3 +31,9 @@ Route::get('muzaki', 'MuzakiController@index');
 Route::post('muzaki', 'MuzakiController@create');
 Route::put('muzaki/{id}', 'MuzakiController@update');
 Route::delete('muzaki/{id}', 'MuzakiController@delete');
+
+//Mustahik API
+Route::get('mustahik', 'MustahikController@index');
+Route::post('mustahik', 'MustahikController@create');
+Route::put('/mustahik/{id}', 'MustahikController@update');
+Route::delete('mustahik/{id}', 'MustahikController@delete');
