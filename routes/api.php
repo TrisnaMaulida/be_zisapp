@@ -35,5 +35,11 @@ Route::delete('muzaki/{id}', 'MuzakiController@delete');
 //Mustahik API
 Route::get('mustahik', 'MustahikController@index');
 Route::post('mustahik', 'MustahikController@create');
-Route::put('/mustahik/{id}', 'MustahikController@update');
+Route::put('mustahik/{id}', 'MustahikController@update');
 Route::delete('mustahik/{id}', 'MustahikController@delete');
+
+//Kantor API
+Route::get('kantor', 'KantorController@index');
+Route::post('kantor', 'KantorController@create');
+Route::put('kantor/{id}', 'KantorController@update');
+Route::delete('kantor/{id}', 'KantorController@delete');

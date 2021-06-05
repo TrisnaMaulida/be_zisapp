@@ -36,7 +36,7 @@ class MustahikController extends Controller
             $data['data'] = $mustahik;
         } else {
             $data['status'] = false;
-            $data['message'] = "Gagal Menambhakan Data Mustahik";
+            $data['message'] = "Gagal Menambahkan Data Mustahik";
             $data['data'] = null;
         }
 
@@ -77,7 +77,6 @@ class MustahikController extends Controller
         }
         return $data;
     }
-
 
 
     //delete mustahik
