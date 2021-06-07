@@ -14,15 +14,17 @@ class CreateMuzakisTable extends Migration
     public function up()
     {
         Schema::create('muzakis', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id_muzaki');
             $table->integer('npwz');
             $table->integer('nik');
-            $table->string('nama');
+            $table->string('nama_muzaki');
             $table->integer('jk');
-            $table->integer('kategori');
             $table->string('alamat');
-            $table->integer('phone');
-            $table->string('petugas');
+            $table->string('profesi');
+            $table->bigInteger('no_hp');
+            $table->integer('kategori');
+            $table->integer('status');
+            $table->char('kode_petugas');
             $table->string('kantor_layanan');
             $table->timestamps();
         });

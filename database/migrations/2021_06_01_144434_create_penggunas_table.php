@@ -14,12 +14,16 @@ class CreatePenggunasTable extends Migration
     public function up()
     {
         Schema::create('penggunas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nama');
-            $table->string('email');
+            $table->increments('id_pengguna');
+            $table->text('kode_pengguna');
+            $table->string('nama_pengguna');
+            $table->string('alamat');
+            $table->bigInteger('no_hp');
+            $table->integer('leveluser');
             $table->string('username');
             $table->string('password');
-            $table->integer('leveluser');
+            $table->integer('status');
+            $table->bigInteger('no_kantor');
             $table->timestamps();
         });
     }

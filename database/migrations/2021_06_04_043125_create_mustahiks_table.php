@@ -14,15 +14,16 @@ class CreateMustahiksTable extends Migration
     public function up()
     {
         Schema::create('mustahiks', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('kode');
-            $table->string('nama');
+            $table->increments('id_mustahik');
+            $table->integer('kode_mustahik');
+            $table->string('nama_mustahik');
             $table->string('alamat');
-            $table->bigInteger('telepon');
+            $table->string('profesi');
+            $table->integer('asnaf');
+            $table->bigInteger('no_hp');
             $table->integer('kategori');
-            $table->integer('aktif');
+            $table->integer('status');
             $table->bigInteger('no_kantor');
-            $table->string('kantor_layanan');
             $table->timestamps();
         });
     }
