@@ -28,13 +28,14 @@ class PenggunaController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput($request->all);
-        }
 
-        $data = [
-            'username' => $request->input('username'),
-            'password' => $request->input('password'),
-        ];
+            $data = [
+                'username' => $request->input('username'),
+                'password' => $request->input('password'),
+            ];
+
+            return $data;
+        }
 
         $pengguna = DB::select("SELECT * FROM Penggunas WHERE username='" . $request->input("username") . "' AND password='" . $request->input("password") . "'");
 
@@ -50,50 +51,6 @@ class PenggunaController extends Controller
         }
     }
 
-    //register
-    public function register(request $request)
-    {
-        $rules = [
-            'nama' => 'required|string',
-            'email' => 'required|string',
-            'username' => 'required|string',
-            'password' => 'required|string',
-            'leveluser' => 'required|integer'
-
-        ];
-
-        $messages = [
-            'nama.required' => 'Nama Lengkap Wajib Diisi',
-            'email.required' => 'Email Wajib Diisi',
-            'email.email' => 'Email Tidak Valid',
-            'email.unique' => 'Email Sudah Terdaftar',
-            'username.required' => 'Username Wajib Diisi',
-            'username.unique' => 'Username Sudah Ada',
-            'password.required' => 'Password Wajib Diisi',
-            'leveluser.required' => 'Level User Wajib Diisi'
-        ];
-
-        $validator =  Validator::make($request->all(), $rules, $messages);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput($request->all);
-        }
-
-        $pengguna = new Pengguna;
-        $pengguna->nama = ucwords(strtolower($request->nama));
-        $pengguna->email = strtolower($request->email);
-        $pengguna->username = strtolower($request->username);
-        $pengguna->password = Hash::make($request->password);
-        $pengguna->leveluser = strtolower($request->leveluser);
-        $simpan = $pengguna->save();
-
-        if ($simpan) {
-            $data['message'] = "Register Berhasil";
-            return $pengguna;
-        } else {
-            $data['message'] = "Register Gagal";
-        }
-    }
 
     //get pengguna
     public function index()
@@ -108,11 +65,16 @@ class PenggunaController extends Controller
     public function create(request $request)
     {
         $pengguna = new Pengguna;
-        $pengguna->nama = $request->nama;
-        $pengguna->email = $request->email;
+        $pengguna->kode_pengguna = $request->kode_pengguna;
+        $pengguna->nama_pengguna = $request->nama_pengguna;
+        $pengguna->alamat = $request->alamat;
+        $pengguna->no_hp = $request->no_hp;
+        $pengguna->leveluser = $request->leveluser;
         $pengguna->username = $request->username;
         $pengguna->password = $request->password;
-        $pengguna->leveluser = $request->leveluser;
+        $pengguna->status = $request->status; //ini ditulis ga ya?
+        $pengguna->no_kantor = $request->no_kantor;
+
         $pengguna->save();
 
 

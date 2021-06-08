@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKantorsTable extends Migration
+class CreateDetailDonasisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateKantorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('kantors', function (Blueprint $table) {
-            $table->increments('id_kantor');
-            $table->bigInteger('no_kantor');
-            $table->string('nama_kantor');
-            $table->string('alamat');
-            $table->bigInteger('telepon');
-            $table->string('pimpinan');
+        Schema::create('detail_donasis', function (Blueprint $table) {
+            $table->increments('id');
+            $table->text('no_donasi');
+            $table->integer('kode_program');
+            $table->integer('jumlah_donasi');
+            $table->text('keterangan');
+            $table->text('createdby');
             $table->integer('status');
             $table->timestamps();
         });
@@ -32,6 +32,6 @@ class CreateKantorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kantors');
+        Schema::dropIfExists('detail_donasis');
     }
 }

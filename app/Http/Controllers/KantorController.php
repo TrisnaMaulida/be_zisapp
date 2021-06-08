@@ -21,10 +21,11 @@ class KantorController extends Controller
     {
         $kantor = new Kantor;
         $kantor->no_kantor = $request->no_kantor;
-        $kantor->kantor_layanan = $request->kantor_layanan;
+        $kantor->nama_kantor = $request->nama_kantor;
         $kantor->alamat = $request->alamat;
         $kantor->telepon = $request->telepon;
         $kantor->pimpinan = $request->pimpinan;
+        $kantor->status = $request->statsus;
 
         $simpan = $kantor->save();
         if ($simpan) {
@@ -45,17 +46,19 @@ class KantorController extends Controller
     public function update(Request $request, $id)
     {
         $no_kantor = $request->no_kantor;
-        $kantor_layanan = $request->kantor_layanan;
+        $nama_kantor = $request->nama_kantor;
         $alamat = $request->alamat;
         $telepon = $request->telepon;
         $pimpinan = $request->pimpinan;
+        $status  = $request->status;
 
         $kantor = Kantor::find($id);
         $kantor->no_kantor = $no_kantor;
-        $kantor->kantor_layanan = $kantor_layanan;
+        $kantor->nama_kantor = $nama_kantor;
         $kantor->alamat = $alamat;
         $kantor->telepon = $telepon;
         $kantor->pimpinan = $pimpinan;
+        $kantor->status = $status;
 
         $update = $kantor->update();
         if ($update) {
