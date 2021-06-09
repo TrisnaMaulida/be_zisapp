@@ -22,13 +22,15 @@ class MuzakiController extends Controller
         $muzaki = new Muzaki;
         $muzaki->npwz = $request->npwz;
         $muzaki->nik = $request->nik;
-        $muzaki->nama = $request->nama;
+        $muzaki->nama_muzaki = $request->nama_muzaki;
         $muzaki->jk = $request->jk;
-        $muzaki->kategori = $request->kategori;
         $muzaki->alamat = $request->alamat;
-        $muzaki->phone = $request->phone;
-        $muzaki->petugas = $request->petugas;
-        $muzaki->kantor_layanan = $request->kantor_layanan;
+        $muzaki->profesi = $request->profesi;
+        $muzaki->no_hp = $request->no_hp;
+        $muzaki->kategori = $request->kategori;
+        $muzaki->status = $request->status;
+        $muzaki->kode_petugas = $request->kode_petugas;
+        $muzaki->no_kantor = $request->no_kantor;
 
         $simpan = $muzaki->save();
         if ($simpan) {
@@ -48,25 +50,28 @@ class MuzakiController extends Controller
     {
         $npwz = $request->npwz;
         $nik = $request->nik;
-        $nama = $request->nama;
+        $nama_muzaki = $request->nama_muzaki;
         $jk = $request->jk;
-        $kategori = $request->kategori;
         $alamat = $request->alamat;
-        $phone = $request->phone;
-        $petugas = $request->petugas;
-        $kantor_layanan = $request->kantor_layanan;
+        $profesi = $request->profesi;
+        $no_hp = $request->no_hp;
+        $kategori = $request->kategori;
+        $status = $request->status;
+        $kode_petugas = $request->kode_petugas;
+        $no_kantor = $request->no_kantor;
 
 
         $muzaki = Muzaki::find($id);
         $muzaki->npwz = $npwz;
         $muzaki->nik = $nik;
-        $muzaki->nama = $nama;
+        $muzaki->nama_muzaki = $nama_muzaki;
         $muzaki->jk = $jk;
-        $muzaki->kategori = $kategori;
         $muzaki->alamat = $alamat;
-        $muzaki->phone = $phone;
-        $muzaki->petugas = $petugas;
-        $muzaki->kantor_layanan = $kantor_layanan;
+        $muzaki->profesi = $profesi;
+        $muzaki->no_hp = $no_hp;
+        $muzaki->kategori = $kategori;
+        $muzaki->kode_petugas = $kode_petugas;
+        $muzaki->no_kantor = $no_kantor;
 
         $update = $muzaki->update();
         if ($update) {

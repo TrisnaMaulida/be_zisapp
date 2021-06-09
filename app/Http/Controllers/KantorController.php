@@ -25,7 +25,6 @@ class KantorController extends Controller
         $kantor->alamat = $request->alamat;
         $kantor->telepon = $request->telepon;
         $kantor->pimpinan = $request->pimpinan;
-        $kantor->status = $request->statsus;
 
         $simpan = $kantor->save();
         if ($simpan) {
@@ -50,7 +49,6 @@ class KantorController extends Controller
         $alamat = $request->alamat;
         $telepon = $request->telepon;
         $pimpinan = $request->pimpinan;
-        $status  = $request->status;
 
         $kantor = Kantor::find($id);
         $kantor->no_kantor = $no_kantor;
@@ -58,7 +56,6 @@ class KantorController extends Controller
         $kantor->alamat = $alamat;
         $kantor->telepon = $telepon;
         $kantor->pimpinan = $pimpinan;
-        $kantor->status = $status;
 
         $update = $kantor->update();
         if ($update) {

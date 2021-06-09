@@ -18,7 +18,6 @@ class CreateMustahiksTable extends Migration
             $table->integer('kode_mustahik');
             $table->string('nama_mustahik');
             $table->string('alamat');
-            $table->string('profesi');
             $table->integer('asnaf');
             $table->bigInteger('no_hp');
             $table->integer('kategori');
