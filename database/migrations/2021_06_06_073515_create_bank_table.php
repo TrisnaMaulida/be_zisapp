@@ -17,7 +17,7 @@ class CreateBankTable extends Migration
             $table->increments('id_bank');
             $table->bigInteger('no_rek');
             $table->string('nama_bank');
-            $table->bigInteger('kode_bank');
+            $table->bigInteger('kode_akun');
             $table->string('nama_akun');
             $table->bigInteger('no_kantor');
             $table->timestamps();

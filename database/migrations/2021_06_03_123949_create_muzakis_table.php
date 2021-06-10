@@ -25,7 +25,7 @@ class CreateMuzakisTable extends Migration
             $table->integer('kategori');
             $table->integer('status');
             $table->char('kode_petugas');
-            $table->string('kantor_layanan');
+            $table->bigInteger('no_kantor');
             $table->timestamps();
         });
     }

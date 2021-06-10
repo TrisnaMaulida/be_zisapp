@@ -20,7 +20,7 @@ class CreateKantorsTable extends Migration
             $table->string('alamat');
             $table->bigInteger('telepon');
             $table->string('pimpinan');
-            $table->integer('status');
+
             $table->timestamps();
         });
     }

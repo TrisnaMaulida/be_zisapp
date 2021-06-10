@@ -20,14 +20,14 @@ class MustahikController extends Controller
     public function create(Request $request)
     {
         $mustahik = new Mustahik;
-        $mustahik->kode = $request->kode;
-        $mustahik->nama = $request->nama;
+        $mustahik->kode_mustahik = $request->kode_mustahik;
+        $mustahik->nama_mustahik = $request->nama_mustahik;
         $mustahik->alamat = $request->alamat;
-        $mustahik->telepon = $request->telepon;
+        $mustahik->asnaf = $request->asnaf;
+        $mustahik->no_hp = $request->no_hp;
         $mustahik->kategori = $request->kategori;
-        $mustahik->aktif = $request->aktif;
+        $mustahik->status = $request->status;
         $mustahik->no_kantor = $request->no_kantor;
-        $mustahik->kantor_layanan = $request->kantor_layanan;
 
         $simpan = $mustahik->save();
         if ($simpan) {
@@ -46,23 +46,24 @@ class MustahikController extends Controller
     //update mustahik
     public function update(Request $request, $id)
     {
-        $kode = $request->kode;
-        $nama = $request->nama;
+        $kode_mustahik = $request->kode_mustahik;
+        $nama_mustahik = $request->nama_mustahik;
         $alamat = $request->alamat;
-        $telepon = $request->telepon;
+        $asnaf = $request->asnaf;
+        $no_hp = $request->no_hp;
         $kategori = $request->kategori;
-        $aktif = $request->aktif;
+        $status = $request->status;
         $no_kantor = $request->no_kantor;
-        $kantor_layanan = $request->kantor_layanan;
 
         $mustahik = Mustahik::find($id);
-        $mustahik->kode = $kode;
-        $mustahik->nama = $nama;
-        $mustahik->telepon = $telepon;
+        $mustahik->kode_mustahik = $kode_mustahik;
+        $mustahik->nama_mustahik = $nama_mustahik;
+        $mustahik->alamat = $alamat;
+        $mustahik->asnaf = $asnaf;
+        $mustahik->no_hp = $no_hp;
         $mustahik->kategori = $kategori;
-        $mustahik->aktif = $aktif;
+        $mustahik->status = $status;
         $mustahik->no_kantor = $no_kantor;
-        $mustahik->kantor_layanan = $kantor_layanan;
 
         $update = $mustahik->update();
         if ($update) {

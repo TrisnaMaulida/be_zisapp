@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Pengguna;
-use Illuminate\Support\Facades\Hash;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -94,19 +93,29 @@ class PenggunaController extends Controller
     //update pengguna
     public function update(request $request, $id)
     {
-        $nama = $request->nama;
-        $email = $request->email;
+        $kode_pengguna = $request->kode_pengguna;
+        $nama_pengguna = $request->nama_pengguna;
+        $alamat = $request->alamat;
+        $no_hp = $request->no_hp;
+        $leveleuser = $request->leveluser;
         $username = $request->username;
         $password = $request->password;
-        $leveleuser = $request->leveluser;
+        $status = $request->status;
+        $no_kantor = $request->no_kantor;
+
 
 
         $pengguna = Pengguna::find($id);
-        $pengguna->nama = $nama;
-        $pengguna->email = $email;
+        $pengguna->kode_pengguna = $kode_pengguna;
+        $pengguna->nama_pengguna = $nama_pengguna;
+        $pengguna->alamat = $alamat;
+        $pengguna->no_hp = $no_hp;
+        $pengguna->leveluser = $leveleuser;
         $pengguna->username = $username;
         $pengguna->password = $password;
-        $pengguna->leveluser = $leveleuser;
+        $pengguna->status = $status;
+        $pengguna->no_kantor = $no_kantor;
+
 
         $update = $pengguna->update();
         if ($update) {

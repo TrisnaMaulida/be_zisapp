@@ -43,3 +43,9 @@ Route::get('kantor', 'KantorController@index');
 Route::post('kantor', 'KantorController@create');
 Route::put('kantor/{id}', 'KantorController@update');
 Route::delete('kantor/{id}', 'KantorController@delete');
+
+//Bank API
+Route::get('bank', 'BankController@index');
+Route::post('bank', 'BankController@create');
+Route::put('bank/{id}', 'BankController@update');
+Route::delete('bank/{id}', 'BankController@delete');
