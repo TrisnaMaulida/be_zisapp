@@ -19,7 +19,7 @@ class CreateBankTable extends Migration
             $table->string('nama_bank');
             $table->bigInteger('kode_akun');
             $table->string('nama_akun');
-            $table->bigInteger('no_kantor');
+            $table->integer('id_kantor');
             $table->timestamps();
         });
     }

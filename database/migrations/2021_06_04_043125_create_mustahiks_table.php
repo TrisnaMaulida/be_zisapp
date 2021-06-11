@@ -17,12 +17,12 @@ class CreateMustahiksTable extends Migration
             $table->increments('id_mustahik');
             $table->integer('kode_mustahik');
             $table->string('nama_mustahik');
-            $table->string('alamat');
+            $table->string('alamat_mustahik');
             $table->integer('asnaf');
-            $table->bigInteger('no_hp');
-            $table->integer('kategori');
-            $table->integer('status');
-            $table->bigInteger('no_kantor');
+            $table->bigInteger('telepon_mustahik');
+            $table->integer('kategori_mustahik');
+            $table->integer('status_mustahik');
+            $table->integer('id_kantor');
             $table->timestamps();
         });
     }

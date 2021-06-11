@@ -24,7 +24,7 @@ class BankController extends Controller
         $bank->nama_bank = $request->nama_bank;
         $bank->kode_akun = $request->kode_akun;
         $bank->nama_akun = $request->nama_akun;
-        $bank->no_kantor = $request->no_kantor;
+        $bank->id_kantor = $request - id_kantor;
 
         $simpan = $bank->save();
         if ($simpan) {
@@ -48,24 +48,31 @@ class BankController extends Controller
         $nama_bank = $request->nama_bank;
         $$kode_akun = $request->$kode_akun;
         $nama_akun = $request->nama_akun;
-        $no_kantor = $request->no_kantor;
+        $id_kantor = $request->id_kantor;
 
         $bank = Bank::find($id);
-        $bank->no_rek = $no_rek;
-        $bank->nama_bank = $nama_bank;
-        $bank->kode_akun = $$kode_akun;
-        $bank->nama_akun = $nama_akun;
-        $bank->no_kantor = $no_kantor;
 
-        $update = $bank->update();
-        if ($update) {
+        if ($bank) {
             # code...
-            $data['status'] = true;
-            $data['message'] = "Data Berhasil diUpdate";
+            $bank->no_rek = $no_rek;
+            $bank->nama_bank = $nama_bank;
+            $bank->kode_akun = $$kode_akun;
+            $bank->nama_akun = $nama_akun;
+            $bank->id_kantor = $id_kantor;
+
             $data['data'] = $bank;
+            $update = $bank->update();
+            if ($update) {
+                # code...
+                $data['status'] = true;
+                $data['message'] = "Data Berhasil diUpdate";
+                $data['data'] = $bank;
+            } else {
+                $Data['status'] = false;
+                $data['message'] = "Data Gagal diUpdate";
+                $data['data'] = null;
+            }
         } else {
-            $Data['status'] = false;
-            $data['message'] = "Data Gagal diUpdate";
             $data['data'] = null;
         }
 
@@ -76,16 +83,22 @@ class BankController extends Controller
     public function delete($id)
     {
         $bank = Bank::find($id);
-        $delete = $bank->delete();
 
-        if ($delete) {
+        if ($bank) {
             # code...
-            $data['status'] = true;
-            $data['message'] = "Data Berhasil di Hapus";
-            $data['data'] = $bank;
+            $delete = $bank->delete();
+
+            if ($delete) {
+                # code...
+                $data['status'] = true;
+                $data['message'] = "Data Berhasil di Hapus";
+                $data['data'] = $bank;
+            } else {
+                $data['status'] = false;
+                $data['message'] = "Data Gagal di Hapus";
+                $data['data'] = null;
+            }
         } else {
-            $data['status'] = false;
-            $data['message'] = "Data Gagal di Hapus";
             $data['data'] = null;
         }
 
