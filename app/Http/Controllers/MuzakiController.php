@@ -15,10 +15,10 @@ class MuzakiController extends Controller
         $data['data'] = Muzaki::all();
 
         $data = DB::select("SELECT * FROM muzakis LEFT JOIN kantors ON muzakis.id_kantor = kantors.id_kantor");
-        $data = DB::table("muzakis")
-            ->leftjoin("kantors", "muzakis.id_kantor", "=", "kantors.id_kantor")
-            ->select("muzakis.alamat_muzaki as alamat_muzaki",  "kantors.alamat_muzaki as alamat_kantor")
-            ->get();
+        // $data = DB::table("muzakis")
+        //     ->leftjoin("kantors", "muzakis.id_kantor", "=", "kantors.id_kantor")
+        //     ->select("muzakis.alamat_muzaki as alamat_muzaki",  "kantors.alamat_muzaki as alamat_kantor")
+        //     ->get();
         return $data;
     }
 
@@ -33,9 +33,9 @@ class MuzakiController extends Controller
         $muzaki->alamat_muzaki = $request->alamat_muzaki;
         $muzaki->profesi = $request->profesi;
         $muzaki->telepon_muzaki = $request->telepon_muzaki;
-        $muzaki->kategori = $request->kategori;
-        $muzaki->status_muzaki(1);
-        $muzaki->id_petugas = $request->id_petugas;
+        $muzaki->kategori_muzaki = $request->kategori_muzaki;
+        $muzaki->status_muzaki = 1;
+        $muzaki->id_pengguna = $request->id_pengguna;
         $muzaki->id_kantor = $request->id_kantor;
 
         $simpan = $muzaki->save();
@@ -61,9 +61,9 @@ class MuzakiController extends Controller
         $alamat_muzaki = $request->alamat_muzaki;
         $profesi = $request->profesi;
         $telepon_muzaki = $request->telepon_muzaki;
-        $kategori = $request->kategori;
+        $kategori_muzaki = $request->kategori_muzaki;
         $status_muzaki = $request->status_muzaki;
-        $id_petugas = $request->id_petugas;
+        $id_pengguna = $request->id_pengguna;
         $id_kantor = $request->id_kantor;
 
 
@@ -78,8 +78,8 @@ class MuzakiController extends Controller
             $muzaki->alamat_muzaki = $alamat_muzaki;
             $muzaki->profesi = $profesi;
             $muzaki->telepon_muzaki = $telepon_muzaki;
-            $muzaki->kategori = $kategori;
-            $muzaki->id_petugas = $id_petugas;
+            $muzaki->kategori_muzaki = $kategori_muzaki;
+            $muzaki->id_pengguna = $id_pengguna;
             $muzaki->id_kantor = $id_kantor;
 
             $data['data'] = $muzaki;

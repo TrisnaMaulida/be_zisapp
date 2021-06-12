@@ -11,7 +11,7 @@ class BankController extends Controller
     public function index()
     {
         $data['status'] = 200;
-        $data['data'] = Bank::all;
+        $data['data'] = Bank::all();
 
         return $data;
     }
@@ -24,7 +24,7 @@ class BankController extends Controller
         $bank->nama_bank = $request->nama_bank;
         $bank->kode_akun = $request->kode_akun;
         $bank->nama_akun = $request->nama_akun;
-        $bank->id_kantor = $request - id_kantor;
+        $bank->id_kantor = $request->id_kantor;
 
         $simpan = $bank->save();
         if ($simpan) {
@@ -46,7 +46,7 @@ class BankController extends Controller
     {
         $no_rek = $request->no_rek;
         $nama_bank = $request->nama_bank;
-        $$kode_akun = $request->$kode_akun;
+        $kode_akun = $request->kode_akun;
         $nama_akun = $request->nama_akun;
         $id_kantor = $request->id_kantor;
 
@@ -56,7 +56,7 @@ class BankController extends Controller
             # code...
             $bank->no_rek = $no_rek;
             $bank->nama_bank = $nama_bank;
-            $bank->kode_akun = $$kode_akun;
+            $bank->kode_akun = $kode_akun;
             $bank->nama_akun = $nama_akun;
             $bank->id_kantor = $id_kantor;
 

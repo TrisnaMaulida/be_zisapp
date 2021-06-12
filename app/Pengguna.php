@@ -8,4 +8,5 @@ class Pengguna extends Model
 {
     //
     protected $primaryKey = 'id_pengguna';
+    protected $fillable = ["status_pengguna"];
 }

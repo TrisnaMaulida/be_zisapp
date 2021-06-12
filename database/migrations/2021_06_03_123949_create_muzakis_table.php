@@ -24,7 +24,7 @@ class CreateMuzakisTable extends Migration
             $table->bigInteger('telepon_muzaki');
             $table->integer('kategori_muzaki');
             $table->integer('status_muzaki');
-            $table->integer('id_petugas');
+            $table->integer('id_pengguna');
             $table->integer('id_kantor');
             $table->timestamps();
         });

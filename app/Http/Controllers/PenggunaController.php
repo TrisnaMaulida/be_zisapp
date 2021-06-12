@@ -73,7 +73,7 @@ class PenggunaController extends Controller
         $pengguna->leveluser = $request->leveluser;
         $pengguna->username = $request->username;
         $pengguna->password = $request->password;
-        $pengguna->status_pengguna(1);
+        $pengguna->status_pengguna = 1;
         $pengguna->id_kantor = $request->id_kantor;
 
         $pengguna->save();
