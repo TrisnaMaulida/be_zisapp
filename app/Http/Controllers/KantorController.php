@@ -22,8 +22,8 @@ class KantorController extends Controller
         $kantor = new Kantor;
         $kantor->no_kantor = $request->no_kantor;
         $kantor->nama_kantor = $request->nama_kantor;
-        $kantor->alamat = $request->alamat;
-        $kantor->telepon = $request->telepon;
+        $kantor->alamat_kantor = $request->alamat_kantor;
+        $kantor->telepon_kantor = $request->telepon_kantor;
         $kantor->pimpinan = $request->pimpinan;
 
         $simpan = $kantor->save();
@@ -46,26 +46,33 @@ class KantorController extends Controller
     {
         $no_kantor = $request->no_kantor;
         $nama_kantor = $request->nama_kantor;
-        $alamat = $request->alamat;
-        $telepon = $request->telepon;
+        $alamat_kantor = $request->alamat_kantor;
+        $telepon_kantor = $request->telepon_kantor;
         $pimpinan = $request->pimpinan;
 
         $kantor = Kantor::find($id);
-        $kantor->no_kantor = $no_kantor;
-        $kantor->nama_kantor = $nama_kantor;
-        $kantor->alamat = $alamat;
-        $kantor->telepon = $telepon;
-        $kantor->pimpinan = $pimpinan;
-
-        $update = $kantor->update();
-        if ($update) {
+        if ($kantor) {
             # code...
-            $data['status'] = true;
-            $data['message'] = "Data Berhasil di Update";
+            $kantor->no_kantor = $no_kantor;
+            $kantor->nama_kantor = $nama_kantor;
+            $kantor->alamat_kantor = $alamat_kantor;
+            $kantor->telepon_kantor = $telepon_kantor;
+            $kantor->pimpinan = $pimpinan;
+
             $data['data'] = $kantor;
+
+            $update = $kantor->update();
+            if ($update) {
+                # code...
+                $data['status'] = true;
+                $data['message'] = "Data Berhasil di Update";
+                $data['data'] = $kantor;
+            } else {
+                $data['status'] = false;
+                $data['message'] = "Data Gagal di Update";
+                $data['data'] = null;
+            }
         } else {
-            $data['status'] = false;
-            $data['message'] = "Data Gagal di Update";
             $data['data'] = null;
         }
 
@@ -76,19 +83,22 @@ class KantorController extends Controller
     public function delete($id)
     {
         $kantor = Kantor::find($id);
-        $delete = $kantor->delete();
 
-        if ($delete) {
+        if ($kantor) {
             # code...
-            $data['status'] = true;
-            $data['message'] = "Data Berhasil di Hapus";
-            $data['data'] = $kantor;
-        } else {
-            $data['status'] = false;
-            $data['message'] = "Data Gagal di Hapus";
-            $data['data'] = null;
-        }
+            $delete = $kantor->delete();
 
+            if ($delete) {
+                # code...
+                $data['status'] = true;
+                $data['message'] = "Data Berhasil di Hapus";
+                $data['data'] = $kantor;
+            } else {
+                $data['status'] = false;
+                $data['message'] = "Data Gagal di Hapus";
+                $data['data'] = null;
+            }
+        }
         return $data;
     }
 }

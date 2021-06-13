@@ -17,10 +17,9 @@ class CreateKantorsTable extends Migration
             $table->increments('id_kantor');
             $table->bigInteger('no_kantor');
             $table->string('nama_kantor');
-            $table->string('alamat');
-            $table->bigInteger('telepon');
+            $table->string('alamat_kantor');
+            $table->bigInteger('telepon_kantor');
             $table->string('pimpinan');
-
             $table->timestamps();
         });
     }

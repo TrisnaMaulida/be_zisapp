@@ -36,17 +36,18 @@ class PenggunaController extends Controller
             return $data;
         }
 
-        $pengguna = DB::select("SELECT * FROM Penggunas WHERE username='" . $request->input("username") . "' AND password='" . $request->input("password") . "'");
+        $pengguna = DB::select("SELECT * FROM Penggunas WHERE username='" . $request->input("username") . "' 
+                                AND password='" . $request->input("password") . "'");
 
         if ($pengguna) {
             $data['message'] = "Login Berhasil";
             $data['data'] = $pengguna;
-            $data['status'] = true;
+            $data['status_pengguna'] = true;
             return $pengguna;
         } else {
             $data['message'] = "Login Gagal";
             $data['data'] = null;
-            $data['status'] = false;
+            $data['status_pengguna'] = false;
         }
     }
 
@@ -54,9 +55,10 @@ class PenggunaController extends Controller
     //get pengguna
     public function index()
     {
-        $data['status'] = 200;
+        $data['status_pengguna'] = 200;
         $data['data'] = Pengguna::all();
 
+        $data = DB::select("SELECT * FROM penggunas LEFT JOIN kantors ON penggunas.id_kantor = kantors.id_kantor");
         return $data;
     }
 
@@ -66,24 +68,24 @@ class PenggunaController extends Controller
         $pengguna = new Pengguna;
         $pengguna->kode_pengguna = $request->kode_pengguna;
         $pengguna->nama_pengguna = $request->nama_pengguna;
-        $pengguna->alamat = $request->alamat;
-        $pengguna->no_hp = $request->no_hp;
+        $pengguna->alamat_pengguna = $request->alamat_pengguna;
+        $pengguna->telepon_pengguna = $request->telepon_pengguna;
         $pengguna->leveluser = $request->leveluser;
         $pengguna->username = $request->username;
         $pengguna->password = $request->password;
-        $pengguna->status = $request->status; //ini ditulis ga ya?
-        $pengguna->no_kantor = $request->no_kantor;
+        $pengguna->status_pengguna = 1;
+        $pengguna->id_kantor = $request->id_kantor;
 
         $pengguna->save();
 
 
         $simpan = $pengguna->save();
         if ($simpan) {
-            $data['status'] = true;
+            $data['status_pengguna'] = true;
             $data['message'] = "Berhasil menambahkan ";
             $data['data'] = $pengguna;
         } else {
-            $data['status'] = false;
+            $data['status_pengguna'] = false;
             $data['message'] = "gagal menambahkan ";
             $data['data'] = null;
         }
@@ -95,36 +97,42 @@ class PenggunaController extends Controller
     {
         $kode_pengguna = $request->kode_pengguna;
         $nama_pengguna = $request->nama_pengguna;
-        $alamat = $request->alamat;
-        $no_hp = $request->no_hp;
+        $alamat_pengguna = $request->alamat_pengguna;
+        $telepon_pengguna = $request->telepon_pengguna;
         $leveleuser = $request->leveluser;
         $username = $request->username;
         $password = $request->password;
-        $status = $request->status;
-        $no_kantor = $request->no_kantor;
+        $status_pengguna = $request->status_pengguna;
+        $id_kantor = $request->id_kantor;
 
 
 
         $pengguna = Pengguna::find($id);
-        $pengguna->kode_pengguna = $kode_pengguna;
-        $pengguna->nama_pengguna = $nama_pengguna;
-        $pengguna->alamat = $alamat;
-        $pengguna->no_hp = $no_hp;
-        $pengguna->leveluser = $leveleuser;
-        $pengguna->username = $username;
-        $pengguna->password = $password;
-        $pengguna->status = $status;
-        $pengguna->no_kantor = $no_kantor;
 
+        if ($pengguna) {
+            # code...
+            $pengguna->kode_pengguna = $kode_pengguna;
+            $pengguna->nama_pengguna = $nama_pengguna;
+            $pengguna->alamat_pengguna = $alamat_pengguna;
+            $pengguna->telepon_pengguna = $telepon_pengguna;
+            $pengguna->leveluser = $leveleuser;
+            $pengguna->username = $username;
+            $pengguna->password = $password;
+            $pengguna->status_pengguna = $status_pengguna;
+            $pengguna->id_kantor = $id_kantor;
 
-        $update = $pengguna->update();
-        if ($update) {
-            $data['status'] = true;
-            $data['message'] = "Berhasil di Update ";
             $data['data'] = $pengguna;
+            $update = $pengguna->update();
+            if ($update) {
+                $data['status_pengguna'] = true;
+                $data['message'] = "Berhasil di Update ";
+                $data['data'] = $pengguna;
+            } else {
+                $data['status_pengguna'] = false;
+                $data['message'] = "Gagal di Update ";
+                $data['data'] = null;
+            }
         } else {
-            $data['status'] = false;
-            $data['message'] = "Gagal di Update ";
             $data['data'] = null;
         }
         return $data;
@@ -134,15 +142,20 @@ class PenggunaController extends Controller
     public function delete($id)
     {
         $pengguna = Pengguna::find($id);
-        $delete = $pengguna->delete();
 
-        if ($delete) {
-            $data['status'] = true;
-            $data['message'] = "Data Berhasil di Hapus ";
-            $data['data'] = $pengguna;
+        if ($pengguna) {
+            # code...
+            $delete = $pengguna->delete();
+            if ($delete) {
+                $data['status_pengguna'] = true;
+                $data['message'] = "Data Berhasil di Hapus ";
+                $data['data'] = $pengguna;
+            } else {
+                $data['status_pengguna'] = false;
+                $data['message'] = "Data Gagal di Hapus ";
+                $data['data'] = null;
+            }
         } else {
-            $data['status'] = false;
-            $data['message'] = "Data Gagal di Hapus ";
             $data['data'] = null;
         }
 

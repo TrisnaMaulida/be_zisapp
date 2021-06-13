@@ -17,13 +17,13 @@ class CreatePenggunasTable extends Migration
             $table->increments('id_pengguna');
             $table->text('kode_pengguna');
             $table->string('nama_pengguna');
-            $table->string('alamat');
-            $table->bigInteger('no_hp');
+            $table->string('alamat_pengguna');
+            $table->bigInteger('telepon_pengguna');
             $table->integer('leveluser');
             $table->string('username');
             $table->string('password');
-            $table->integer('status');
-            $table->bigInteger('no_kantor');
+            $table->integer('status_pengguna');
+            $table->integer('id_kantor');
             $table->timestamps();
         });
     }

@@ -19,13 +19,13 @@ class CreateMuzakisTable extends Migration
             $table->integer('nik');
             $table->string('nama_muzaki');
             $table->integer('jk');
-            $table->string('alamat');
+            $table->string('alamat_muzaki');
             $table->string('profesi');
-            $table->bigInteger('no_hp');
-            $table->integer('kategori');
-            $table->integer('status');
-            $table->char('kode_petugas');
-            $table->bigInteger('no_kantor');
+            $table->bigInteger('telepon_muzaki');
+            $table->integer('kategori_muzaki');
+            $table->integer('status_muzaki');
+            $table->integer('id_pengguna');
+            $table->integer('id_kantor');
             $table->timestamps();
         });
     }

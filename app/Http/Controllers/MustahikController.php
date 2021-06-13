@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Mustahik;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,10 @@ class MustahikController extends Controller
     //get mustahik
     public function index()
     {
-        $data['status'] = 200;
+        $data['status_mustahik'] = 200;
         $data['data'] = Mustahik::all();
 
+        $data = DB::select("SELECT * FROM mustahiks LEFT JOIN kantors ON mustahiks.id_kantor = kantors.id_kantor");
         return $data;
     }
 
@@ -22,20 +24,20 @@ class MustahikController extends Controller
         $mustahik = new Mustahik;
         $mustahik->kode_mustahik = $request->kode_mustahik;
         $mustahik->nama_mustahik = $request->nama_mustahik;
-        $mustahik->alamat = $request->alamat;
+        $mustahik->alamat_mustahik = $request->alamat_mustahik;
         $mustahik->asnaf = $request->asnaf;
-        $mustahik->no_hp = $request->no_hp;
-        $mustahik->kategori = $request->kategori;
-        $mustahik->status = $request->status;
-        $mustahik->no_kantor = $request->no_kantor;
+        $mustahik->telepon_mustahik = $request->telepon_mustahik;
+        $mustahik->kategori_mustahik = $request->kategori_mustahik;
+        $mustahik->status_mustahik = 1;
+        $mustahik->id_kantor = $request->id_kantor;
 
         $simpan = $mustahik->save();
         if ($simpan) {
-            $data['status'] = true;
+            $data['status_mustahik'] = true;
             $data['message'] = "Berhasil Menambahkan Data Mustahik";
             $data['data'] = $mustahik;
         } else {
-            $data['status'] = false;
+            $data['status_mustahik'] = false;
             $data['message'] = "Gagal Menambahkan Data Mustahik";
             $data['data'] = null;
         }
@@ -48,32 +50,39 @@ class MustahikController extends Controller
     {
         $kode_mustahik = $request->kode_mustahik;
         $nama_mustahik = $request->nama_mustahik;
-        $alamat = $request->alamat;
+        $alamat_mustahik = $request->alamat_mustahik;
         $asnaf = $request->asnaf;
-        $no_hp = $request->no_hp;
-        $kategori = $request->kategori;
-        $status = $request->status;
-        $no_kantor = $request->no_kantor;
+        $telepon_mustahik = $request->telepon_mustahik;
+        $kategori_mustahik = $request->kategori_mustahik;
+        $status_mustahik = $request->status_mustahik;
+        $id_kantor = $request->id_kantor;
 
         $mustahik = Mustahik::find($id);
-        $mustahik->kode_mustahik = $kode_mustahik;
-        $mustahik->nama_mustahik = $nama_mustahik;
-        $mustahik->alamat = $alamat;
-        $mustahik->asnaf = $asnaf;
-        $mustahik->no_hp = $no_hp;
-        $mustahik->kategori = $kategori;
-        $mustahik->status = $status;
-        $mustahik->no_kantor = $no_kantor;
 
-        $update = $mustahik->update();
-        if ($update) {
+        if ($mustahik) {
             # code...
-            $data['status'] = true;
-            $data['message'] = "Data Berhasil di Update";
+            $mustahik->kode_mustahik = $kode_mustahik;
+            $mustahik->nama_mustahik = $nama_mustahik;
+            $mustahik->alamat_mustahik = $alamat_mustahik;
+            $mustahik->asnaf = $asnaf;
+            $mustahik->telepon_mustahik = $telepon_mustahik;
+            $mustahik->kategori_mustahik = $kategori_mustahik;
+            $mustahik->status_mustahik = $status_mustahik;
+            $mustahik->id_kantor = $id_kantor;
+
             $data['data'] = $mustahik;
+            $update = $mustahik->update();
+            if ($update) {
+                # code...
+                $data['status_mustahik'] = true;
+                $data['message'] = "Data Berhasil di Update";
+                $data['data'] = $mustahik;
+            } else {
+                $data['status_mustahik'] = false;
+                $data['message'] = "Data Gagal di Update";
+                $data['data'] = null;
+            }
         } else {
-            $data['status'] = false;
-            $data['message'] = "Data Gagal di Update";
             $data['data'] = null;
         }
         return $data;
@@ -84,16 +93,21 @@ class MustahikController extends Controller
     public function delete($id)
     {
         $mustahik = Mustahik::find($id);
-        $delete = $mustahik->delete();
 
-        if ($delete) {
+        if ($mustahik) {
             # code...
-            $data['status'] = true;
-            $data['message'] = "Data Berhasil di Hapus";
-            $data['data'] = $mustahik;
+            $delete = $mustahik->delete();
+            if ($delete) {
+                # code...
+                $data['status_mustahik'] = true;
+                $data['message'] = "Data Berhasil di Hapus";
+                $data['data'] = $mustahik;
+            } else {
+                $data['status_mustahik'] = false;
+                $data['message'] = "Data Gagal di Hapus";
+                $data['data'] = null;
+            }
         } else {
-            $data['status'] = false;
-            $data['message'] = "Data Gagal di Hapus";
             $data['data'] = null;
         }
 
