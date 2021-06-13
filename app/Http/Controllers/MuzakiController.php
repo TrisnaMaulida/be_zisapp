@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use App\Muzaki;
+use App\Pengguna;
 use Illuminate\Http\Request;
 
 class MuzakiController extends Controller
@@ -14,7 +15,7 @@ class MuzakiController extends Controller
         $data['status'] = 200;
         $data['data'] = Muzaki::all();
 
-        $data = DB::select("SELECT * FROM muzakis LEFT JOIN kantors ON muzakis.id_kantor = kantors.id_kantor");
+        $data = DB::select("SELECT * FROM muzakis LEFT JOIN kantors ON muzakis.id_kantor = kantors.id_kantor LEFT JOIN penggunas ON muzakis.id_pengguna = Penggunas.id_pengguna");
         // $data = DB::table("muzakis")
         //     ->leftjoin("kantors", "muzakis.id_kantor", "=", "kantors.id_kantor")
         //     ->select("muzakis.alamat_muzaki as alamat_muzaki",  "kantors.alamat_muzaki as alamat_kantor")
@@ -79,6 +80,7 @@ class MuzakiController extends Controller
             $muzaki->profesi = $profesi;
             $muzaki->telepon_muzaki = $telepon_muzaki;
             $muzaki->kategori_muzaki = $kategori_muzaki;
+            $muzaki->status_muzaki = $status_muzaki;
             $muzaki->id_pengguna = $id_pengguna;
             $muzaki->id_kantor = $id_kantor;
 

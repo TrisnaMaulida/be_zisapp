@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Mustahik;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class MustahikController extends Controller
         $mustahik->asnaf = $request->asnaf;
         $mustahik->telepon_mustahik = $request->telepon_mustahik;
         $mustahik->kategori_mustahik = $request->kategori_mustahik;
-        $mustahik->status_mustahik = $request->status_mustahik;
+        $mustahik->status_mustahik = 1;
         $mustahik->id_kantor = $request->id_kantor;
 
         $simpan = $mustahik->save();
