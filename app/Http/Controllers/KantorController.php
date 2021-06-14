@@ -19,14 +19,30 @@ class KantorController extends Controller
     //create kantor
     public function create(Request $request)
     {
-        $kantor = new Kantor;
-        $kantor->no_kantor = $request->no_kantor;
+
+        //pilih default id ketika ada kasus belum ada data sama sekali
+        $next_id = "KL13070001";
+
+        $max_kantor = DB::table("kantors")->max('no_kantor'); // ambil id terbesar >  KL13070001
+
+        if ($max_kantor) { // jika sudah ada data generate id baru 
+
+            $pecah_dulu = str_split($max_kantor, 6); // misal "KL13070001" hasilnya jadi ["KL1307","0001"]
+            $increment_id = $pecah_dulu[1];
+            $result = sprintf("%'.04d", $increment_id + 1);
+
+            $next_id = $pecah_dulu[0] . $result;
+        }
+
+        $kantor = new Kantor; //inisialisasi objek
+
+        $kantor->no_kantor = $next_id; //default dari  proses sebelumnya
         $kantor->nama_kantor = $request->nama_kantor;
         $kantor->alamat_kantor = $request->alamat_kantor;
         $kantor->telepon_kantor = $request->telepon_kantor;
         $kantor->pimpinan = $request->pimpinan;
 
-        $simpan = $kantor->save();
+        $simpan = $kantor->save(); //
         if ($simpan) {
             # code...
             $data['status'] = true;

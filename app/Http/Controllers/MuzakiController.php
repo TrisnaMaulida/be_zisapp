@@ -26,8 +26,22 @@ class MuzakiController extends Controller
     //create muzaki
     public function create(Request $request)
     {
+        //pilih default id ketika ada kasus belum ada data sama sekali
+        $next_id = "1011110000";
+
+        $max_muzaki = DB::table("muzakis")->max('npwz'); // ambil id terbesar > 1011110000
+
+        if ($max_muzaki) { // jika sudah ada data generate id baru 
+
+            $pecah_dulu = str_split($max_muzaki, 6); // misal "1011110000" hasilnya jadi ["101111","0000"]
+            $increment_id = $pecah_dulu[1];
+            $result = sprintf("%'.04d", $increment_id + 1);
+
+            $next_id = $pecah_dulu[0] . $result;
+        }
+
         $muzaki = new Muzaki;
-        $muzaki->npwz = $request->npwz;
+        $muzaki->npwz = $next_id; // id baru/ default id hasil dari proses sebelumnya
         $muzaki->nik = $request->nik;
         $muzaki->nama_muzaki = $request->nama_muzaki;
         $muzaki->jk = $request->jk;

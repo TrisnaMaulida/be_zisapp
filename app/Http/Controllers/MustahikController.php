@@ -21,8 +21,22 @@ class MustahikController extends Controller
     //create mustahik
     public function create(Request $request)
     {
+        //pilih default id ketika ada kasus belum ada data sama sekali
+        $next_id = "1840010001";
+
+        $max_mustahik = DB::table("mustahik")->max('kode_mustahik'); // ambil id terbesar > 1840010001
+
+        if ($max_mustahik) { // jika sudah ada data generate id baru 
+
+            $pecah_dulu = str_split($max_mustahik, 6); // misal "1840010000" hasilnya jadi ["184001,"0001"]
+            $increment_id = $pecah_dulu[1];
+            $result = sprintf("%'.04d", $increment_id + 1);
+
+            $next_id = $pecah_dulu[0] . $result;
+        }
+
         $mustahik = new Mustahik;
-        $mustahik->kode_mustahik = $request->kode_mustahik;
+        $mustahik->kode_mustahik = $next_id;
         $mustahik->nama_mustahik = $request->nama_mustahik;
         $mustahik->alamat_mustahik = $request->alamat_mustahik;
         $mustahik->asnaf = $request->asnaf;
