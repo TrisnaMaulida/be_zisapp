@@ -65,8 +65,23 @@ class PenggunaController extends Controller
     //create pengguna
     public function create(request $request)
     {
+
+        //pilih default id ketika ada kasus belum ada data sama sekali
+        $next_id = "LZAI180000";
+
+        $max_pengguna = DB::table("penggunas")->max('kode_pengguna'); // ambil id terbesar > 1011110000
+
+        if ($max_pengguna) { // jika sudah ada data generate id baru 
+
+            $pecah_dulu = str_split($max_pengguna, 6); // misal "LZAI180000" hasilnya jadi ["LZAI18","0000"]
+            $increment_id = $pecah_dulu[1];
+            $result = sprintf("%'.04d", $increment_id + 1);
+
+            $next_id = $pecah_dulu[0] . $result;
+        }
+
         $pengguna = new Pengguna;
-        $pengguna->kode_pengguna = $request->kode_pengguna;
+        $pengguna->kode_pengguna = $next_id;
         $pengguna->nama_pengguna = $request->nama_pengguna;
         $pengguna->alamat_pengguna = $request->alamat_pengguna;
         $pengguna->telepon_pengguna = $request->telepon_pengguna;
