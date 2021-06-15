@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AkunController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,3 +50,9 @@ Route::get('bank', 'BankController@index');
 Route::post('bank', 'BankController@create');
 Route::put('bank/{id}', 'BankController@update');
 Route::delete('bank/{id}', 'BankController@delete');
+
+//Akun API
+Route::get('akun', 'AkunController@index');
+Route::post('akun', 'AkunController@create');
+Route::put('akun/{id}', 'AkunController@update');
+Route::delete('akun/{id}', 'AkunController@delete');
