@@ -57,6 +57,8 @@ class AkunController extends Controller
             $akun->kode_akun = $kode_akun;
             $akun->akun = $akun;
             $akun->kode_sub_kat_akun = $kode_sub_kat_akun;
+            $akun->jenis = $jenis;
+            $akun->status = $status;
 
             $data['data'] = $akun;
             $update = $akun->update();

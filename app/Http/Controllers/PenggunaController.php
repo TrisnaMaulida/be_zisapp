@@ -49,6 +49,8 @@ class PenggunaController extends Controller
             $data['data'] = null;
             $data['status_pengguna'] = false;
         }
+
+        return $data;
     }
 
 

@@ -56,3 +56,15 @@ Route::get('akun', 'AkunController@index');
 Route::post('akun', 'AkunController@create');
 Route::put('akun/{id}', 'AkunController@update');
 Route::delete('akun/{id}', 'AkunController@delete');
+
+//Kas API
+Route::get('kas', 'KasController@index');
+Route::post('kas', 'KasController@create');
+Route::put('kas/{id}', 'KasController@update');
+Route::delete('kas/{id}', 'KasController@delete');
+
+//Program API
+Route::get('program', 'ProgramController@index');
+Route::post('program', 'ProgramController@create');
+Route::put('program/{id}', 'ProgramController@update');
+Route::delete('program/{id}', 'ProgramController@delete');
