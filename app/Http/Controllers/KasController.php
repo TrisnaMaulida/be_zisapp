@@ -11,7 +11,8 @@ class KasController extends Controller
     //get kas
     public function index()
     {
-        $data["status_kas"] = 200;
+        $data["message"] = "Menampilkan Data Kas";
+        $data["status"] = 200;
         $data["data"] = Kas::all();
 
         $data = DB::select("SELECT *FROM kass LEFT JOIN akuns ON kass.id_akun = akuns.id_akun");
@@ -107,6 +108,8 @@ class KasController extends Controller
                 $data['data'] = null;
             }
         } else {
+            $data['status_kas'] = false;
+            $data['message'] = "Data Tidak Ada";
             $data['data'] = null;
         }
 

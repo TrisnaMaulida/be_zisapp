@@ -10,13 +10,15 @@ use Illuminate\Support\Facades\Validator;
 class PenggunaController extends Controller
 {
     //login
-    public function login(request $request)
+    public function login(request $request) //deklarasi fungsi login
     {
+        //membuat rules atau aturan
         $rules = [
             'username' => 'required|string',
             'password' => 'required|string'
         ];
 
+        //membuat pesan validasi
         $messages = [
             'username.required' => 'Username Wajib Diisi',
             'username.string' => 'Username Tidak Valid',
@@ -24,48 +26,54 @@ class PenggunaController extends Controller
             'password.string' => 'Password Tidak Valid'
         ];
 
+        //proses validasi
         $validator = Validator::make($request->all(), $rules, $messages);
 
+        //jika validasi gagal
         if ($validator->fails()) {
 
             $data = [
                 'username' => $request->input('username'),
                 'password' => $request->input('password'),
             ];
-
-            return $data;
-        }
-
-        $pengguna = DB::select("SELECT * FROM Penggunas WHERE username='" . $request->input("username") . "' 
-                                AND password='" . $request->input("password") . "'");
-
-        if ($pengguna) {
-            $data['message'] = "Login Berhasil";
-            $data['data'] = $pengguna;
-            $data['status_pengguna'] = true;
-            return $pengguna;
-        } else {
             $data['message'] = "Login Gagal";
             $data['data'] = null;
             $data['status_pengguna'] = false;
-        }
 
-        return $data;
+            return $data;
+        } else { //jika validasi berhasil
+            $pengguna = DB::select("SELECT * FROM Penggunas WHERE username='" . $request->input("username") . "' 
+            AND password='" . $request->input("password") . "'");
+
+            if ($pengguna) { //validasi berhasil dan login berhasil
+                $data['message'] = "Login Berhasil";
+                $data['data'] = $pengguna;
+                $data['status'] = true;
+
+                return $pengguna;
+            } else { //validasi berhasil dan login gagal
+                $data['message'] = "Login Gagal";
+                $data['data'] = null;
+                $data['status'] = false;
+            }
+            return $data;
+        }
     }
 
 
     //get pengguna
-    public function index()
+    public function index() //deklarasi  fungsi index
     {
-        $data['status_pengguna'] = 200;
-        $data['data'] = Pengguna::all();
+        $data['status_pengguna'] = 200; //menampilkan status
+        $data['message'] = "Data Pengguna"; //menampilkan pesan
+        $data['data'] = Pengguna::all(); //menampilkan semua data yang ada di tabel Pengguna
 
-        $data = DB::select("SELECT * FROM penggunas LEFT JOIN kantors ON penggunas.id_kantor = kantors.id_kantor");
-        return $data;
+        $data = DB::select("SELECT * FROM penggunas LEFT JOIN kantors ON penggunas.id_kantor = kantors.id_kantor"); //perintah menampilkan dua  table (relasi)->relasi antara table pengguna dan tabel kantor
+        return $data; //menampilkan data relasi yang telah dibuat
     }
 
     //create pengguna
-    public function create(request $request)
+    public function create(request $request) //pendeklarasian fungsi 
     {
 
         //pilih default id ketika ada kasus belum ada data sama sekali
@@ -82,52 +90,54 @@ class PenggunaController extends Controller
             $next_id = $pecah_dulu[0] . $result;
         }
 
-        $pengguna = new Pengguna;
-        $pengguna->kode_pengguna = $next_id;
-        $pengguna->nama_pengguna = $request->nama_pengguna;
-        $pengguna->alamat_pengguna = $request->alamat_pengguna;
-        $pengguna->telepon_pengguna = $request->telepon_pengguna;
-        $pengguna->leveluser = $request->leveluser;
-        $pengguna->username = $request->username;
-        $pengguna->password = $request->password;
-        $pengguna->status_pengguna = 1;
-        $pengguna->id_kantor = $request->id_kantor;
+        $pengguna = new Pengguna; //inisialisasi atau menciptakan object baru
+        $pengguna->kode_pengguna = $next_id; //manggil perintah next_id yang sudah dibuat
+        $pengguna->nama_pengguna = $request->nama_pengguna; //menset nama_pengguna yang diambil dari request body
+        $pengguna->alamat_pengguna = $request->alamat_pengguna; //menset alamat_pengguna yang diambil dari request body
+        $pengguna->telepon_pengguna = $request->telepon_pengguna; //menset telepon_pengguna yang diambil dari request body
+        $pengguna->leveluser = $request->leveluser; //menset leveluser yang diambil dari request body
+        $pengguna->username = $request->username; //menset username yang diambil dari request body
+        $pengguna->password = $request->password; //menset password yang diambil dari request body
+        $pengguna->status_pengguna = 1; //agar status langsung ter-create 
+        $pengguna->id_kantor = $request->id_kantor; //menset id_kantor yang diambil dari request body
 
-        $pengguna->save();
+        $pengguna->save(); //perintah menyimpan data "pengguna" ke database
 
 
-        $simpan = $pengguna->save();
-        if ($simpan) {
+        $simpan = $pengguna->save(); //menyimpan data pengguna ke database
+        if ($simpan) { //penyimpanan berhasil
             $data['status_pengguna'] = true;
             $data['message'] = "Berhasil menambahkan ";
             $data['data'] = $pengguna;
-        } else {
+        } else { //penyimpanan gagal
             $data['status_pengguna'] = false;
             $data['message'] = "gagal menambahkan ";
             $data['data'] = null;
         }
-        return $data;
+
+        return $data; //menampilkan data yang baru di save/simpan
     }
 
     //update pengguna
-    public function update(request $request, $id)
+    public function update(request $request, $id) //pendeklarasian fungsi
     {
-        $kode_pengguna = $request->kode_pengguna;
-        $nama_pengguna = $request->nama_pengguna;
-        $alamat_pengguna = $request->alamat_pengguna;
-        $telepon_pengguna = $request->telepon_pengguna;
-        $leveleuser = $request->leveluser;
-        $username = $request->username;
-        $password = $request->password;
-        $status_pengguna = $request->status_pengguna;
-        $id_kantor = $request->id_kantor;
 
+        $pengguna = Pengguna::find($id); //mengambil data berdasarkan id
 
-
-        $pengguna = Pengguna::find($id);
-
-        if ($pengguna) {
+        if ($pengguna) { //jika data yang diambil ada maka akan dieksekusi
             # code...
+            //mengambil nilai lama
+            $kode_pengguna = $request->kode_pengguna;
+            $nama_pengguna = $request->nama_pengguna;
+            $alamat_pengguna = $request->alamat_pengguna;
+            $telepon_pengguna = $request->telepon_pengguna;
+            $leveleuser = $request->leveluser;
+            $username = $request->username;
+            $password = $request->password;
+            $status_pengguna = $request->status_pengguna;
+            $id_kantor = $request->id_kantor;
+
+            //menset nilai yang baru/update
             $pengguna->kode_pengguna = $kode_pengguna;
             $pengguna->nama_pengguna = $nama_pengguna;
             $pengguna->alamat_pengguna = $alamat_pengguna;
@@ -138,44 +148,48 @@ class PenggunaController extends Controller
             $pengguna->status_pengguna = $status_pengguna;
             $pengguna->id_kantor = $id_kantor;
 
-            $data['data'] = $pengguna;
-            $update = $pengguna->update();
-            if ($update) {
+            $data['data'] = $pengguna; //menampilkan data pengguna
+            $update = $pengguna->update(); //menyimpan perubahan data pada database
+            if ($update) { //jika berhasil update 
                 $data['status_pengguna'] = true;
                 $data['message'] = "Berhasil di Update ";
                 $data['data'] = $pengguna;
-            } else {
+            } else { //jika gagal update
                 $data['status_pengguna'] = false;
                 $data['message'] = "Gagal di Update ";
                 $data['data'] = null;
             }
-        } else {
+        } else { //jika datanya tidak ada
+            $data['status'] = false;
+            $data['message'] = "Data Tidak Ada";
             $data['data'] = null;
         }
-        return $data;
+        return $data; //menampilkan data yang berhasil diupdate (berhasil/gagal/data tidak ada)
     }
 
     //delete pengguna
-    public function delete($id)
+    public function delete($id) //deklarasi fungsi delete
     {
-        $pengguna = Pengguna::find($id);
+        $pengguna = Pengguna::find($id); //mengambil data pengguna berdasarkan id
 
-        if ($pengguna) {
+        if ($pengguna) { //mengecek data pengguna apakah ada atau tidak
             # code...
-            $delete = $pengguna->delete();
-            if ($delete) {
+            $delete = $pengguna->delete(); //menghapus data pengguna
+            if ($delete) { //jika fungsi hapus berhasil
                 $data['status_pengguna'] = true;
                 $data['message'] = "Data Berhasil di Hapus ";
                 $data['data'] = $pengguna;
-            } else {
+            } else { //jika fungsi hapus gagal
                 $data['status_pengguna'] = false;
                 $data['message'] = "Data Gagal di Hapus ";
                 $data['data'] = null;
             }
-        } else {
+        } else { //data yang dihapus tidak ada
+            $data['status'] = false;
+            $data['message'] = "Data Tidak Ada";
             $data['data'] = null;
         }
 
-        return $data;
+        return $data; //menampilkan hasil data yang dihapus (berhasil/gagal/tidak ada)
     }
 }
