@@ -68,7 +68,7 @@ class BankController extends Controller
                 $data['message'] = "Data Berhasil diUpdate";
                 $data['data'] = $bank;
             } else {
-                $Data['status'] = false;
+                $data['status'] = false;
                 $data['message'] = "Data Gagal diUpdate";
                 $data['data'] = null;
             }

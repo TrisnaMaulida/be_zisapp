@@ -68,3 +68,9 @@ Route::get('program', 'ProgramController@index');
 Route::post('program', 'ProgramController@create');
 Route::put('program/{id}', 'ProgramController@update');
 Route::delete('program/{id}', 'ProgramController@delete');
+
+//Periode API
+Route::get('periode', 'PeriodeController@index');
+Route::post('periode', 'PeriodeController@create');
+Route::put('periode/{id}', 'PeriodeController@update');
+Route::delete('periode/{id}', 'PeriodeController@delete');
