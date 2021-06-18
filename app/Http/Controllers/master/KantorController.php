@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\master;
 
-use App\Kantor;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class KantorController extends Controller

@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\master;
+
+namespace App\Http\Controllers\master\Validator;
 
 use App\Pengguna;
 use DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+
 
 class PenggunaController extends Controller
 {
@@ -38,7 +41,7 @@ class PenggunaController extends Controller
             ];
             $data['message'] = "Login Gagal";
             $data['data'] = null;
-            $data['status_pengguna'] = false;
+            $data['status'] = false;
 
             return $data;
         } else { //jika validasi berhasil
@@ -64,16 +67,14 @@ class PenggunaController extends Controller
     //get pengguna
     public function index() //deklarasi  fungsi index
     {
-        $data['status_pengguna'] = 200; //menampilkan status
+        $data['status'] = 200; //menampilkan status
         $data['message'] = "Data Pengguna"; //menampilkan pesan
-        $data['data'] = Pengguna::all(); //menampilkan semua data yang ada di tabel Pengguna
-
-        $data = DB::select("SELECT * FROM penggunas LEFT JOIN kantors ON penggunas.id_kantor = kantors.id_kantor"); //perintah menampilkan dua  table (relasi)->relasi antara table pengguna dan tabel kantor
+        $data['data'] = DB::select("SELECT * FROM penggunas LEFT JOIN kantors ON penggunas.id_kantor = kantors.id_kantor"); //perintah menampilkan dua  table (relasi)->relasi antara table pengguna dan tabel kantor
         return $data; //menampilkan data relasi yang telah dibuat
     }
 
     //create pengguna
-    public function create(request $request) //pendeklarasian fungsi 
+    public function create(request $request) //pendeklarasian fungsi create
     {
 
         //pilih default id ketika ada kasus belum ada data sama sekali
@@ -101,16 +102,13 @@ class PenggunaController extends Controller
         $pengguna->status_pengguna = 1; //agar status langsung ter-create 
         $pengguna->id_kantor = $request->id_kantor; //menset id_kantor yang diambil dari request body
 
-        $pengguna->save(); //perintah menyimpan data "pengguna" ke database
-
-
         $simpan = $pengguna->save(); //menyimpan data pengguna ke database
-        if ($simpan) { //penyimpanan berhasil
-            $data['status_pengguna'] = true;
+        if ($simpan) { //jika penyimpanan berhasil
+            $data['status'] = true;
             $data['message'] = "Berhasil menambahkan ";
             $data['data'] = $pengguna;
-        } else { //penyimpanan gagal
-            $data['status_pengguna'] = false;
+        } else { //jika penyimpanan gagal
+            $data['status'] = false;
             $data['message'] = "gagal menambahkan ";
             $data['data'] = null;
         }
@@ -119,7 +117,7 @@ class PenggunaController extends Controller
     }
 
     //update pengguna
-    public function update(request $request, $id) //pendeklarasian fungsi
+    public function update(request $request, $id) //pendeklarasian fungsi update
     {
 
         $pengguna = Pengguna::find($id); //mengambil data berdasarkan id
@@ -151,11 +149,11 @@ class PenggunaController extends Controller
             $data['data'] = $pengguna; //menampilkan data pengguna
             $update = $pengguna->update(); //menyimpan perubahan data pada database
             if ($update) { //jika berhasil update 
-                $data['status_pengguna'] = true;
+                $data['status'] = true;
                 $data['message'] = "Berhasil di Update ";
                 $data['data'] = $pengguna;
             } else { //jika gagal update
-                $data['status_pengguna'] = false;
+                $data['status'] = false;
                 $data['message'] = "Gagal di Update ";
                 $data['data'] = null;
             }
@@ -175,12 +173,13 @@ class PenggunaController extends Controller
         if ($pengguna) { //mengecek data pengguna apakah ada atau tidak
             # code...
             $delete = $pengguna->delete(); //menghapus data pengguna
+
             if ($delete) { //jika fungsi hapus berhasil
-                $data['status_pengguna'] = true;
+                $data['status'] = true;
                 $data['message'] = "Data Berhasil di Hapus ";
                 $data['data'] = $pengguna;
             } else { //jika fungsi hapus gagal
-                $data['status_pengguna'] = false;
+                $data['status'] = false;
                 $data['message'] = "Data Gagal di Hapus ";
                 $data['data'] = null;
             }
