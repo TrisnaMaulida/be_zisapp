@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\master;
 
-use App\Http\Controllers\master\Validator;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Pengguna;
 use Illuminate\Http\Request;
@@ -44,7 +44,7 @@ class PenggunaController extends Controller
 
             return $data;
         } else { //jika validasi berhasil
-            $pengguna = DB::select("SELECT * FROM Penggunas WHERE username='" . $request->input("username") . "' 
+            $pengguna = DB::select("SELECT * FROM penggunas WHERE username='" . $request->input("username") . "' 
             AND password='" . $request->input("password") . "'");
 
             if ($pengguna) { //validasi berhasil dan login berhasil
@@ -52,13 +52,14 @@ class PenggunaController extends Controller
                 $data['data'] = $pengguna;
                 $data['status'] = true;
 
-                return $pengguna;
+                return $data;
             } else { //validasi berhasil dan login gagal
                 $data['message'] = "Login Gagal";
                 $data['data'] = null;
                 $data['status'] = false;
+
+                return $data;
             }
-            return $data;
         }
     }
 
