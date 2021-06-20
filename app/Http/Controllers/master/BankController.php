@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\master;
 
+use App\Bank;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

@@ -15,7 +15,7 @@ class MuzakiController extends Controller
     {
         $data['status'] = 200; //menampilkan status
         $data['message'] = "Data Muzaki"; //menampilkan pesan
-        $data = DB::select("SELECT * FROM muzakis LEFT JOIN kantors ON muzakis.id_kantor = kantors.id_kantor LEFT JOIN penggunas ON muzakis.id_pengguna = Penggunas.id_pengguna"); //perintah menampilkan dua  table (relasi)->relasi antara table muzaki, table pengguna dan tabel kantor
+        $data['data'] = DB::select("SELECT * FROM muzakis LEFT JOIN kantors ON muzakis.id_kantor = kantors.id_kantor LEFT JOIN penggunas ON muzakis.id_pengguna = Penggunas.id_pengguna"); //perintah menampilkan dua  table (relasi)->relasi antara table muzaki, table pengguna dan tabel kantor
 
         return $data; //menampilkan data relasi yang telah dibuat
     }
@@ -24,13 +24,13 @@ class MuzakiController extends Controller
     public function create(Request $request) //pendeklarasian fungsi create
     {
         //pilih default id ketika ada kasus belum ada data sama sekali
-        $next_id = "1011110000";
+        $next_id = "1011110001";
 
-        $max_muzaki = DB::table("muzakis")->max('npwz'); // ambil id terbesar > 1011110000
+        $max_muzaki = DB::table("muzakis")->max('npwz'); // ambil id terbesar > 1011110001
 
         if ($max_muzaki) { // jika sudah ada data generate id baru 
 
-            $pecah_dulu = str_split($max_muzaki, 6); // misal "1011110000" hasilnya jadi ["101111","0000"]
+            $pecah_dulu = str_split($max_muzaki, 6); // misal "1011110000" hasilnya jadi ["101111","0001"]
             $increment_id = $pecah_dulu[1];
             $result = sprintf("%'.04d", $increment_id + 1);
 
@@ -53,11 +53,11 @@ class MuzakiController extends Controller
         $simpan = $muzaki->save(); //menyimpan data muzaki ke database
         if ($simpan) { //jika penyimpanan berhasil
             $data['status'] = true;
-            $data['message'] = "Berhasil menambahkan ";
+            $data['message'] = "Berhasil menambahkan Data Muzaki";
             $data['data'] = $muzaki;
         } else { //jika penyimpanan gagal
             $data['status'] = false;
-            $data['message'] = "gagal menambahkan ";
+            $data['message'] = "gagal menambahkan Data Muzaki ";
             $data['data'] = null;
         }
         return $data; //menampilkan data yang baru di save/simpan

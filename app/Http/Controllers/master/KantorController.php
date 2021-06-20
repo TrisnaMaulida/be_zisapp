@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\master;
 
 use App\Http\Controllers\Controller;
+use App\Kantor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KantorController extends Controller
 {

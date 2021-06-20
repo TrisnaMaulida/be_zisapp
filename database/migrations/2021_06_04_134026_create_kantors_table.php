@@ -15,7 +15,7 @@ class CreateKantorsTable extends Migration
     {
         Schema::create('kantors', function (Blueprint $table) {
             $table->increments('id_kantor');
-            $table->bigInteger('no_kantor');
+            $table->string('no_kantor');
             $table->string('nama_kantor');
             $table->string('alamat_kantor');
             $table->bigInteger('telepon_kantor');

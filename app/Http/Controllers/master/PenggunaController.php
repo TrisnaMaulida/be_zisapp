@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\master;
 
-namespace App\Http\Controllers\master\Validator;
-
-use App\Pengguna;
-use DB;
+use App\Http\Controllers\master\Validator;
 use App\Http\Controllers\Controller;
+use App\Pengguna;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class PenggunaController extends Controller
@@ -78,13 +77,13 @@ class PenggunaController extends Controller
     {
 
         //pilih default id ketika ada kasus belum ada data sama sekali
-        $next_id = "LZAI180000";
+        $next_id = "LZAI180001";
 
-        $max_pengguna = DB::table("penggunas")->max('kode_pengguna'); // ambil id terbesar > 1011110000
+        $max_pengguna = DB::table("penggunas")->max('kode_pengguna'); // ambil id terbesar > LZAIO180001
 
         if ($max_pengguna) { // jika sudah ada data generate id baru 
 
-            $pecah_dulu = str_split($max_pengguna, 6); // misal "LZAI180000" hasilnya jadi ["LZAI18","0000"]
+            $pecah_dulu = str_split($max_pengguna, 6); // misal "LZAI180000" hasilnya jadi ["LZAI18","0001"]
             $increment_id = $pecah_dulu[1];
             $result = sprintf("%'.04d", $increment_id + 1);
 

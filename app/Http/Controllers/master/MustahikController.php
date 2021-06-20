@@ -14,7 +14,7 @@ class MustahikController extends Controller
     {
         $data['status'] = 200; //menampilkan status
         $data['message'] = "Data Pengguna"; //menampilkan pesan
-        $data = DB::select("SELECT * FROM mustahiks LEFT JOIN kantors ON mustahiks.id_kantor = kantors.id_kantor"); //perintah menampilkan dua  table (relasi)->relasi antara table mustahik dan tabel kantor
+        $data['data'] = DB::select("SELECT * FROM mustahiks LEFT JOIN kantors ON mustahiks.id_kantor = kantors.id_kantor"); //perintah menampilkan dua  table (relasi)->relasi antara table mustahik dan tabel kantor
         return $data; //menampilkan data relasi yang telah dibuat
     }
 
@@ -24,7 +24,7 @@ class MustahikController extends Controller
         //pilih default id ketika ada kasus belum ada data sama sekali
         $next_id = "1840010001";
 
-        $max_mustahik = DB::table("mustahik")->max('kode_mustahik'); // ambil id terbesar > 1840010001
+        $max_mustahik = DB::table("mustahiks")->max('kode_mustahik'); // ambil id terbesar > 1840010001
 
         if ($max_mustahik) { // jika sudah ada data generate id baru 
 
