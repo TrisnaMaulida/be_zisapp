@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AkunController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,34 +19,61 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+
+
+/* Route API Master*/
 //Pengguna API
-Route::post('login', 'PenggunaController@login');
-Route::post('register', 'PenggunaController@register');
-Route::get('pengguna', 'PenggunaController@index');
-Route::post('pengguna', 'PenggunaController@create');
-Route::put('pengguna/{id}', 'PenggunaController@update');
-Route::delete('pengguna/{id}', 'PenggunaController@delete');
+Route::post('login', 'master\PenggunaController@login');
+Route::post('register', 'master\PenggunaController@register');
+Route::get('pengguna', 'master\PenggunaController@index');
+Route::post('pengguna', 'master\PenggunaController@create');
+Route::put('pengguna/{id}', 'master\PenggunaController@update');
+Route::delete('pengguna/{id}', 'master\PenggunaController@delete');
 
 //Muzaki API
-Route::get('muzaki', 'MuzakiController@index');
-Route::post('muzaki', 'MuzakiController@create');
-Route::put('muzaki/{id}', 'MuzakiController@update');
-Route::delete('muzaki/{id}', 'MuzakiController@delete');
+Route::get('muzaki', 'master\MuzakiController@index');
+Route::post('muzaki', 'master\MuzakiController@create');
+Route::put('muzaki/{id}', 'master\MuzakiController@update');
+Route::delete('muzaki/{id}', 'master\MuzakiController@delete');
 
 //Mustahik API
-Route::get('mustahik', 'MustahikController@index');
-Route::post('mustahik', 'MustahikController@create');
-Route::put('mustahik/{id}', 'MustahikController@update');
-Route::delete('mustahik/{id}', 'MustahikController@delete');
+Route::get('mustahik', 'master\MustahikController@index');
+Route::post('mustahik', 'master\MustahikController@create');
+Route::put('mustahik/{id}', 'master\MustahikController@update');
+Route::delete('mustahik/{id}', 'master\MustahikController@delete');
 
 //Kantor API
-Route::get('kantor', 'KantorController@index');
-Route::post('kantor', 'KantorController@create');
-Route::put('kantor/{id}', 'KantorController@update');
-Route::delete('kantor/{id}', 'KantorController@delete');
+Route::get('kantor', 'master\KantorController@index');
+Route::post('kantor', 'master\KantorController@create');
+Route::put('kantor/{id}', 'master\KantorController@update');
+Route::delete('kantor/{id}', 'master\KantorController@delete');
 
 //Bank API
-Route::get('bank', 'BankController@index');
-Route::post('bank', 'BankController@create');
-Route::put('bank/{id}', 'BankController@update');
-Route::delete('bank/{id}', 'BankController@delete');
+Route::get('bank', 'master\BankController@index');
+Route::post('bank', 'master\BankController@create');
+Route::put('bank/{id}', 'master\BankController@update');
+Route::delete('bank/{id}', 'master\BankController@delete');
+
+//Akun API
+Route::get('akun', 'AkunController@index');
+Route::post('akun', 'AkunController@create');
+Route::put('akun/{id}', 'AkunController@update');
+Route::delete('akun/{id}', 'AkunController@delete');
+
+//Kas API
+Route::get('kas', 'KasController@index');
+Route::post('kas', 'KasController@create');
+Route::put('kas/{id}', 'KasController@update');
+Route::delete('kas/{id}', 'KasController@delete');
+
+//Program API
+Route::get('program', 'ProgramController@index');
+Route::post('program', 'ProgramController@create');
+Route::put('program/{id}', 'ProgramController@update');
+Route::delete('program/{id}', 'ProgramController@delete');
+
+//Periode API
+Route::get('periode', 'PeriodeController@index');
+Route::post('periode', 'PeriodeController@create');
+Route::put('periode/{id}', 'PeriodeController@update');
+Route::delete('periode/{id}', 'PeriodeController@delete');
