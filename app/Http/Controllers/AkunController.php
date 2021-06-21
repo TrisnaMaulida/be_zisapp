@@ -22,10 +22,10 @@ class AkunController extends Controller
     {
         $akun = new Akun; //inisialisasi atau menciptakan objek
         $akun->kode_akun = $request->kode_akun; //menset kode_akun yang dibuat yang diambil dari request body
-        $akun->akun = $request->akun; //menset akun yang dibuat yang diambil dari request body
+        $akun->nama_akun = $request->nama_akun; //menset akun yang dibuat yang diambil dari request body
         $akun->kode_sub_kat_akun = $request->kode_sub_kat_akun; //menset kode_sub_kat_akun yang dibuat yang diambil dari request body
-        $akun->jenis = $request->jenis; //menset jenis yang dibuat yang diambil dari request body
-        $akun->status = 1; //menset agar status langsung terisi 
+        $akun->jenis_akun = $request->jenis_akun; //menset jenis yang dibuat yang diambil dari request body
+        $akun->status_akun = 1; //menset agar status langsung terisi 
 
         $simpan = $akun->save(); //menyimpan data akun ke database
         if ($simpan) {  //jika fungsi simpan berhasil
@@ -52,17 +52,17 @@ class AkunController extends Controller
 
             //mengambil nilai lama
             $kode_akun = $request->kode_akun;
-            $akun = $request->akun;
+            $nama_akun = $request->nama_akun;
             $kode_sub_kat_akun = $request->kode_sub_kat_akun;
-            $jenis = $request->jenis;
-            $status = $request->status;
+            $jenis_akun = $request->jenis_akun;
+            $status_akun = $request->status_akun;
 
             //menset nilai yang baru/update
             $akun->kode_akun = $kode_akun;
-            $akun->akun = $akun;
+            $akun->nama_akun = $nama_akun;
             $akun->kode_sub_kat_akun = $kode_sub_kat_akun;
-            $akun->jenis = $jenis;
-            $akun->status = $status;
+            $akun->jenis_akun = $jenis_akun;
+            $akun->status_akun = $status_akun;
 
             $data['data'] = $akun; //menampilkan data akun
             $update = $akun->update(); //menyimpan fungsi perubahan
