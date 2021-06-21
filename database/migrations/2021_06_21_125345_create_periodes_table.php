@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAkunsTable extends Migration
+class CreatePeriodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateAkunsTable extends Migration
      */
     public function up()
     {
-        Schema::create('akuns', function (Blueprint $table) {
-            $table->increments("id_akun");
-            $table->integer("kode_akun");
-            $table->string("akun");
-            $table->integer("kode_sub_kat_akun");
-            $table->integer("jenis");
-            $table->integer("status");
+        Schema::create('periodes', function (Blueprint $table) {
+            $table->increments("id_periode");
+            $table->string("nama_periode");
+            $table->integer("status_periode");
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateAkunsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('akuns');
+        Schema::dropIfExists('periodes');
     }
 }

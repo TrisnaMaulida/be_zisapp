@@ -105,15 +105,15 @@ class PenggunaController extends Controller
         $simpan = $pengguna->save(); //menyimpan data pengguna ke database
         if ($simpan) { //jika penyimpanan berhasil
             $data['status'] = true;
-            $data['message'] = "Berhasil menambahkan ";
+            $data['message'] = "Berhasil menambahkan Pengguna";
             $data['data'] = $pengguna;
         } else { //jika penyimpanan gagal
             $data['status'] = false;
-            $data['message'] = "gagal menambahkan ";
+            $data['message'] = "gagal menambahkan Pengguna";
             $data['data'] = null;
         }
 
-        return $data; //menampilkan data yang baru di save/simpan
+        return $data; //menampilkan data yang baru disave/simpan
     }
 
     //update pengguna

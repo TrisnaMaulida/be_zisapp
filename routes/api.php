@@ -73,7 +73,13 @@ Route::put('program/{id}', 'ProgramController@update');
 Route::delete('program/{id}', 'ProgramController@delete');
 
 //Periode API
-Route::get('periode', 'PeriodeController@index');
-Route::post('periode', 'PeriodeController@create');
-Route::put('periode/{id}', 'PeriodeController@update');
-Route::delete('periode/{id}', 'PeriodeController@delete');
+Route::get('periode', 'transaksi\PeriodeController@index');
+Route::post('periode', 'transaksi\PeriodeController@create');
+Route::put('periode/{id}', 'transaksi\PeriodeController@update');
+Route::delete('periode/{id}', 'transaksi\PeriodeController@delete');
+
+//Donasi API
+Route::get('donasi', 'transaksi\DonasiController@index');
+Route::post('donasi', 'transaksi\DonasiController@create');
+Route::put('donasi/{id}', 'transaksi\DonasiController@update');
+Route::delete('donasi/{id}', 'transaksi\DonasiController@delete');

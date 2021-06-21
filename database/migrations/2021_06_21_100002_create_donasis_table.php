@@ -14,15 +14,17 @@ class CreateDonasisTable extends Migration
     public function up()
     {
         Schema::create('donasis', function (Blueprint $table) {
-            $table->increments('id_donasi');
-            $table->text('no_donasi');
-            $table->integer('no_bukti');
-            $table->char('periode');
-            $table->date('tgl_donasi');
-            $table->integer('metode');
-            $table->bigInteger('no_rek');
-            $table->integer('status');
-            $table->text('createdby');
+            $table->increments("id_donasi");
+            $table->string("no_donasi");
+            $table->string("no_bukti");
+            $table->date("tgl_donasi");
+            $table->decimal("total_donasi");
+            $table->integer("metode");
+            $table->integer("status_donasi");
+            $table->integer("id_periode");
+            $table->integer("id_muzaki");
+            $table->integer("id_bank");
+            $table->integer("id_pengguna");
             $table->timestamps();
         });
     }
