@@ -67,25 +67,14 @@ class MustahikController extends Controller
 
         if ($mustahik) { //jika data yang diambil ada maka akan dieksekusi
             # code...
-            //mengambil nilai lama
-            $kode_mustahik = $request->kode_mustahik;
-            $nama_mustahik = $request->nama_mustahik;
-            $alamat_mustahik = $request->alamat_mustahik;
-            $asnaf = $request->asnaf;
-            $telepon_mustahik = $request->telepon_mustahik;
-            $kategori_mustahik = $request->kategori_mustahik;
-            $status_mustahik = $request->status_mustahik;
-            $id_kantor = $request->id_kantor;
-
             //menset nilai yang baru/update
-            $mustahik->kode_mustahik = $kode_mustahik;
-            $mustahik->nama_mustahik = $nama_mustahik;
-            $mustahik->alamat_mustahik = $alamat_mustahik;
-            $mustahik->asnaf = $asnaf;
-            $mustahik->telepon_mustahik = $telepon_mustahik;
-            $mustahik->kategori_mustahik = $kategori_mustahik;
-            $mustahik->status_mustahik = $status_mustahik;
-            $mustahik->id_kantor = $id_kantor;
+            $mustahik->nama_mustahik = $request->nama_mustahik;
+            $mustahik->alamat_mustahik = $request->alamat_mustahik;
+            $mustahik->asnaf = $request->asnaf;
+            $mustahik->telepon_mustahik = $request->telepon_mustahik;
+            $mustahik->kategori_mustahik = $request->kategori_mustahik;
+            $mustahik->status_mustahik = $request->status_mustahik;
+            $mustahik->id_kantor = $request->id_kantor;
 
             $data['data'] = $mustahik; //menampilkan data mustahik
             $update = $mustahik->update(); //menyimpan perubahan data pada database

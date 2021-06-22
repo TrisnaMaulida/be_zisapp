@@ -55,16 +55,22 @@ Route::put('bank/{id}', 'master\BankController@update');
 Route::delete('bank/{id}', 'master\BankController@delete');
 
 //Akun API
-Route::get('akun', 'AkunController@index');
-Route::post('akun', 'AkunController@create');
-Route::put('akun/{id}', 'AkunController@update');
-Route::delete('akun/{id}', 'AkunController@delete');
+Route::get('akun', 'master\AkunController@index');
+Route::post('akun', 'master\AkunController@create');
+Route::put('akun/{id}', 'master\AkunController@update');
+Route::delete('akun/{id}', 'master\AkunController@delete');
 
 //Kas API
-Route::get('kas', 'KasController@index');
-Route::post('kas', 'KasController@create');
-Route::put('kas/{id}', 'KasController@update');
-Route::delete('kas/{id}', 'KasController@delete');
+Route::get('kas', 'master\KasController@index');
+Route::post('kas', 'master\KasController@create');
+Route::put('kas/{id}', 'master\KasController@update');
+Route::delete('kas/{id}', 'master\KasController@delete');
+
+//Kategori API
+Route::get('kategori', 'master\KategoriController@index');
+Route::post('kaategori', 'master\KategoriController@create');
+Route::put('kategori/{id}', 'master\KategoriController@update');
+Route::delete('kategori/{id}', 'master\KategoriController@delete');
 
 //Program API
 Route::get('program', 'ProgramController@index');

@@ -4,8 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Periode extends Model
+class Kategori extends Model
 {
     //
-    protected $primaryKey = 'id_periode';
 }

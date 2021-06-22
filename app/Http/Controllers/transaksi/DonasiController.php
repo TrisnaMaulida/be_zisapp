@@ -72,29 +72,16 @@ class DonasiController extends Controller
 
         if ($donasi) { //jika data yang diambil ada maka akan dieksekusi
             # code...
-            //mengambil nilai lama
-            $no_donasi = $request->no_donasi;
-            $no_bukti = $request->no_bukti;
-            $tgl_donasi = $request->tgl_donasi;
-            $total_donasi = $request->total_donasi;
-            $metode = $request->metode;
-            $status_donasi = $request->status_donasi;
-            $id_periode = $request->id_periode;
-            $id_muzaki = $request->id_muzaki;
-            $id_bank = $request->id_bank;
-            $id_pengguna = $request->id_pengguna;
-
-            //menset nilai yang baru/update 
-            $donasi->no_donasi = $no_donasi;
-            $donasi->no_bukti = $no_bukti;
-            $donasi->tgl_donasi = $tgl_donasi;
-            $donasi->total_donasi = $total_donasi;
-            $donasi->metode = $metode;
-            $donasi->status_donasi = $status_donasi;
-            $donasi->id_periode = $id_periode;
-            $donasi->id_muzaki = $id_muzaki;
-            $donasi->id_bank = $id_bank;
-            $donasi->id_pengguna = $id_pengguna;
+            //mengupdate nilai 
+            $donasi->no_donasi = $request->no_donasi;
+            $donasi->no_bukti = $request->no_bukti;
+            $donasi->tgl_donasi = $request->tgl_donasi;
+            $donasi->metode = $request->metode;
+            $donasi->status_donasi = $request->status_donasi;
+            $donasi->id_periode = $request->id_periode;
+            $donasi->id_muzaki = $request->id_muzaki;
+            $donasi->id_bank = $request->id_bank;
+            $donasi->id_pengguna = $request->id_pengguna;
 
             $data['data'] = $donasi; //menampilkan data donasi
             $update = $donasi->update(); //menyimpan perubahan data pada database

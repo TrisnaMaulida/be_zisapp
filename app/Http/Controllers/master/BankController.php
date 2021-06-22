@@ -5,6 +5,7 @@ namespace App\Http\Controllers\master;
 use App\Bank;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BankController extends Controller
 {
@@ -13,8 +14,7 @@ class BankController extends Controller
     {
         $data['status'] = 200; //menampilkan status
         $data['message'] = "Data Bank"; //menampilkan pesan
-        $data['data'] = Bank::all(); //proses pengambilan semuaa data akun di database
-
+        $data['data'] = DB::select("SELECT * FROM banks LEFT JOIN akuns ON banks.id_akun = akuns.id_akun LEFT JOIN kantors ON banks.id_kantor = kantors.id_kantor"); //perintah menampilkan dua table (relasi)->relasi antara table bank dan table akun
         return $data; //menampilkan hasil dari proses pengambilan data
     }
 
@@ -25,9 +25,8 @@ class BankController extends Controller
         $bank = new Bank;  //inisialisasi atau menciptakan object baru
         $bank->no_rek = $request->no_rek; //menset no_rek yang diambil dari request body
         $bank->nama_bank = $request->nama_bank; //menset nama_bank yang diambil dari request body
-        $bank->kode_akun = $request->kode_akun; //menset kode_akun yang diambil dari request body
-        $bank->nama_akun = $request->nama_akun; //menset nama_akun yang diambil dari request body
-        $bank->id_kantor = $request->id_kantor; //menset id_kantor yang diambil dari request body
+        $bank->id_akun = $request->id_akun; //menset id_akun yang diambil dari request body
+        $bank->id_kantor = $request->id_kantor; //menset id_akun yang diambil dari request body
 
         $bank->save(); //perintah menyimpan data "bank" ke database
 
@@ -53,19 +52,11 @@ class BankController extends Controller
 
         if ($bank) {
             # code...
-            //mengambil nilai lama
-            $no_rek = $request->no_rek;
-            $nama_bank = $request->nama_bank;
-            $kode_akun = $request->kode_akun;
-            $nama_akun = $request->nama_akun;
-            $id_kantor = $request->id_kantor;
-
             //menset nilai yang baru/update
-            $bank->no_rek = $no_rek;
-            $bank->nama_bank = $nama_bank;
-            $bank->kode_akun = $kode_akun;
-            $bank->nama_akun = $nama_akun;
-            $bank->id_kantor = $id_kantor;
+            $bank->no_rek = $request->no_rek;
+            $bank->nama_bank = $request->nama_bank;
+            $bank->id_akun = $request->id_akun;
+            $bank->id_kantor = $request->id_kantor;
 
             $data['data'] = $bank; //menampilkan data bank
             $update = $bank->update(); //menyimpan perubahan data pada database

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\master;
 
-use DB;
+use App\Http\Controllers\Controller;
 use App\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProgramController extends Controller
 {
