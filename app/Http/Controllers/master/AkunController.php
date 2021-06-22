@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\master;
 
 use App\Akun;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class AkunController extends Controller
@@ -49,20 +50,12 @@ class AkunController extends Controller
 
         if ($akun) { //jika datanya ada 
             # code...
-
-            //mengambil nilai lama
-            $kode_akun = $request->kode_akun;
-            $nama_akun = $request->nama_akun;
-            $kode_sub_kat_akun = $request->kode_sub_kat_akun;
-            $jenis_akun = $request->jenis_akun;
-            $status_akun = $request->status_akun;
-
             //menset nilai yang baru/update
-            $akun->kode_akun = $kode_akun;
-            $akun->nama_akun = $nama_akun;
-            $akun->kode_sub_kat_akun = $kode_sub_kat_akun;
-            $akun->jenis_akun = $jenis_akun;
-            $akun->status_akun = $status_akun;
+            $akun->kode_akun = $request->kode_akun;
+            $akun->nama_akun = $request->nama_akun;
+            $akun->kode_sub_kat_akun = $request->kode_sub_kat_akun;
+            $akun->jenis_akun = $request->jenis_akun;
+            $akun->status_akun = $request->status_akun;
 
             $data['data'] = $akun; //menampilkan data akun
             $update = $akun->update(); //menyimpan fungsi perubahan

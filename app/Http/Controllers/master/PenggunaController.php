@@ -124,27 +124,16 @@ class PenggunaController extends Controller
 
         if ($pengguna) { //jika data yang diambil ada maka akan dieksekusi
             # code...
-            //mengambil nilai lama
-            $kode_pengguna = $request->kode_pengguna;
-            $nama_pengguna = $request->nama_pengguna;
-            $alamat_pengguna = $request->alamat_pengguna;
-            $telepon_pengguna = $request->telepon_pengguna;
-            $leveleuser = $request->leveluser;
-            $username = $request->username;
-            $password = $request->password;
-            $status_pengguna = $request->status_pengguna;
-            $id_kantor = $request->id_kantor;
-
             //menset nilai yang baru/update
-            $pengguna->kode_pengguna = $kode_pengguna;
-            $pengguna->nama_pengguna = $nama_pengguna;
-            $pengguna->alamat_pengguna = $alamat_pengguna;
-            $pengguna->telepon_pengguna = $telepon_pengguna;
-            $pengguna->leveluser = $leveleuser;
-            $pengguna->username = $username;
-            $pengguna->password = $password;
-            $pengguna->status_pengguna = $status_pengguna;
-            $pengguna->id_kantor = $id_kantor;
+            $pengguna->kode_pengguna = $request->kode_pengguna;
+            $pengguna->nama_pengguna = $request->nama_pengguna;
+            $pengguna->alamat_pengguna = $request->alamat_pengguna;
+            $pengguna->telepon_pengguna = $request->telepon_pengguna;
+            $pengguna->leveluser = $request->leveleuser;
+            $pengguna->username = $request->username;
+            $pengguna->password = $request->password;
+            $pengguna->status_pengguna = $request->status_pengguna;
+            $pengguna->id_kantor = $request->id_kantor;
 
             $data['data'] = $pengguna; //menampilkan data pengguna
             $update = $pengguna->update(); //menyimpan perubahan data pada database
