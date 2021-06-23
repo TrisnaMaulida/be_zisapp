@@ -11,7 +11,7 @@ class PeriodeController extends Controller
     //get periode
     public function index() //deklarasi fungsi index
     {
-        $data['status'] = 200; //menampilkan status
+        $data['status'] = true; //menampilkan status
         $data['message'] = "Data Periode"; //menampilkan pesan
         $data['data'] = Periode::all(); //fungsi untuk mengambil semua data tabel kantor
 

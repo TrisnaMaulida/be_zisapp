@@ -13,10 +13,9 @@ class ProgramController extends Controller
     public function index()
     {
 
-        $data['status_program'] = 200;
-        $data['data'] = Program::all();
-
-        $data = DB::select("SELECT * FROM programs LEFT JOIN akuns ON programs.id_akun = akuns.id_akun LEFT JOIN kass ON programs.id_kas = kass.id_kas");
+        $data['status'] = true;
+        $data['message'] = "Data Program";
+        $data['data'] = DB::select("SELECT * FROM programs LEFT JOIN akuns ON programs.id_akun = akuns.id_akun LEFT JOIN kass ON programs.id_kas = kass.id_kas");
 
         return $data;
     }

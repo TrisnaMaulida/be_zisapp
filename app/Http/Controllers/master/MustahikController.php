@@ -12,7 +12,7 @@ class MustahikController extends Controller
     //get mustahik
     public function index() //deklarasi  fungsi index
     {
-        $data['status'] = 200; //menampilkan status
+        $data['status'] = true; //menampilkan status
         $data['message'] = "Data Pengguna"; //menampilkan pesan
         $data['data'] = DB::select("SELECT * FROM mustahiks LEFT JOIN kantors ON mustahiks.id_kantor = kantors.id_kantor"); //perintah menampilkan dua  table (relasi)->relasi antara table mustahik dan tabel kantor
         return $data; //menampilkan data relasi yang telah dibuat

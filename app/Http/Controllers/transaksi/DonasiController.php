@@ -12,7 +12,7 @@ class DonasiController extends Controller
     //get donasi
     public function index() //deklarasi fungsi index
     {
-        $data['status'] = 200; //menampilkan status
+        $data['status'] = true; //menampilkan status
         $data['message'] = "Data Donasi"; //menampilkan pesan
         $data['data'] = DB::select("SELECT *FROM donasis LEFT JOIN penggunas ON donasis.id_pengguna = penggunas.id_pengguna 
                                                         LEFT JOIN muzakis ON donasis.id_muzaki = muzakis.id_muzaki

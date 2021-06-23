@@ -12,7 +12,7 @@ class KasController extends Controller
     //get kas
     public function index() //deklarasi fungsi index
     {
-        $data["status"] = 200; //menampilkan status
+        $data["status"] = true; //menampilkan status
         $data["message"] = "Menampilkan Data Kas";  //menampilkan pesan
         $data["data"] = DB::select("SELECT * FROM kass LEFT JOIN akuns ON kass.id_akun = akuns.id_akun"); //perintah menampilkan dua  table (relasi)->relasi antara table kas dan tabel akun
         return $data; //menampilkan data relasi yang telah dibuat

@@ -11,7 +11,7 @@ class AkunController extends Controller
     //get akun
     public function index() //deklarasi fungsi index 
     {
-        $data['status'] = 200; //menampilkan status
+        $data['status'] = true; //menampilkan status
         $data['message'] = "Data Akun"; //menampilkan pesan 
         $data['data'] = Akun::all(); //proses pengambilan semuaa data akun di database
 
