@@ -51,7 +51,6 @@ class AkunController extends Controller
         if ($akun) { //jika datanya ada 
             # code...
             //menset nilai yang baru/update
-            $akun->kode_akun = $request->kode_akun;
             $akun->nama_akun = $request->nama_akun;
             $akun->kode_sub_kat_akun = $request->kode_sub_kat_akun;
             $akun->jenis_akun = $request->jenis_akun;

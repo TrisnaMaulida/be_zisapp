@@ -73,7 +73,6 @@ class DonasiController extends Controller
         if ($donasi) { //jika data yang diambil ada maka akan dieksekusi
             # code...
             //mengupdate nilai 
-            $donasi->no_donasi = $request->no_donasi;
             $donasi->no_bukti = $request->no_bukti;
             $donasi->tgl_donasi = $request->tgl_donasi;
             $donasi->metode = $request->metode;
