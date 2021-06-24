@@ -16,19 +16,12 @@ class CreatePengajuansTable extends Migration
         Schema::create('pengajuans', function (Blueprint $table) {
             $table->increments('id_pengajuan');
             $table->string('no_pengajuan');
-            $table->string('no_disposisi');
-            $table->bigInteger('no_kantor');
-            $table->integer('kode_mustahik');
-            $table->text('kegiatan');
-            $table->decimal('jmlh_pengajuan');
-            $table->date('tgl_realisasi');
-            $table->decimal('jmlh_realisasi');
-            $table->integer('jenis');
-            $table->text('keterangan');
-            $table->text('rekomendasi');
+            $table->integer('id_mustahik');
+            $table->text('pengajuan_kegiatan');
+            $table->decimal('jumlah_pengajuan');
+            $table->integer('jenis_pengajuan');
             $table->integer('asnaf');
-            $table->integer('sumber_dana');
-            $table->integer('status');
+            $table->integer('status_pengajuan');
             $table->timestamps();
         });
     }
