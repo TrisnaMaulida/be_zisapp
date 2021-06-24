@@ -93,6 +93,11 @@ Route::put('donasi/{id}', 'transaksi\DonasiController@update');
 Route::delete('donasi/{id}', 'transaksi\DonasiController@delete');
 
 //Detail Donasi API
-Route::get('detaildonasi', 'transaksi\DetailDonasi@index');
-Route::get('detaildonasi', 'transaksi\DetailDonasi@create');
-Route::get('detaildonasi', 'transaksi\DetailDonasi@delete');
+Route::get('detaildonasi', 'transaksi\DetailDonasiController@index');
+Route::post('detaildonasi', 'transaksi\DetailDonasiController@create');
+Route::delete('detaildonasi', 'transaksi\DetailDonasiController@delete');
+
+//Pengajuan API
+Route::get('pengajuan', 'transaksi\PengajuanController@index');
+Route::post('pengajuan', 'transaksi\PengajuanController@create');
+Route::delete('pengajuan', 'transaksi\PengajuanController@delete');
