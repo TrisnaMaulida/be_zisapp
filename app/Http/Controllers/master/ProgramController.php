@@ -17,17 +17,32 @@ class ProgramController extends Controller
         $data['message'] = "Data Program"; //menampilkan pesan
         $data['data'] = DB::select("SELECT * FROM programs LEFT JOIN akuns ON programs.id_akun = akuns.id_akun 
                                                             LEFT JOIN kass ON programs.id_kas = kass.id_kas
-                                                            LEFT JOIN kategoris ON pragram.id_program = kategoris.id_kategoris"); //perintah menampilkan tiga table (relasi)->relasi antara table program, table akun dan tabel kas
+                                                            LEFT JOIN kategoris ON pragram.id_program = kategoris.id_kategori"); //perintah menampilkan tiga table (relasi)->relasi antara table program, table akun dan tabel kas
         return $data; //menampilkan index
     }
 
     //create program
     public function create(Request $request) //pendeklarasian fungsi create
     {
-        $program = new Program;
-        /* kode_program genaratnya berdasarkan kode_kategori dari table kategori*/
-        $program->kode_program = $request->kode_program;
+        //pilih default id ketika ada kasus belum ada data sama sekali
+        $next_id = "PJN-18000001"; //18 itu tahun
 
+        $max_program = DB::table("programs")->max('kode_program'); //ambil id terbesar > PJN-18000001
+
+        if ($max_program) { //jika sudah ada data genarate id baru
+            # code...
+            $tahun = $request->input('tahun'); //request tahun dari frontend
+            $pecah_dulu = str_split($max_program, 8); //misal "PJN-1800001" hasilnya jadi ["PJN-1800","001"]
+            $pecah_tahun = str_split($pecah_dulu[0], 4);
+            $increment_id = $pecah_dulu[0];
+            $hasil_tahun = $tahun . "00";
+            $result = sprintf("%'.04d", $increment_id + 1);
+
+            $next_id = $pecah_tahun[0] . $hasil_tahun . $result;
+        }
+
+        $program = new Program;
+        $program->kode_program = $next_id;
         $program->nama_program = $request->nama_program; //menset nama_program yang diambil dari request body
         $program->id_kategori = $request->kode_kategori; //menset id_kategori yang diambil dari request body
         $program->id_kas = $request->id_kas; //menset id_kas yang diambil dari request body

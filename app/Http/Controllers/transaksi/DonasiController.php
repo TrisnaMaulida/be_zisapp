@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\transaksi;
 
+use App\DetailDonasi;
 use App\Donasi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,15 +11,19 @@ use Illuminate\Support\Facades\DB;
 class DonasiController extends Controller
 {
     //get donasi
-    public function index() //deklarasi fungsi index
+    public function index($id) //deklarasi fungsi index
     {
         $data['status'] = true; //menampilkan status
-        $data['message'] = "Data Donasi"; //menampilkan pesan
-        $data['data'] = DB::select("SELECT *FROM donasis LEFT JOIN penggunas ON donasis.id_pengguna = penggunas.id_pengguna 
-                                                        LEFT JOIN muzakis ON donasis.id_muzaki = muzakis.id_muzaki
-                                                        LEFT JOIN bank ON donasis.id_bank = bank.id_bank 
-                                                        LEFT JOIN periodes ON donasis.id_periode = periodes.id_periode");
-        //perintah menampilkan lima table (relasi) -> relasi antara table donasis, table penggunas, table muzakis, table bank dan table periodes
+        $data['message'] = "Data Detail Donasi"; //menampilkan pesan
+
+        $data['data'] = DB::select("SELECT * FROM detail_donasis LEFT JOIN donasis ON detail_donasis.id_donasi = donasis.id_donasi 
+                                                        LEFT JOIN programs ON detail_donasis.id_program = programs.id_program
+                                                        LEFT JOIN periodes ON donasis.id_periode = periodes.id_periode
+                                                        LEFT JOIN muzaki ON donasis.id_muzaki = muzakis.id_muzaki
+                                                        LEFT JOIN banks ON donasis.id_bank = banks.id_bank
+                                                        LEFT JOIN penggunas ON penggunas.id_pengguna = donasis.id_pengguna 
+                                                        WHERE detail_donasis.id_donasi = '" . $id . "");
+        //perintah menampilkan enam table (relasi) -> relasi antara table donasis, table penggunas, table muzakis, table bank dan table periodes
         return $data; //menampilkan data relasi yang sudah dibuat
     }
 
@@ -26,17 +31,20 @@ class DonasiController extends Controller
     public function create(Request $request) //pendeklarasian fungsi create
     {
         //pilih default id ketika ada kasus belum ada data sama sekali
-        $next_id = "DNS-18000001";
+        $next_id = "DNS-18000001"; //18 itu tahun
 
-        $max_pengguna = DB::table("donasis")->max('no_donasi'); //ambil id terbesar -> DNS-18000001
+        $max_donasi = DB::table("donasis")->max('no_donasi'); //ambil id terbesar > PJN-18000001
 
-        if ($max_pengguna) { //jika sudah ada data generate id baru
+        if ($max_donasi) { //jika sudah ada data genarate id baru
             # code...
-            $pecah_dulu = str_split($max_pengguna, 8); //misal "DNS-18000001" hasilnya jadi ["DNS-1800", "0001"]
-            $increment_id = $pecah_dulu[1];
+            $tahun = $request->input('tahun'); //request tahun dari frontend
+            $pecah_dulu = str_split($max_donasi, 8); //misal "PJN-1800001" hasilnya jadi ["PJN-1800","001"]
+            $pecah_tahun = str_split($pecah_dulu[0], 4);
+            $increment_id = $pecah_dulu[0];
+            $hasil_tahun = $tahun . "00";
             $result = sprintf("%'.04d", $increment_id + 1);
 
-            $next_id = $pecah_dulu[0] . $result;
+            $next_id = $pecah_tahun[0] . $hasil_tahun . $result;
         }
 
         $donasi = new Donasi; //inisalisasi atau menciptakan objek baru
@@ -51,55 +59,34 @@ class DonasiController extends Controller
         $donasi->id_bank = $request->id_bank; //menset id_bank yang diambil dari request body
         $donasi->id_pengguna = $request->id_pengguna; //menset id_pengguna yang diambil dari request body
 
-        $simpan = $donasi->save(); //menyimpan data pengguna ke database
-        if ($simpan) { //jika penyimpanan berhasil
+        $simpan_donasi = $donasi->save(); //menyimpan data pengguna ke database
+
+        $detaildonasi = new DetailDonasi; //inisialisasi objek
+        $detaildonasi->id_donasi = $request->id_donasi; //menset id_donasi yang diambil dari request body
+        $detaildonasi->id_program = $request->id_program; //menset id_program yang diambil dari request body
+        $detaildonasi->jumlah_donasi = $request->jumlah_donasi; //menset jumlah_donasi yang diambil dari request body
+        $detaildonasi->keterangan = $request->keterangan; //menset keterangan yang diambil dari request body
+        $detaildonasi->status_detaildonasi = $request->status_detaildonasi; //menset status_detaildonasi yang diambil dari request body
+
+        if ($simpan_donasi) { //jika penyimpanan berhasil
             # code...
-            $data['status'] = true;
-            $data['message'] = "Berhasil Menambahkan Donasi";
-            $data['data'] = $donasi;
+            $simpan_detaildonasi = $detaildonasi->save(); //menyimpan data detai donasi ke dataabase
+            if ($simpan_detaildonasi) { //jika penyimpanan berhasil
+                # code...
+                $data['status'] = true;
+                $data['message'] = "Berhasil Menambahkan Detail Donasi";
+                $data['data'] = $detaildonasi;
+            } else { //jika penyimpanan gagal
+                $data['status'] = false;
+                $data['message'] = "Gagal Menambahkan Detail Donasi";
+                $data['data'] = null;
+            }
         } else { //jika penyimpanan gagal
             $data['status'] = false;
             $data['message'] = "Gagal Menambahkan Donasi";
             $data['data'] = null;
         }
         return $data; //menampilkan data yang baru disave/simpan
-    }
-
-    //update donasi
-    public function update(Request $request, $id) //pendeklarasian fungsi update
-    {
-        $donasi = Donasi::find($id); //mengambil data berdasarkan id
-
-        if ($donasi) { //jika data yang diambil ada maka akan dieksekusi
-            # code...
-            //mengupdate nilai 
-            $donasi->no_bukti = $request->no_bukti;
-            $donasi->tgl_donasi = $request->tgl_donasi;
-            $donasi->metode = $request->metode;
-            $donasi->status_donasi = $request->status_donasi;
-            $donasi->id_periode = $request->id_periode;
-            $donasi->id_muzaki = $request->id_muzaki;
-            $donasi->id_bank = $request->id_bank;
-            $donasi->id_pengguna = $request->id_pengguna;
-
-            $data['data'] = $donasi; //menampilkan data donasi
-            $update = $donasi->update(); //menyimpan perubahan data pada database
-            if ($update) { //jika berhasil diupdate
-                # code...
-                $data['status'] = true;
-                $data['message'] = "Berhasil di Update";
-                $data['data'] = $donasi;
-            } else { //jika gagal diupdate
-                $data['status'] = false;
-                $data['message'] = "Gagal di Update";
-                $data['data'] = null;
-            }
-        } else { //jika datanya tidak ada
-            $data['status'] = false;
-            $data['message'] = "Data Tidak Ada";
-            $data['data'] = null;
-        }
-        return $data; //menampilkan data yang berhasil diupdate (berhasil/gagal/tidak ada)
     }
 
     //delete donasi
@@ -109,13 +96,21 @@ class DonasiController extends Controller
 
         if ($donasi) { //mengecek apakah data donasi ada atau tidak
             # code...
-            $delete = $donasi->delete(); //menghapus data donasi
+            $delete_donasi = $donasi->delete(); //menghapus data donasi
 
-            if ($delete) { //jika fungsi hapus berhasil
+            if ($delete_donasi) { //jika fungsi hapus berhasil
                 # code...
-                $data['status'] = true;
-                $data['message'] = "Data Berhasil diHapus";
-                $data['data'] = $donasi;
+                $delete_detaildonasi = DB::table('detail_donasis')->where('id_donasi', $id)->delete(); //menghapus data detail donasi
+                if ($delete_detaildonasi) { //jika fungsi hapus detaildonasi berhasil
+                    # code...
+                    $data['status'] = true;
+                    $data['message'] = "Berhasil Menghapus Detail Donasi";
+                    $data['data'] = $delete_detaildonasi;
+                } else { //jika fungsi hapus detaildonasi gagal
+                    $data['status'] = false;
+                    $data['message'] = "Gagal Menambahkan Detail Donasi";
+                    $data['data'] = null;
+                }
             } else { //jika fungsi hapus gagal
                 $data['status'] = false;
                 $data['message'] = "Data Gagal diHapus";

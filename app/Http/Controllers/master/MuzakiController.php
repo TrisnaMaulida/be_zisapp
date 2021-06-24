@@ -15,7 +15,9 @@ class MuzakiController extends Controller
     {
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Muzaki"; //menampilkan pesan
-        $data['data'] = DB::select("SELECT * FROM muzakis LEFT JOIN kantors ON muzakis.id_kantor = kantors.id_kantor LEFT JOIN penggunas ON muzakis.id_pengguna = Penggunas.id_pengguna"); //perintah menampilkan dua  table (relasi)->relasi antara table muzaki, table pengguna dan tabel kantor
+        $data['data'] = DB::select("SELECT * FROM muzakis LEFT JOIN kantors ON muzakis.id_kantor = kantors.id_kantor 
+                                                            LEFT JOIN penggunas ON muzakis.id_pengguna = Penggunas.id_pengguna");
+        //perintah menampilkan dua  table (relasi)->relasi antara table muzaki, table pengguna dan tabel kantor
 
         return $data; //menampilkan data relasi yang telah dibuat
     }
