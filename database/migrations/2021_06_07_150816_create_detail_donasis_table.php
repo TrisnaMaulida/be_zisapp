@@ -15,12 +15,12 @@ class CreateDetailDonasisTable extends Migration
     {
         Schema::create('detail_donasis', function (Blueprint $table) {
             $table->increments('id_detaildonasi');
-            $table->text('no_donasi');
-            $table->integer('kode_program');
+            $table->text('id_donasi');
+            $table->integer('id_program');
             $table->integer('jumlah_donasi');
             $table->text('keterangan');
-            $table->text('createdby');
-            $table->integer('status');
+            $table->integer('id_pengguna');
+            $table->integer('status_detaildonasi');
             $table->timestamps();
         });
     }
