@@ -16,11 +16,11 @@ class CreateProgramsTable extends Migration
         Schema::create('programs', function (Blueprint $table) {
             $table->increments("id_program");
             $table->integer("kode_program");
-            $table->string("program");
-            $table->integer("kode_kategori");
+            $table->string("nama_program");
+            $table->integer("id_kategori");
             $table->integer("id_kas");
             $table->integer("id_akun");
-            $table->integer("status");
+            $table->integer("status_kategori");
             $table->timestamps();
         });
     }

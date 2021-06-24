@@ -13,7 +13,7 @@ class KategoriController extends Controller
     //get kategori
     public function index() //deklarasi fungsi index
     {
-        $data['status'] = 200; //menampilkan status
+        $data['status'] = true; //menampilkan status
         $data['message'] = "Data Kategori"; //menampilkan pesan
         $data['data'] = DB::select("SELECT * FROM kategoris LEFT JOIN kass ON kategoris.id_kas = kass.id_kas"); //perintah menampilkan dua table (relasi)->relasi antara table kategoris dengan table kass
         return $data; //menampilkan hasil dari proses pengambilan data

@@ -12,7 +12,7 @@ class BankController extends Controller
     //get Bank
     public function index() //deklarasi fungsi index
     {
-        $data['status'] = 200; //menampilkan status
+        $data['status'] = true; //menampilkan status
         $data['message'] = "Data Bank"; //menampilkan pesan
         $data['data'] = DB::select("SELECT * FROM banks LEFT JOIN akuns ON banks.id_akun = akuns.id_akun LEFT JOIN kantors ON banks.id_kantor = kantors.id_kantor"); //perintah menampilkan dua table (relasi)->relasi antara table bank dan table akun
         return $data; //menampilkan hasil dari proses pengambilan data

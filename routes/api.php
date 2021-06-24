@@ -78,6 +78,8 @@ Route::post('program', 'ProgramController@create');
 Route::put('program/{id}', 'ProgramController@update');
 Route::delete('program/{id}', 'ProgramController@delete');
 
+/* Route API Transaksi*/
+
 //Periode API
 Route::get('periode', 'transaksi\PeriodeController@index');
 Route::post('periode', 'transaksi\PeriodeController@create');
@@ -89,3 +91,8 @@ Route::get('donasi', 'transaksi\DonasiController@index');
 Route::post('donasi', 'transaksi\DonasiController@create');
 Route::put('donasi/{id}', 'transaksi\DonasiController@update');
 Route::delete('donasi/{id}', 'transaksi\DonasiController@delete');
+
+//Detail Donasi API
+Route::get('detaildonasi', 'transaksi\DetailDonasi@index');
+Route::get('detaildonasi', 'transaksi\DetailDonasi@create');
+Route::get('detaildonasi', 'transaksi\DetailDonasi@delete');

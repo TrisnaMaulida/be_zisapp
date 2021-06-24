@@ -125,7 +125,6 @@ class PenggunaController extends Controller
         if ($pengguna) { //jika data yang diambil ada maka akan dieksekusi
             # code...
             //menset nilai yang baru/update
-            $pengguna->kode_pengguna = $request->kode_pengguna;
             $pengguna->nama_pengguna = $request->nama_pengguna;
             $pengguna->alamat_pengguna = $request->alamat_pengguna;
             $pengguna->telepon_pengguna = $request->telepon_pengguna;

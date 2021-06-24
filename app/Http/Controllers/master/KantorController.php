@@ -12,7 +12,7 @@ class KantorController extends Controller
     //get Kantor
     public function index() //deklarasi fungsi index
     {
-        $data['status'] = 200; //menampilkan status
+        $data['status'] = true; //menampilkan status
         $data['message'] = "Data Kantor"; //menampilkan pesan
         $data['data'] = Kantor::all(); //fungsi untuk mengambil semua data tabel kantor
 
@@ -68,19 +68,12 @@ class KantorController extends Controller
         $kantor = Kantor::find($id); //mengambil data berdasarkan id
         if ($kantor) {
             # code...
-            //mengambil nilai lama
-            $no_kantor = $request->no_kantor;
-            $nama_kantor = $request->nama_kantor;
-            $alamat_kantor = $request->alamat_kantor;
-            $telepon_kantor = $request->telepon_kantor;
-            $pimpinan = $request->pimpinan;
 
             //menset nilai yang baru/update
-            $kantor->no_kantor = $no_kantor;
-            $kantor->nama_kantor = $nama_kantor;
-            $kantor->alamat_kantor = $alamat_kantor;
-            $kantor->telepon_kantor = $telepon_kantor;
-            $kantor->pimpinan = $pimpinan;
+            $kantor->nama_kantor = $request->nama_kantor;
+            $kantor->alamat_kantor = $request->alamat_kantor;
+            $kantor->telepon_kantor = $request->telepon_kantor;
+            $kantor->pimpinan = $request->pimpinan;
 
             $data['data'] = $kantor; //menampilkan data kantor
             $update = $kantor->update(); //menyimpan perubahan data pada database

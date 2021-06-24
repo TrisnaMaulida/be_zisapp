@@ -11,7 +11,7 @@ class PeriodeController extends Controller
     //get periode
     public function index() //deklarasi fungsi index
     {
-        $data['status'] = 200; //menampilkan status
+        $data['status'] = true; //menampilkan status
         $data['message'] = "Data Periode"; //menampilkan pesan
         $data['data'] = Periode::all(); //fungsi untuk mengambil semua data tabel kantor
 
@@ -44,17 +44,13 @@ class PeriodeController extends Controller
     public function update(Request $request, $id) //deklarasi fungsi update
     {
 
-        $periode =  Periode::find($id);
+        $periode =  Periode::find($id); //mengambil data berdasarkan fungsi
 
         if ($periode) {
             # code...
-            //mengambil nilai lama
-            $nama_periode = $request->nama_periode;
-            $status_periode = $request->status_periode;
-
             //menset nilai yang baru/update
-            $periode->nama_periode = $nama_periode;
-            $periode->status_periode = $status_periode;
+            $periode->nama_periode = $request->nama_periode;
+            $periode->status_periode = $request->status_periode;
 
             $data['data'] = $periode; //menampilkan data periode
             $update = $periode->update(); //menyimpan perubahan data periode ke database

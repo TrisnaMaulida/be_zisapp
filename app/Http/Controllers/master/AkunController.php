@@ -11,7 +11,7 @@ class AkunController extends Controller
     //get akun
     public function index() //deklarasi fungsi index 
     {
-        $data['status'] = 200; //menampilkan status
+        $data['status'] = true; //menampilkan status
         $data['message'] = "Data Akun"; //menampilkan pesan 
         $data['data'] = Akun::all(); //proses pengambilan semuaa data akun di database
 
@@ -51,7 +51,6 @@ class AkunController extends Controller
         if ($akun) { //jika datanya ada 
             # code...
             //menset nilai yang baru/update
-            $akun->kode_akun = $request->kode_akun;
             $akun->nama_akun = $request->nama_akun;
             $akun->kode_sub_kat_akun = $request->kode_sub_kat_akun;
             $akun->jenis_akun = $request->jenis_akun;

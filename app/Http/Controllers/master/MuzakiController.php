@@ -13,7 +13,7 @@ class MuzakiController extends Controller
     //get Muzaki
     public function index() //deklarasi  fungsi index
     {
-        $data['status'] = 200; //menampilkan status
+        $data['status'] = true; //menampilkan status
         $data['message'] = "Data Muzaki"; //menampilkan pesan
         $data['data'] = DB::select("SELECT * FROM muzakis LEFT JOIN kantors ON muzakis.id_kantor = kantors.id_kantor LEFT JOIN penggunas ON muzakis.id_pengguna = Penggunas.id_pengguna"); //perintah menampilkan dua  table (relasi)->relasi antara table muzaki, table pengguna dan tabel kantor
 
@@ -39,6 +39,7 @@ class MuzakiController extends Controller
 
         $muzaki = new Muzaki; //inisialisasi atau menciptakan object baru
         $muzaki->npwz = $next_id; //manggil perintah next_id yang sudah dibuat
+        $muzaki->npwp = $request->npwp; //menset npwp yang diambil dari request body
         $muzaki->nik = $request->nik; //menset nik yang diambil dari request body
         $muzaki->nama_muzaki = $request->nama_muzaki; //menset nama_muzaki yang diambil dari request body
         $muzaki->jk = $request->jk; //menset jk yang diambil dari request body
@@ -70,31 +71,17 @@ class MuzakiController extends Controller
 
         if ($muzaki) { //jika data yang diambil ada maka akan dieksekusi
             # code...
-            //mengambil nilai lama
-            $npwz = $request->npwz;
-            $nik = $request->nik;
-            $nama_muzaki = $request->nama_muzaki;
-            $jk = $request->jk;
-            $alamat_muzaki = $request->alamat_muzaki;
-            $profesi = $request->profesi;
-            $telepon_muzaki = $request->telepon_muzaki;
-            $kategori_muzaki = $request->kategori_muzaki;
-            $status_muzaki = $request->status_muzaki;
-            $id_pengguna = $request->id_pengguna;
-            $id_kantor = $request->id_kantor;
-
             //menset nilai yang baru/update
-            $muzaki->npwz = $npwz;
-            $muzaki->nik = $nik;
-            $muzaki->nama_muzaki = $nama_muzaki;
-            $muzaki->jk = $jk;
-            $muzaki->alamat_muzaki = $alamat_muzaki;
-            $muzaki->profesi = $profesi;
-            $muzaki->telepon_muzaki = $telepon_muzaki;
-            $muzaki->kategori_muzaki = $kategori_muzaki;
-            $muzaki->status_muzaki = $status_muzaki;
-            $muzaki->id_pengguna = $id_pengguna;
-            $muzaki->id_kantor = $id_kantor;
+            $muzaki->nik = $request->nik;
+            $muzaki->nama_muzaki = $$request->nama_muzaki;
+            $muzaki->jk = $$request->jk;
+            $muzaki->alamat_muzaki = $$request->alamat_muzaki;
+            $muzaki->profesi = $$request->profesi;
+            $muzaki->telepon_muzaki = $$request->telepon_muzaki;
+            $muzaki->kategori_muzaki = $$request->kategori_muzaki;
+            $muzaki->status_muzaki = $$request->status_muzaki;
+            $muzaki->id_pengguna = $$request->id_pengguna;
+            $muzaki->id_kantor = $$request->id_kantor;
 
             $data['data'] = $muzaki; //menampilkan data muzaki
             $update = $muzaki->update(); //menyimpan perubahan data pada database 
