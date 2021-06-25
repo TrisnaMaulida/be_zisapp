@@ -108,7 +108,7 @@ class DonasiController extends Controller
                     $data['data'] = $delete_detaildonasi;
                 } else { //jika fungsi hapus detaildonasi gagal
                     $data['status'] = false;
-                    $data['message'] = "Gagal Menambahkan Detail Donasi";
+                    $data['message'] = "Gagal Menghapus Detail Donasi";
                     $data['data'] = null;
                 }
             } else { //jika fungsi hapus gagal
