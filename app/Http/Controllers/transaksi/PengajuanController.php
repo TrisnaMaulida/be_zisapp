@@ -4,6 +4,7 @@ namespace App\Http\Controllers\transaksi;
 
 use App\Http\Controllers\Controller;
 use App\Pengajuan;
+use Dotenv\Result\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -41,7 +42,7 @@ class PengajuanController extends Controller
         $pengajuan->pengajuan_kegiatan = $request->pengajuan_kegiatan; //menset pengajuan_kegiatan yang diambil dari request body
         $pengajuan->jumlah_pengajuan = $request->jumlah_pengajuan; //menset jumlah_pengajuan yang diambil dari request body
         $pengajuan->jenis_pengajuan = $request->jenis_pengajuan; //menset jenis_pengajuan yang diambil dari request body
-        $pengajuan->asnaf = $request->asnaf; //menset asnaf yang diambil dari request body
+        $pengajuan->asnaf = $request->asnaf; //menset asnaf yang diambil dari request body 
         $pengajuan->status_pengajuan = 1; //menset status agar otomastis tercreate
 
         $simpan = $pengajuan->save(); //menyimpan data pengajuan ke databse
@@ -56,6 +57,37 @@ class PengajuanController extends Controller
             $data['data'] = null;
         }
         return $data;  //menampilka data yang baru disave/simpan
+    }
+
+    //update pengajuan
+    public function update(Request $request, $id) //pendeklarasian fungsi update
+    {
+        $pengajuan = Pengajuan::find($id); //mengambil data berdasarkan id
+
+        if ($pengajuan) { //jika data yang diambil ada maka akan dieksekusi
+            # code...
+            //menset nilai yang baru/update 
+            $pengajuan->tgl_realisasi = $request->tgl_realisasi;
+            $pengajuan->status_pengajuan = $request->status_pengajuan;
+
+            $data['data'] = $pengajuan; //menampilkan data pengajuan
+            $update = $pengajuan->update(); //menyimpan perubahan data pada database
+            if ($update) { //jika berhasil update
+                # code...
+                $data['status'] = true;
+                $data['message'] = "Berhasil diUpdate";
+                $data['data'] = $pengajuan;
+            } else { //jika gagal update
+                $data['status'] = false;
+                $data['message'] = "Gagal diUpdate";
+                $data['data'] = null;
+            }
+        } else { //jika datanya tidak ada
+            $data['status'] = false;
+            $data['message'] = "Data Tidak Ada";
+            $data['data'] = null;
+        }
+        return $data; //menampilkan data yang berhasil diupdate (berhasil/gagal/data tidak ada)
     }
 
     //delete pengajuan
