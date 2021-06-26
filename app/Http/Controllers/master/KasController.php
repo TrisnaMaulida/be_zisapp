@@ -70,11 +70,11 @@ class KasController extends Controller
             $update = $kas->update(); //menyimpan perubahan data pada database
             if ($update) { //jika berhasil update
                 # code...
-                $data['status_mustahik'] = true;
+                $data['status'] = true;
                 $data['message'] = "Data Berhasil di Update";
                 $data['data'] = $kas;
             } else { //jika gagal update
-                $data['status_mustahik'] = false;
+                $data['status'] = false;
                 $data['message'] = "Data Gagal di Update";
                 $data['data'] = null;
             }

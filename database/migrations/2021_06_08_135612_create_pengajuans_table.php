@@ -20,7 +20,9 @@ class CreatePengajuansTable extends Migration
             $table->text('pengajuan_kegiatan');
             $table->decimal('jumlah_pengajuan');
             $table->integer('jenis_pengajuan');
+            $table->date('tgl_realisasi');
             $table->integer('asnaf');
+            $table->integer('sumber_dana');
             $table->integer('status_pengajuan');
             $table->timestamps();
         });
