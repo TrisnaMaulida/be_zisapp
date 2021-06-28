@@ -15,39 +15,39 @@ class ProgramController extends Controller
 
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Program"; //menampilkan pesan
-        $data['data'] = DB::select("SELECT * FROM programs LEFT JOIN akuns ON programs.id_akun = akuns.id_akun 
-                                                            LEFT JOIN kass ON programs.id_kas = kass.id_kas
-                                                            LEFT JOIN kategoris ON pragram.id_program = kategoris.id_kategori"); //perintah menampilkan tiga table (relasi)->relasi antara table program, table akun dan tabel kas
+        $data['data'] = Program::all(); //megambil semua data program
         return $data; //menampilkan index
+    }
+
+    //get pengguna by id
+    public function show($id) //deklarasi fungsi show
+    {
+        $data['status'] = 200; //menampilkan status
+        $data['message'] = "Data Program"; //menampilkan pesan
+        $data['data'] = Program::find($id); //mengambil semua data dari database
+        return $data; //menampilkan data relasi yang telah dibuat
     }
 
     //create program
     public function create(Request $request) //pendeklarasian fungsi create
     {
         //pilih default id ketika ada kasus belum ada data sama sekali
-        $next_id = "PJN-18000001"; //18 itu tahun
+        $next_id = "101001";
 
-        $max_program = DB::table("programs")->max('kode_program'); //ambil id terbesar > PJN-18000001
+        $max_program = DB::table("programs")->max('kode_program'); // ambil id terbesar > 101001
 
-        if ($max_program) { //jika sudah ada data genarate id baru
-            # code...
-            $tahun = $request->input('tahun'); //request tahun dari frontend
-            $pecah_dulu = str_split($max_program, 8); //misal "PJN-1800001" hasilnya jadi ["PJN-1800","001"]
-            $pecah_tahun = str_split($pecah_dulu[0], 4);
-            $increment_id = $pecah_dulu[0];
-            $hasil_tahun = $tahun . "00";
-            $result = sprintf("%'.04d", $increment_id + 1);
+        if ($max_program) { // jika sudah ada data generate id baru 
 
-            $next_id = $pecah_tahun[0] . $hasil_tahun . $result;
+            $pecah_dulu = str_split($max_program, 3); // misal "101001" hasilnya jadi ["101","001"]
+            $increment_id = $pecah_dulu[1];
+            $result = sprintf("%'.03d", $increment_id + 1);
+
+            $next_id = $pecah_dulu[0] . $result;
         }
 
         $program = new Program;
         $program->kode_program = $next_id;
         $program->nama_program = $request->nama_program; //menset nama_program yang diambil dari request body
-        $program->id_kategori = $request->kode_kategori; //menset id_kategori yang diambil dari request body
-        $program->id_kas = $request->id_kas; //menset id_kas yang diambil dari request body
-        $program->id_akun = $request->id_akun; //menset id_akun yang diambil dari request body
-        $program->status_program = $request->status_program; //menset status_program yang diambil dari request body
 
         $simpan = $program->save(); //menyimpan data program ke database
         if ($simpan) { //jika penyimpanan berhasil
@@ -73,12 +73,7 @@ class ProgramController extends Controller
             # code...
             //menset nilai yang baru/update
             $program->nama_program = $request->nama_program;
-            $program->id_kategori = $request->id_kategori;
-            $program->id_kas = $request->id_kas;
-            $program->id_akun = $request->id_akun;
-            $program->status_program = $request->status_program;
 
-            $data['data'] = $program; //menampilkan data program
             $update = $program->update(); //menyimpan perubahan data pada database 
             if ($update) { //jika berhasil update
                 # code...

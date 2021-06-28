@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 /* Route API Master*/
 //Pengguna API
 Route::post('login', 'master\PenggunaController@login');
-Route::post('register', 'master\PenggunaController@register');
+Route::get('pengguna/{id}', 'master\PenggunaController@show');
 Route::get('pengguna', 'master\PenggunaController@index');
 Route::post('pengguna', 'master\PenggunaController@create');
 Route::put('pengguna/{id}', 'master\PenggunaController@update');
@@ -32,6 +32,7 @@ Route::delete('pengguna/{id}', 'master\PenggunaController@delete');
 
 //Muzaki API
 Route::get('muzaki', 'master\MuzakiController@index');
+Route::get('muzaki/{id}', 'master\MuzakiController@show');
 Route::post('muzaki', 'master\MuzakiController@create');
 Route::put('muzaki/{id}', 'master\MuzakiController@update');
 Route::delete('muzaki/{id}', 'master\MuzakiController@delete');
@@ -39,20 +40,28 @@ Route::delete('muzaki/{id}', 'master\MuzakiController@delete');
 //Mustahik API
 Route::get('mustahik', 'master\MustahikController@index');
 Route::post('mustahik', 'master\MustahikController@create');
+Route::get('mustahik/{id}', 'master\MustahikController@show');
 Route::put('mustahik/{id}', 'master\MustahikController@update');
 Route::delete('mustahik/{id}', 'master\MustahikController@delete');
-
-//Kantor API
-Route::get('kantor', 'master\KantorController@index');
-Route::post('kantor', 'master\KantorController@create');
-Route::put('kantor/{id}', 'master\KantorController@update');
-Route::delete('kantor/{id}', 'master\KantorController@delete');
 
 //Bank API
 Route::get('bank', 'master\BankController@index');
 Route::post('bank', 'master\BankController@create');
 Route::put('bank/{id}', 'master\BankController@update');
 Route::delete('bank/{id}', 'master\BankController@delete');
+
+//Program API
+Route::get('program', 'master\ProgramController@index');
+Route::post('program', 'master\ProgramController@create');
+Route::post('program/{id}', 'master\ProgramController@show');
+Route::put('program/{id}', 'master\ProgramController@update');
+Route::delete('program/{id}', 'master\ProgramController@delete');
+
+//Kantor API
+Route::get('kantor', 'master\KantorController@index');
+Route::post('kantor', 'master\KantorController@create');
+Route::put('kantor/{id}', 'master\KantorController@update');
+Route::delete('kantor/{id}', 'master\KantorController@delete');
 
 //Akun API
 Route::get('akun', 'master\AkunController@index');
@@ -72,11 +81,6 @@ Route::post('kaategori', 'master\KategoriController@create');
 Route::put('kategori/{id}', 'master\KategoriController@update');
 Route::delete('kategori/{id}', 'master\KategoriController@delete');
 
-//Program API
-Route::get('program', 'ProgramController@index');
-Route::post('program', 'ProgramController@create');
-Route::put('program/{id}', 'ProgramController@update');
-Route::delete('program/{id}', 'ProgramController@delete');
 
 /* Route API Transaksi*/
 

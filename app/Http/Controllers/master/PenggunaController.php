@@ -38,7 +38,7 @@ class PenggunaController extends Controller
                 'username' => $request->input('username'),
                 'password' => $request->input('password'),
             ];
-            $data['message'] = "Login Gagal";
+            $data['message'] = "Username atau Password Kosong";
             $data['data'] = null;
             $data['status'] = false;
 
@@ -54,7 +54,7 @@ class PenggunaController extends Controller
 
                 return $data;
             } else { //validasi berhasil dan login gagal
-                $data['message'] = "Login Gagal";
+                $data['message'] = "Username dan Password Salah";
                 $data['data'] = null;
                 $data['status'] = false;
 
@@ -69,7 +69,16 @@ class PenggunaController extends Controller
     {
         $data['status'] = 200; //menampilkan status
         $data['message'] = "Data Pengguna"; //menampilkan pesan
-        $data['data'] = DB::select("SELECT * FROM penggunas LEFT JOIN kantors ON penggunas.id_kantor = kantors.id_kantor"); //perintah menampilkan dua  table (relasi)->relasi antara table pengguna dan tabel kantor
+        $data['data'] = Pengguna::all(); //mengambil semua data dari database
+        return $data; //menampilkan data relasi yang telah dibuat
+    }
+
+    //get pengguna by id
+    public function show($id) //deklarasi fungsi show
+    {
+        $data['status'] = 200; //menampilkan status
+        $data['message'] = "Data Pengguna"; //menampilkan pesan
+        $data['data'] = Pengguna::find($id); //mengambil semua data dari database
         return $data; //menampilkan data relasi yang telah dibuat
     }
 
@@ -100,7 +109,6 @@ class PenggunaController extends Controller
         $pengguna->username = $request->username; //menset username yang diambil dari request body
         $pengguna->password = $request->password; //menset password yang diambil dari request body
         $pengguna->status_pengguna = 1; //agar status langsung ter-create 
-        $pengguna->id_kantor = $request->id_kantor; //menset id_kantor yang diambil dari request body
 
         $simpan = $pengguna->save(); //menyimpan data pengguna ke database
         if ($simpan) { //jika penyimpanan berhasil
@@ -128,11 +136,10 @@ class PenggunaController extends Controller
             $pengguna->nama_pengguna = $request->nama_pengguna;
             $pengguna->alamat_pengguna = $request->alamat_pengguna;
             $pengguna->telepon_pengguna = $request->telepon_pengguna;
-            $pengguna->leveluser = $request->leveleuser;
+            $pengguna->leveluser = $request->leveluser;
             $pengguna->username = $request->username;
             $pengguna->password = $request->password;
             $pengguna->status_pengguna = $request->status_pengguna;
-            $pengguna->id_kantor = $request->id_kantor;
 
             $data['data'] = $pengguna; //menampilkan data pengguna
             $update = $pengguna->update(); //menyimpan perubahan data pada database
