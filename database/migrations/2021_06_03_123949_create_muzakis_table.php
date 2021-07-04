@@ -16,7 +16,7 @@ class CreateMuzakisTable extends Migration
         Schema::create('muzakis', function (Blueprint $table) {
             $table->increments('id_muzaki');
             $table->integer('npwp');
-            $table->integer('npwz');
+            $table->integer('npwz'); //generate otomatis (1011110001)
             $table->integer('nik');
             $table->string('nama_muzaki');
             $table->integer('jk');
@@ -25,8 +25,7 @@ class CreateMuzakisTable extends Migration
             $table->bigInteger('telepon_muzaki');
             $table->integer('kategori_muzaki');
             $table->integer('status_muzaki');
-            $table->integer('id_pengguna');
-            $table->integer('id_kantor');
+            $table->integer('id_pengguna'); //buat mengambil data pengguna
             $table->timestamps();
         });
     }

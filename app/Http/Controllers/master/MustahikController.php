@@ -14,7 +14,16 @@ class MustahikController extends Controller
     {
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Pengguna"; //menampilkan pesan
-        $data['data'] = DB::select("SELECT * FROM mustahiks LEFT JOIN kantors ON mustahiks.id_kantor = kantors.id_kantor"); //perintah menampilkan dua  table (relasi)->relasi antara table mustahik dan tabel kantor
+        $data['data'] = Mustahik::all(); //mengambil semua data
+        return $data; //menampilkan data 
+    }
+
+    //get pengguna by id
+    public function show($id) //deklarasi fungsi show
+    {
+        $data['status'] = 200; //menampilkan status
+        $data['message'] = "Data Mustahik"; //menampilkan pesan
+        $data['data'] = Mustahik::find($id); //mengambil semua data dari database
         return $data; //menampilkan data relasi yang telah dibuat
     }
 
@@ -43,7 +52,6 @@ class MustahikController extends Controller
         $mustahik->telepon_mustahik = $request->telepon_mustahik; //menset telepon yang diambil dari request body
         $mustahik->kategori_mustahik = $request->kategori_mustahik; //menset kategori_mustahik yang diambil dari request body
         $mustahik->status_mustahik = 1; //agar status langsung ter-create 
-        $mustahik->id_kantor = $request->id_kantor; //menset id_kantor yang diambil dari request body
 
         $simpan = $mustahik->save(); //menyimpan data mustahik ke database
         if ($simpan) { //jika penyimpanan berhasil
@@ -74,7 +82,6 @@ class MustahikController extends Controller
             $mustahik->telepon_mustahik = $request->telepon_mustahik;
             $mustahik->kategori_mustahik = $request->kategori_mustahik;
             $mustahik->status_mustahik = $request->status_mustahik;
-            $mustahik->id_kantor = $request->id_kantor;
 
             $data['data'] = $mustahik; //menampilkan data mustahik
             $update = $mustahik->update(); //menyimpan perubahan data pada database

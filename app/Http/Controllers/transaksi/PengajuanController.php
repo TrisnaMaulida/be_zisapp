@@ -15,7 +15,7 @@ class PengajuanController extends Controller
     {
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Pengajuan"; //menampilkan pesan
-        $data['data'] = DB::select("SELECT *FROM pengajuans LEFT JOIN mustahiks ON pengajuans.id_mustahiks = mustahiks.id_mustahiks"); //menampilkan relasi table antara table pengajuans dan table mustahiks
+        $data['data'] = DB::select("SELECT *FROM pengajuans LEFT JOIN mustahiks ON pengajuans.id_mustahik = mustahiks.id_mustahik"); //menampilkan relasi table antara table pengajuans dan table mustahiks
         return $data; //menampilkan data relasi yang sudah dibuat
     }
 
@@ -43,7 +43,7 @@ class PengajuanController extends Controller
         $pengajuan->jumlah_pengajuan = $request->jumlah_pengajuan; //menset jumlah_pengajuan yang diambil dari request body
         $pengajuan->jenis_pengajuan = $request->jenis_pengajuan; //menset jenis_pengajuan yang diambil dari request body
         $pengajuan->asnaf = $request->asnaf; //menset asnaf yang diambil dari request body 
-        $pengajuan->status_pengajuan = 1; //menset status agar otomastis tercreate
+        $pengajuan->status_pengajuan = 1; //menset status agar otomastis tercreate (itu langsung tercreate "proses")
 
         $simpan = $pengajuan->save(); //menyimpan data pengajuan ke databse
         if ($simpan) { //jika penyimpanan berhasil
@@ -67,6 +67,7 @@ class PengajuanController extends Controller
         if ($pengajuan) { //jika data yang diambil ada maka akan dieksekusi
             # code...
             //menset nilai yang baru/update 
+            $pengajuan->jumlah_realisasi = $request->jumlah_realisasi;
             $pengajuan->tgl_realisasi = $request->tgl_realisasi;
             $pengajuan->status_pengajuan = $request->status_pengajuan;
 

@@ -15,7 +15,7 @@ class CreatePenggunasTable extends Migration
     {
         Schema::create('penggunas', function (Blueprint $table) {
             $table->increments('id_pengguna');
-            $table->text('kode_pengguna');
+            $table->text('kode_pengguna'); //nanti generate otomatis (LZAI180001) 
             $table->string('nama_pengguna');
             $table->string('alamat_pengguna');
             $table->bigInteger('telepon_pengguna');
@@ -23,7 +23,6 @@ class CreatePenggunasTable extends Migration
             $table->string('username');
             $table->string('password');
             $table->integer('status_pengguna');
-            $table->integer('id_kantor');
             $table->timestamps();
         });
     }

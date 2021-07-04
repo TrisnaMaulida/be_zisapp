@@ -14,7 +14,7 @@ class BankController extends Controller
     {
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Bank"; //menampilkan pesan
-        $data['data'] = DB::select("SELECT * FROM banks LEFT JOIN akuns ON banks.id_akun = akuns.id_akun LEFT JOIN kantors ON banks.id_kantor = kantors.id_kantor"); //perintah menampilkan dua table (relasi)->relasi antara table bank dan table akun
+        $data['data'] = Bank::all(); //mengambil semua data bank
         return $data; //menampilkan hasil dari proses pengambilan data
     }
 
@@ -25,10 +25,7 @@ class BankController extends Controller
         $bank = new Bank;  //inisialisasi atau menciptakan object baru
         $bank->no_rek = $request->no_rek; //menset no_rek yang diambil dari request body
         $bank->nama_bank = $request->nama_bank; //menset nama_bank yang diambil dari request body
-        $bank->id_akun = $request->id_akun; //menset id_akun yang diambil dari request body
-        $bank->id_kantor = $request->id_kantor; //menset id_akun yang diambil dari request body
 
-        $bank->save(); //perintah menyimpan data "bank" ke database
 
         $simpan = $bank->save(); //menyimpan data pengguna ke database
         if ($simpan) { //jika penyimpanan berhasil
@@ -55,8 +52,6 @@ class BankController extends Controller
             //menset nilai yang baru/update
             $bank->no_rek = $request->no_rek;
             $bank->nama_bank = $request->nama_bank;
-            $bank->id_akun = $request->id_akun;
-            $bank->id_kantor = $request->id_kantor;
 
             $data['data'] = $bank; //menampilkan data bank
             $update = $bank->update(); //menyimpan perubahan data pada database
