@@ -18,11 +18,10 @@ class DonasiController extends Controller
 
         $data['data'] = DB::select("SELECT * FROM detail_donasis LEFT JOIN donasis ON detail_donasis.id_donasi = donasis.id_donasi 
                                                         LEFT JOIN programs ON detail_donasis.id_program = programs.id_program
-                                                        LEFT JOIN periodes ON donasis.id_periode = periodes.id_periode
-                                                        LEFT JOIN muzaki ON donasis.id_muzaki = muzakis.id_muzaki
+                                                        LEFT JOIN muzakis ON donasis.id_muzaki = muzakis.id_muzaki
                                                         LEFT JOIN banks ON donasis.id_bank = banks.id_bank
                                                         LEFT JOIN penggunas ON penggunas.id_pengguna = donasis.id_pengguna 
-                                                        WHERE detail_donasis.id_donasi = '" . $id . "");
+                                                        /*WHERE detail_donasis.id_donasi = '" . $id . "*/ ");
         //perintah menampilkan enam table (relasi) -> relasi antara table donasis, table penggunas, table muzakis, table bank dan table periodes
         return $data; //menampilkan data relasi yang sudah dibuat
     }
@@ -33,12 +32,12 @@ class DonasiController extends Controller
         //pilih default id ketika ada kasus belum ada data sama sekali
         $next_id = "DNS-18000001"; //18 itu tahun
 
-        $max_donasi = DB::table("donasis")->max('no_donasi'); //ambil id terbesar > PJN-18000001
+        $max_donasi = DB::table("donasis")->max('no_donasi'); //ambil id terbesar > DNS-18000001
 
         if ($max_donasi) { //jika sudah ada data genarate id baru
             # code...
             $tahun = $request->input('tahun'); //request tahun dari frontend
-            $pecah_dulu = str_split($max_donasi, 8); //misal "PJN-1800001" hasilnya jadi ["PJN-1800","001"]
+            $pecah_dulu = str_split($max_donasi, 8); //misal "DNS-1800001" hasilnya jadi ["DNS-1800","0001"]
             $pecah_tahun = str_split($pecah_dulu[0], 4);
             $increment_id = $pecah_dulu[0];
             $hasil_tahun = $tahun . "00";
@@ -54,7 +53,6 @@ class DonasiController extends Controller
         $donasi->total_donasi = $request->total_donasi; //menset total_donasi yang diambil dari request body
         $donasi->metode = $request->metode; //menset metode yang diambil dari request body
         $donasi->status_donasi = 1; //agar status langsung ter-create
-        $donasi->id_periode = $request->id_periode; //menset id_periode yang diambil dari request body
         $donasi->id_muzaki = $request->id_muzaki; //menset id_muzaki yang diambil dari request body
         $donasi->id_bank = $request->id_bank; //menset id_bank yang diambil dari request body
         $donasi->id_pengguna = $request->id_pengguna; //menset id_pengguna yang diambil dari request body
@@ -66,7 +64,6 @@ class DonasiController extends Controller
         $detaildonasi->id_program = $request->id_program; //menset id_program yang diambil dari request body
         $detaildonasi->jumlah_donasi = $request->jumlah_donasi; //menset jumlah_donasi yang diambil dari request body
         $detaildonasi->keterangan = $request->keterangan; //menset keterangan yang diambil dari request body
-        $detaildonasi->status_detaildonasi = $request->status_detaildonasi; //menset status_detaildonasi yang diambil dari request body
 
         if ($simpan_donasi) { //jika penyimpanan berhasil
             # code...

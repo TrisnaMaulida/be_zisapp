@@ -91,7 +91,7 @@ Route::put('periode/{id}', 'transaksi\PeriodeController@update');
 Route::delete('periode/{id}', 'transaksi\PeriodeController@delete');
 
 //Donasi API
-Route::get('donasi', 'transaksi\DonasiController@index');
+Route::get('donasi/{id}', 'transaksi\DonasiController@index');
 Route::post('donasi', 'transaksi\DonasiController@create');
 Route::put('donasi/{id}', 'transaksi\DonasiController@update');
 Route::delete('donasi/{id}', 'transaksi\DonasiController@delete');
@@ -99,4 +99,5 @@ Route::delete('donasi/{id}', 'transaksi\DonasiController@delete');
 //Pengajuan API
 Route::get('pengajuan', 'transaksi\PengajuanController@index');
 Route::post('pengajuan', 'transaksi\PengajuanController@create');
+Route::put('pengajuan/{id}', 'transaksi\PengajuanController@update');
 Route::delete('pengajuan', 'transaksi\PengajuanController@delete');
