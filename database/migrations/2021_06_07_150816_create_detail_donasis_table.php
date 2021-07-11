@@ -14,7 +14,7 @@ class CreateDetailDonasisTable extends Migration
     public function up()
     {
         Schema::create('detail_donasis', function (Blueprint $table) {
-            $table->increments('id_detaildonasi');
+            $table->increments('id_detaildonasi', 16);
             $table->integer('id_donasi');
             $table->integer('id_program');
             $table->integer('jumlah_donasi');
