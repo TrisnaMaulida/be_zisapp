@@ -71,20 +71,25 @@ class DonasiController extends Controller
         if ($simpan_donasi) { //jika penyimpanan berhasil
             # code...
             $detail = $request->detail_donasi;
+            $final_data =[];
             foreach ($detail as $item) {
-                $detaildonasi = new DetailDonasi; //inisialisasi objek
-                $detaildonasi->id_donasi = $id_donasi; //menset id_donasi yang diambil dari request body
-                $detaildonasi->id_program = $item->id_program; //menset id_program yang diambil dari request body
-                $detaildonasi->jumlah_donasi = $item->jumlah_donasi; //menset jumlah_donasi yang diambil dari request body
-                $detaildonasi->keterangan = $item->keterangan; //menset keterangan yang diambil dari request body
+                //push data ke array
+                array_push($final_data,array(
+
+                "id_donasi" => $id_donasi, //menset id_donasi yang diambil dari request body
+                "id_program" => $item->id_program, //menset id_program yang diambil dari request body
+                "jumlah_donasi" => $item->jumlah_donasi, //menset jumlah_donasi yang diambil dari request body
+                "keterangan" => $item->keterangan, //menset keterangan yang diambil dari request body
+                ));
+               
             }
 
-            $simpan_detaildonasi = $detaildonasi->save(); //menyimpan data detai donasi ke dataabase
+            $simpan_detaildonasi = DetailDonasi::insert($final_data); //menyimpan data detai donasi ke dataabase
             if ($simpan_detaildonasi) { //jika penyimpanan berhasil
                 # code...
                 $data['status'] = true;
                 $data['message'] = "Berhasil Menambahkan Detail Donasi";
-                $data['data'] = $detaildonasi;
+                $data['data'] = $simpan_detaildonasi;
             } else { //jika penyimpanan gagal
                 $data['status'] = false;
                 $data['message'] = "Gagal Menambahkan Detail Donasi";
