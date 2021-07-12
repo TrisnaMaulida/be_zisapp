@@ -5,8 +5,11 @@ namespace App\Http\Controllers\transaksi;
 use App\DetailDonasi;
 use App\Donasi;
 use App\Http\Controllers\Controller;
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 class DonasiController extends Controller
 {
@@ -29,6 +32,9 @@ class DonasiController extends Controller
     //create donasi
     public function create(Request $request) //pendeklarasian fungsi create
     {
+        //buat id donasi berdasarkan datetime
+        $date = new DateTime();
+        $id_donasi = $date->getTimestamp();
         //pilih default id ketika ada kasus belum ada data sama sekali
         $next_id = "DNS-18000001"; //18 itu tahun
 
@@ -47,6 +53,7 @@ class DonasiController extends Controller
         }
 
         $donasi = new Donasi; //inisalisasi atau menciptakan objek baru
+        $donasi->id_donasi = $id_donasi;
         $donasi->no_donasi = $next_id; //memanggil perintah next_id yang sudah dibuat
         $donasi->no_bukti = $request->no_bukti; //menset no_bukti yang diambil dari request body
         $donasi->tgl_donasi = $request->tgl_donasi; //menset tgl_donasi yang diambil dari request body
@@ -59,20 +66,30 @@ class DonasiController extends Controller
 
         $simpan_donasi = $donasi->save(); //menyimpan data pengguna ke database
 
-        $detaildonasi = new DetailDonasi; //inisialisasi objek
-        $detaildonasi->id_donasi = $request->id_donasi; //menset id_donasi yang diambil dari request body
-        $detaildonasi->id_program = $request->id_program; //menset id_program yang diambil dari request body
-        $detaildonasi->jumlah_donasi = $request->jumlah_donasi; //menset jumlah_donasi yang diambil dari request body
-        $detaildonasi->keterangan = $request->keterangan; //menset keterangan yang diambil dari request body
+
 
         if ($simpan_donasi) { //jika penyimpanan berhasil
             # code...
-            $simpan_detaildonasi = $detaildonasi->save(); //menyimpan data detai donasi ke dataabase
+            $detail = $request->detail_donasi;
+            $final_data =[];
+            foreach ($detail as $item) {
+                //push data ke array
+                array_push($final_data,array(
+
+                "id_donasi" => $id_donasi, //menset id_donasi yang diambil dari request body
+                "id_program" => $item->id_program, //menset id_program yang diambil dari request body
+                "jumlah_donasi" => $item->jumlah_donasi, //menset jumlah_donasi yang diambil dari request body
+                "keterangan" => $item->keterangan, //menset keterangan yang diambil dari request body
+                ));
+               
+            }
+
+            $simpan_detaildonasi = DetailDonasi::insert($final_data); //menyimpan data detai donasi ke dataabase
             if ($simpan_detaildonasi) { //jika penyimpanan berhasil
                 # code...
                 $data['status'] = true;
                 $data['message'] = "Berhasil Menambahkan Detail Donasi";
-                $data['data'] = $detaildonasi;
+                $data['data'] = $simpan_detaildonasi;
             } else { //jika penyimpanan gagal
                 $data['status'] = false;
                 $data['message'] = "Gagal Menambahkan Detail Donasi";
