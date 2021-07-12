@@ -18,7 +18,7 @@ class CreateDonasisTable extends Migration
             $table->text("no_donasi");
             $table->string("no_bukti");
             $table->date("tgl_donasi");
-            $table->decimal("total_donasi");
+            $table->decimal("total_donasi", $precision = 8, $scale = 2);
             $table->integer("metode");
             $table->integer("status_donasi");
             $table->integer("id_muzaki");
