@@ -32,6 +32,7 @@ class DonasiController extends Controller
     //create donasi
     public function create(Request $request) //pendeklarasian fungsi create
     {
+
         //buat id donasi berdasarkan datetime
         $date = new DateTime();
         $id_donasi = $date->getTimestamp();
@@ -49,7 +50,7 @@ class DonasiController extends Controller
             $hasil_tahun = $tahun . "00";
             $result = sprintf("%'.04d", $increment_id + 1);
 
-            $next_id = $pecah_tahun[0] . $hasil_tahun . $result;
+            $next_id = $pecah_tahun[0]."-". $hasil_tahun . $result;
         }
 
         $donasi = new Donasi; //inisalisasi atau menciptakan objek baru
@@ -77,9 +78,9 @@ class DonasiController extends Controller
                 array_push($final_data,array(
 
                 "id_donasi" => $id_donasi, //menset id_donasi yang diambil dari request body
-                "id_program" => $item->id_program, //menset id_program yang diambil dari request body
-                "jumlah_donasi" => $item->jumlah_donasi, //menset jumlah_donasi yang diambil dari request body
-                "keterangan" => $item->keterangan, //menset keterangan yang diambil dari request body
+                "id_program" => $item["id_program"], //menset id_program yang diambil dari request body
+                "jumlah_donasi" =>$item["jumlah_donasi"], //menset jumlah_donasi yang diambil dari request body
+                "keterangan" =>$item["keterangan"], //menset keterangan yang diambil dari request body
                 ));
                
             }
