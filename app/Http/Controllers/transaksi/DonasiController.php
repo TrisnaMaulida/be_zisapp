@@ -71,17 +71,16 @@ class DonasiController extends Controller
         if ($simpan_donasi) { //jika penyimpanan berhasil
             # code...
             $detail = $request->detail_donasi;
-            $final_data =[];
+            $final_data = [];
             foreach ($detail as $item) {
                 //push data ke array
-                array_push($final_data,array(
+                array_push($final_data, array(
 
-                "id_donasi" => $id_donasi, //menset id_donasi yang diambil dari request body
-                "id_program" => $item->id_program, //menset id_program yang diambil dari request body
-                "jumlah_donasi" => $item->jumlah_donasi, //menset jumlah_donasi yang diambil dari request body
-                "keterangan" => $item->keterangan, //menset keterangan yang diambil dari request body
+                    "id_donasi" => $id_donasi, //menset id_donasi yang diambil dari request body
+                    "id_program" => $item->id_program, //menset id_program yang diambil dari request body
+                    "jumlah_donasi" => $item->jumlah_donasi, //menset jumlah_donasi yang diambil dari request body
+                    "keterangan" => $item->keterangan, //menset keterangan yang diambil dari request body
                 ));
-               
             }
 
             $simpan_detaildonasi = DetailDonasi::insert($final_data); //menyimpan data detai donasi ke dataabase
@@ -136,5 +135,14 @@ class DonasiController extends Controller
             $data['data'] = null;
         }
         return $data; //menampilkan hasil data yang dihapus (berhasil/gagal/tidak ada)
+    }
+
+    //cetak pdf
+    public function cetak_pdf()
+    {
+        $donasi = Donasi::all();
+
+        $pdf = PDF::loadview('donasi', ['donasi' => $donasi]);
+        return $pdf->stream();
     }
 }

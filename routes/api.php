@@ -92,6 +92,7 @@ Route::delete('periode/{id}', 'transaksi\PeriodeController@delete');
 
 //Donasi API
 Route::get('donasi/{id}', 'transaksi\DonasiController@index');
+Route::get('donasi/cetak_pdf', 'transaksi\DonasiController@cetak_pdf');
 Route::post('donasi', 'transaksi\DonasiController@create');
 Route::put('donasi/{id}', 'transaksi\DonasiController@update');
 Route::delete('donasi/{id}', 'transaksi\DonasiController@delete');
