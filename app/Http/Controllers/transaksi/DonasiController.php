@@ -66,8 +66,6 @@ class DonasiController extends Controller
 
         $simpan_donasi = $donasi->save(); //menyimpan data pengguna ke database
 
-
-
         if ($simpan_donasi) { //jika penyimpanan berhasil
             # code...
             $detail = $request->detail_donasi;
@@ -140,7 +138,7 @@ class DonasiController extends Controller
     //cetak pdf
     public function cetak_pdf()
     {
-        $donasi = Donasi::all();
+        $donasi = Donasi::all(); //tapi nanti semua kolomnya kecetak ya mas
 
         $pdf = PDF::loadview('donasi', ['donasi' => $donasi]);
         return $pdf->stream();
