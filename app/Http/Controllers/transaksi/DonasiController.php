@@ -32,7 +32,6 @@ class DonasiController extends Controller
     //create donasi
     public function create(Request $request) //pendeklarasian fungsi create
     {
-
         //buat id donasi berdasarkan datetime
         $date = new DateTime();
         $id_donasi = $date->getTimestamp();
@@ -46,11 +45,11 @@ class DonasiController extends Controller
             $tahun = $request->input('tahun'); //request tahun dari frontend
             $pecah_dulu = str_split($max_donasi, 8); //misal "DNS-1800001" hasilnya jadi ["DNS-1800","0001"]
             $pecah_tahun = str_split($pecah_dulu[0], 4);
-            $increment_id = $pecah_dulu[0];
+            $increment_id = $pecah_dulu[1];
             $hasil_tahun = $tahun . "00";
-            $result = sprintf("%'.04d", $increment_id + 1);
+            $result = sprintf("%'.4d", $increment_id + 1);
 
-            $next_id = $pecah_tahun[0]."-". $hasil_tahun . $result;
+            $next_id = $pecah_tahun[0] . $hasil_tahun . $result;
         }
 
         $donasi = new Donasi; //inisalisasi atau menciptakan objek baru
@@ -67,22 +66,19 @@ class DonasiController extends Controller
 
         $simpan_donasi = $donasi->save(); //menyimpan data pengguna ke database
 
-
-
         if ($simpan_donasi) { //jika penyimpanan berhasil
             # code...
             $detail = $request->detail_donasi;
-            $final_data =[];
+            $final_data = [];
             foreach ($detail as $item) {
                 //push data ke array
-                array_push($final_data,array(
+                array_push($final_data, array(
 
-                "id_donasi" => $id_donasi, //menset id_donasi yang diambil dari request body
-                "id_program" => $item["id_program"], //menset id_program yang diambil dari request body
-                "jumlah_donasi" =>$item["jumlah_donasi"], //menset jumlah_donasi yang diambil dari request body
-                "keterangan" =>$item["keterangan"], //menset keterangan yang diambil dari request body
+                    "id_donasi" => $id_donasi, //menset id_donasi yang diambil dari request body
+                    "id_program" => $item->id_program, //menset id_program yang diambil dari request body
+                    "jumlah_donasi" => $item->jumlah_donasi, //menset jumlah_donasi yang diambil dari request body
+                    "keterangan" => $item->keterangan, //menset keterangan yang diambil dari request body
                 ));
-               
             }
 
             $simpan_detaildonasi = DetailDonasi::insert($final_data); //menyimpan data detai donasi ke dataabase
@@ -137,5 +133,14 @@ class DonasiController extends Controller
             $data['data'] = null;
         }
         return $data; //menampilkan hasil data yang dihapus (berhasil/gagal/tidak ada)
+    }
+
+    //cetak pdf
+    public function cetak_pdf()
+    {
+        $donasi = Donasi::all(); //tapi nanti semua kolomnya kecetak ya mas
+
+        $pdf = PDF::loadview('donasi', ['donasi' => $donasi]);
+        return $pdf->stream();
     }
 }
