@@ -138,7 +138,7 @@ class DonasiController extends Controller
     //cetak pdf
     public function cetak_pdf()
     {
-        $donasi = Donasi::all(); //tapi nanti semua kolomnya kecetak ya mas
+        $donasi = Donasi::all(); //tapi nanti semua kolomnya kecetak ya mas ->ambil data
 
         $pdf = PDF::loadview('donasi', ['donasi' => $donasi]);
         return $pdf->stream();
