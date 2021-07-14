@@ -45,9 +45,9 @@ class DonasiController extends Controller
             $tahun = $request->input('tahun'); //request tahun dari frontend
             $pecah_dulu = str_split($max_donasi, 8); //misal "DNS-1800001" hasilnya jadi ["DNS-1800","0001"]
             $pecah_tahun = str_split($pecah_dulu[0], 4);
-            $increment_id = $pecah_dulu[0];
+            $increment_id = $pecah_dulu[1];
             $hasil_tahun = $tahun . "00";
-            $result = sprintf("%'.04d", $increment_id + 1);
+            $result = sprintf("%'.4d", $increment_id + 1);
 
             $next_id = $pecah_tahun[0] . $hasil_tahun . $result;
         }
