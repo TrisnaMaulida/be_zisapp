@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get('donasi/cetak_pdf', 'transaksi\DonasiController@cetak_pdf')->name('cetak');
