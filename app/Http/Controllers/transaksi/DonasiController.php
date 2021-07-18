@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\VarDumper\Cloner\Data;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class DonasiController extends Controller
 {
@@ -136,11 +137,15 @@ class DonasiController extends Controller
     }
 
     //cetak pdf
-    public function cetak_pdf()
+    public function cetak_pdf(Request $request)
     {
-        $donasi = Donasi::all(); //tapi nanti semua kolomnya kecetak ya mas ->ambil data
+        $donasi = Donasi::select("SELECT *FROM donasis where created_at 
+                    BETWEN tgl_dari='" . $request->input("tgl_dari") . "' 
+                    AND tgl_sampai='" . $request->input("tgl_sampai") . "'
+                    "); //menampilkan data bersarkan tanggal (dari sampai)
 
-        $pdf = PDF::loadview('donasi', ['donasi' => $donasi]);
+        //perintah cetak pdf
+        $pdf = PDF::loadview('index')->setPaper('A4', 'potrait');
         return $pdf->stream();
     }
 }
