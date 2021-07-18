@@ -44,21 +44,25 @@ class PenggunaController extends Controller
 
             return $data;
         } else { //jika validasi berhasil
-            $pengguna = DB::select("SELECT * FROM penggunas WHERE username='" . $request->input("username") . "' 
-            AND password='" . $request->input("password") . "'");
+            $pengguna = DB::select("SELECT * FROM penggunas WHERE username='" . $request->input("username") . "' ");
 
-            if ($pengguna) { //validasi berhasil dan login berhasil
-                $data['message'] = "Login Berhasil";
-                $data['data'] = $pengguna;
-                $data['status'] = true;
+            if ($pengguna) { //validasi 
+                $password  = $pengguna[0]->password;
 
-                return $data;
-            } else { //validasi berhasil dan login gagal
-                $data['message'] = "Username dan Password Salah";
-                $data['data'] = null;
-                $data['status'] = false;
+                if (Hash::make($request->input("password") . $password)) {
+                    //login berhasil
+                    $data['message'] = "Login Berhasil";
+                    $data['data'] = $pengguna;
+                    $data['status'] = true;
 
-                return $data;
+                    return $data;
+                } else { //validasi berhasil dan login gagal
+                    $data['message'] = "Username dan Password Salah";
+                    $data['data'] = Hash::make($request->input("password"));
+                    $data['status'] = false;
+
+                    return $data;
+                }
             }
         }
     }
@@ -107,7 +111,7 @@ class PenggunaController extends Controller
         $pengguna->telepon_pengguna = $request->telepon_pengguna; //menset telepon_pengguna yang diambil dari request body
         $pengguna->leveluser = $request->leveluser; //menset leveluser yang diambil dari request body
         $pengguna->username = $request->username; //menset username yang diambil dari request body
-        $pengguna->password = Hash::make('$request->password'); //mengenkripsi password
+        $pengguna->password = Hash::make($request->password); //mengenkripsi password
         $pengguna->status_pengguna = 1; //agar status langsung ter-create 
 
         $simpan = $pengguna->save(); //menyimpan data pengguna ke database
