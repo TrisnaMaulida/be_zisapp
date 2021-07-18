@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Hash;
 
 class PenggunaController extends Controller
 {
@@ -107,7 +107,7 @@ class PenggunaController extends Controller
         $pengguna->telepon_pengguna = $request->telepon_pengguna; //menset telepon_pengguna yang diambil dari request body
         $pengguna->leveluser = $request->leveluser; //menset leveluser yang diambil dari request body
         $pengguna->username = $request->username; //menset username yang diambil dari request body
-        $pengguna->password = $request->password; //menset password yang diambil dari request body
+        $pengguna->password = Hash::make('$request->password'); //mengenkripsi password
         $pengguna->status_pengguna = 1; //agar status langsung ter-create 
 
         $simpan = $pengguna->save(); //menyimpan data pengguna ke database
