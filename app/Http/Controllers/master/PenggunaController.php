@@ -49,7 +49,7 @@ class PenggunaController extends Controller
             if ($pengguna) { //validasi 
                 $password  = $pengguna[0]->password;
 
-                if (Hash::make($request->input("password") . $password)) {
+                if (md5($request->input("password"), $password)) {
                     //login berhasil
                     $data['message'] = "Login Berhasil";
                     $data['data'] = $pengguna;
@@ -58,7 +58,7 @@ class PenggunaController extends Controller
                     return $data;
                 } else { //validasi berhasil dan login gagal
                     $data['message'] = "Username dan Password Salah";
-                    $data['data'] = Hash::make($request->input("password"));
+                    $data['data'] = null;
                     $data['status'] = false;
 
                     return $data;
@@ -111,7 +111,7 @@ class PenggunaController extends Controller
         $pengguna->telepon_pengguna = $request->telepon_pengguna; //menset telepon_pengguna yang diambil dari request body
         $pengguna->leveluser = $request->leveluser; //menset leveluser yang diambil dari request body
         $pengguna->username = $request->username; //menset username yang diambil dari request body
-        $pengguna->password = Hash::make($request->password); //mengenkripsi password
+        $pengguna->password = md5($request->password); //mengenkripsi password
         $pengguna->status_pengguna = 1; //agar status langsung ter-create 
 
         $simpan = $pengguna->save(); //menyimpan data pengguna ke database
@@ -142,7 +142,7 @@ class PenggunaController extends Controller
             $pengguna->telepon_pengguna = $request->telepon_pengguna;
             $pengguna->leveluser = $request->leveluser;
             $pengguna->username = $request->username;
-            $pengguna->password = $request->password;
+            $pengguna->password = md5($request->password);
             $pengguna->status_pengguna = $request->status_pengguna;
 
             $data['data'] = $pengguna; //menampilkan data pengguna
