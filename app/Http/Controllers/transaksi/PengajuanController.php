@@ -4,7 +4,7 @@ namespace App\Http\Controllers\transaksi;
 
 use App\Http\Controllers\Controller;
 use App\Pengajuan;
-use Barryvdh\DomPDF\Facede as PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 use Dotenv\Result\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -136,6 +136,6 @@ class PengajuanController extends Controller
 
         //perintah cetak pdf
         $pdf = PDF::loadview('laporan_pengajuan', ['pengajuan' => $pengajuan])->setPaper('A4', 'potrait');
-        return $pdf->stream;
+        return $pdf->stream();
     }
 }
