@@ -46,10 +46,10 @@ class PenggunaController extends Controller
         } else { //jika validasi berhasil
             $pengguna = DB::select("SELECT * FROM penggunas WHERE username='" . $request->input("username") . "' ");
 
-            if ($pengguna) { //validasi 
+            if ($pengguna) { //validasi
                 $password  = $pengguna[0]->password;
 
-                if (md5($request->input("password"), $password)) {
+                if ($password == md5($request->input("password"))) {
                     //login berhasil
                     $data['message'] = "Login Berhasil";
                     $data['data'] = $pengguna;
@@ -95,7 +95,7 @@ class PenggunaController extends Controller
 
         $max_pengguna = DB::table("penggunas")->max('kode_pengguna'); // ambil id terbesar > LZAIO180001
 
-        if ($max_pengguna) { // jika sudah ada data generate id baru 
+        if ($max_pengguna) { // jika sudah ada data generate id baru
 
             $pecah_dulu = str_split($max_pengguna, 6); // misal "LZAI180000" hasilnya jadi ["LZAI18","0001"]
             $increment_id = $pecah_dulu[1];
@@ -112,7 +112,7 @@ class PenggunaController extends Controller
         $pengguna->leveluser = $request->leveluser; //menset leveluser yang diambil dari request body
         $pengguna->username = $request->username; //menset username yang diambil dari request body
         $pengguna->password = md5($request->password); //mengenkripsi password
-        $pengguna->status_pengguna = 1; //agar status langsung ter-create 
+        $pengguna->status_pengguna = 1; //agar status langsung ter-create
 
         $simpan = $pengguna->save(); //menyimpan data pengguna ke database
         if ($simpan) { //jika penyimpanan berhasil
@@ -147,7 +147,7 @@ class PenggunaController extends Controller
 
             $data['data'] = $pengguna; //menampilkan data pengguna
             $update = $pengguna->update(); //menyimpan perubahan data pada database
-            if ($update) { //jika berhasil update 
+            if ($update) { //jika berhasil update
                 $data['status'] = true;
                 $data['message'] = "Berhasil di Update ";
                 $data['data'] = $pengguna;
