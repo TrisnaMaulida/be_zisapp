@@ -150,12 +150,13 @@ class DonasiController extends Controller
                     JOIN muzakis
                         ON muzakis.id_muzaki = donasis.id_muzaki
                     WHERE donasis.created_at
-                    BETWEEN '".$request->tgl_dari."'
-                        AND '" .$request->tgl_sampai."'");
+                    BETWEEN '" . $request->tgl_dari . "'
+                        AND '" . $request->tgl_sampai . "'"
+        );
 
 
         //perintah cetak pdf
-        $pdf = PDF::loadview('index',['donasi'=>$donasi])->setPaper('A4', 'potrait');
+        $pdf = PDF::loadview('laporan_donasi', ['donasi' => $donasi])->setPaper('A4', 'potrait');
         return $pdf->stream();
     }
 }
