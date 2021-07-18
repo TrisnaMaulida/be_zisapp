@@ -9,17 +9,32 @@
 
 <body>
     <table border="1">
+        <thead>
         <tr>
-            <td>Baris ke 1 - Kolom ke 1</td>
-            <td>Baris ke 1 - Kolom ke 2</td>
+            <th>No</th>
+            <th>Nama Donatur</th>
+            <th>Tanggal</th>
+            <th>Program</th>
+            <th>Jumlah Donasi</th>
         </tr>
+        </thead>
+        <tbody>
+        @php $i=1 @endphp
+        @foreach($donasi as $item)
         <tr>
-            <td>Baris ke 2 - Kolom ke 1</td>
-            <td>Baris ke 2 - Kolom ke 2</td>
+            <td>{{$i++}}</td>
+            <td>{{$item->nama_muzaki}}</td>
+            <td>{{$item->tgl_donasi}}</td>
+            <td>{{$item->nama_program}}</td>
+            <td>{{$item->total_donasi}}</td>
         </tr>
+        @endforeach
+        </tbody>
+
+
     </table>
 
-    <button><a href="{{ route('cetak')}}">Print</a></button>
+    <button><a >Print</a></button>
 </body>
 
 </html>

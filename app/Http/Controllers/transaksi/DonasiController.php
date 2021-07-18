@@ -20,11 +20,11 @@ class DonasiController extends Controller
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Detail Donasi"; //menampilkan pesan
 
-        $data['data'] = DB::select("SELECT * FROM detail_donasis LEFT JOIN donasis ON detail_donasis.id_donasi = donasis.id_donasi 
+        $data['data'] = DB::select("SELECT * FROM detail_donasis LEFT JOIN donasis ON detail_donasis.id_donasi = donasis.id_donasi
                                                         LEFT JOIN programs ON detail_donasis.id_program = programs.id_program
                                                         LEFT JOIN muzakis ON donasis.id_muzaki = muzakis.id_muzaki
                                                         LEFT JOIN banks ON donasis.id_bank = banks.id_bank
-                                                        LEFT JOIN penggunas ON penggunas.id_pengguna = donasis.id_pengguna 
+                                                        LEFT JOIN penggunas ON penggunas.id_pengguna = donasis.id_pengguna
                                                         /*WHERE detail_donasis.id_donasi = '" . $id . "*/ ");
         //perintah menampilkan enam table (relasi) -> relasi antara table donasis, table penggunas, table muzakis, table bank dan table periodes
         return $data; //menampilkan data relasi yang sudah dibuat
@@ -139,13 +139,23 @@ class DonasiController extends Controller
     //cetak pdf
     public function cetak_pdf(Request $request)
     {
-        $donasi = Donasi::select("SELECT *FROM donasis where created_at 
-                    BETWEN tgl_dari='" . $request->input("tgl_dari") . "' 
-                    AND tgl_sampai='" . $request->input("tgl_sampai") . "'
-                    "); //menampilkan data bersarkan tanggal (dari sampai)
+
+        //menampilkan data bersarkan tanggal (dari sampai)
+        $donasi = DB::select(
+            "SELECT * FROM detail_donasis
+                    JOIN donasis
+                        ON donasis.id_donasi = detail_donasis.id_donasi
+                    JOIN programs
+                        ON programs.id_program  = detail_donasis.id_program
+                    JOIN muzakis
+                        ON muzakis.id_muzaki = donasis.id_muzaki
+                    WHERE donasis.created_at
+                    BETWEEN '".$request->tgl_dari."'
+                        AND '" .$request->tgl_sampai."'");
+
 
         //perintah cetak pdf
-        $pdf = PDF::loadview('index')->setPaper('A4', 'potrait');
+        $pdf = PDF::loadview('index',['donasi'=>$donasi])->setPaper('A4', 'potrait');
         return $pdf->stream();
     }
 }

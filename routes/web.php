@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('donasi/cetak_pdf', 'transaksi\DonasiController@cetak_pdf')->name('cetak');
+//Route::get('donasi/cetak_pdf', 'transaksi\DonasiController@cetak_pdf')->name('cetak');
