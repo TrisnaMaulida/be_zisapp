@@ -4,9 +4,11 @@ namespace App\Http\Controllers\transaksi;
 
 use App\Http\Controllers\Controller;
 use App\Pengajuan;
+use Barryvdh\DomPDF\Facede as PDF;
 use Dotenv\Result\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 
 class PengajuanController extends Controller
 {
@@ -116,5 +118,24 @@ class PengajuanController extends Controller
             $data['data'] = null;
         }
         return $data; //menampilkan hasil data yang dihapus (berhasil/gagal/tidak ada data)
+    }
+
+    //cetak pdf
+    public function cetak_pdf(Request $request)
+    {
+
+        //menampilkan data berdasarkan tanggal (dari sampai)
+        $pengajuan = DB::select(
+            "SELECT * FROM pengajuans
+                    JOIN mustahiks
+                        ON mustahiks.id_mustahik = pengajuans.id_mustahik
+                    WHERE pengajuans.created_at
+                    BETWEEN '" . $request->tgl_dari . "'
+                        AND '" . $request->tgl_sampai . "'"
+        );
+
+        //perintah cetak pdf
+        $pdf = PDF::loadview('laporan_pengajuan', ['pengajuan' => $pengajuan])->setPaper('A4', 'potrait');
+        return $pdf->stream;
     }
 }
