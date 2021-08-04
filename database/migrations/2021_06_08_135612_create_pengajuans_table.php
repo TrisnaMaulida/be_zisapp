@@ -18,10 +18,10 @@ class CreatePengajuansTable extends Migration
             $table->string('no_pengajuan'); //PJN-2100(tahun)0001(nomernya)
             $table->integer('id_mustahik');
             $table->text('pengajuan_kegiatan');
-            $table->decimal('jumlah_pengajuan');
+            $table->decimal("jumlah_pengajuan", $precision = 8, $scale = 2);
             $table->integer('jenis_pengajuan'); //konsumtif/produktif
             $table->integer('asnaf');
-            $table->decimal('jumlah_realisasi')->nullable()->change();
+            $table->decimal("jumlah_realisasi", $precision = 8, $scale = 2)->nullable()->change();
             $table->date('tgl_realisasi')->nullable()->change();
             $table->integer('status_pengajuan'); //proses/realisasi/ditolak
             $table->timestamps();
