@@ -22,7 +22,7 @@ class CreateKldonasisTable extends Migration
             $table->integer('npwz');
             $table->integer('kode_program');
             $table->integer('jumlah_donasi');
-            $table->integer('total_donasi');
+            $table->decimal("total_donasi", $precision = 8, $scale = 2);
             $table->integer('metode');
             $table->bigInteger('no_rek');
             $table->integer('status');
