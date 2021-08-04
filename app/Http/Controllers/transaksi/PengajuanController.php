@@ -27,13 +27,13 @@ class PengajuanController extends Controller
         //pilih default id ketika ada kasus belum ada data sama sekali
         $next_id = "PJN-1800001";
 
-        $max_pengguna = DB::table("pengajuans")->max('no_pengajuan'); //ambil id terbesar -> PJN-18000001 
+        $max_pengguna = DB::table("pengajuans")->max('no_pengajuan'); //ambil id terbesar -> PJN-1800001 
 
         if ($max_pengguna) { //jika sudah ada data generate id baru
             # code...
             $pecah_dulu = str_split($max_pengguna, 7); //misal "PJN-1800001" hasilnya jadi ["PJN-1800", "001"]
             $increment_id = $pecah_dulu[1];
-            $result = sprintf("%'.03d", $increment_id + 1);
+            $result = sprintf("%'.04d", $increment_id + 1);
 
             $next_id = $pecah_dulu[0] . $result;
         }
