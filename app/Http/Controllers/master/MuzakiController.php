@@ -48,7 +48,7 @@ class MuzakiController extends Controller
 
         $muzaki = new Muzaki; //inisialisasi atau menciptakan object baru
         $muzaki->npwz = $next_id; //manggil perintah next_id yang sudah dibuat
-        $muzaki->npwp = $request->npwp; //menset npwp yang diambil dari request body
+        //$muzaki->npwp = $request->npwp; //menset npwp yang diambil dari request body
         $muzaki->nik = $request->nik; //menset nik yang diambil dari request body
         $muzaki->nama_muzaki = $request->nama_muzaki; //menset nama_muzaki yang diambil dari request body
         $muzaki->jk = $request->jk; //menset jk yang diambil dari request body
