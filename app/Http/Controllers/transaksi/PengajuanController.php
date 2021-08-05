@@ -21,6 +21,15 @@ class PengajuanController extends Controller
         return $data; //menampilkan data relasi yang sudah dibuat
     }
 
+    //get pengguna by id
+    public function show($id) //deklarasi fungsi show
+    {
+        $data['status'] = 200; //menampilkan status
+        $data['message'] = "Data Pengajuan"; //menampilkan pesan
+        $data['data'] = Pengajuan::find($id); //mengambil semua data dari database
+        return $data; //menampilkan data relasi yang telah dibuat
+    }
+
     //create pengajjuan
     public function create(Request $request) //deklarasi fungsi create
     {
