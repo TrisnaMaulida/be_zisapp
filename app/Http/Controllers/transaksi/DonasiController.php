@@ -11,11 +11,27 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Barryvdh\DomPDF\Facade as PDF;
+use GuzzleHttp\Psr7\FnStream;
 
 class DonasiController extends Controller
 {
     //get donasi
-    public function index($id) //deklarasi fungsi index
+    public function index() //deklarasi fungsi index
+    {
+        $data['status'] = true; //menampilkan status
+        $data['message'] = "Data Detail Donasi"; //menampilkan pesan
+
+        $data['data'] = DB::select("SELECT * FROM detail_donasis LEFT JOIN donasis ON detail_donasis.id_donasi = donasis.id_donasi
+                                                        LEFT JOIN programs ON detail_donasis.id_program = programs.id_program
+                                                        LEFT JOIN muzakis ON donasis.id_muzaki = muzakis.id_muzaki
+                                                        LEFT JOIN banks ON donasis.id_bank = banks.id_bank
+                                                        LEFT JOIN penggunas ON penggunas.id_pengguna = donasis.id_pengguna");
+        //perintah menampilkan enam table (relasi) -> relasi antara table donasis, table penggunas, table muzakis, table bank dan table periodes
+        return $data; //menampilkan data relasi yang sudah dibuat
+    }
+
+    //get donasi by id
+    public function show($id) //deklarasi fungsi show get by id
     {
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Detail Donasi"; //menampilkan pesan
@@ -28,6 +44,7 @@ class DonasiController extends Controller
                                                         /*WHERE detail_donasis.id_donasi = '" . $id . "*/ ");
         //perintah menampilkan enam table (relasi) -> relasi antara table donasis, table penggunas, table muzakis, table bank dan table periodes
         return $data; //menampilkan data relasi yang sudah dibuat
+
     }
 
     //create donasi
@@ -73,7 +90,7 @@ class DonasiController extends Controller
             $final_data = [];
 
             foreach ($detail as $item) {
-                if($item != null){
+                if ($item != null) {
                     array_push($final_data, array(
                         "id_donasi" => $id_donasi, //menset id_donasi yang diambil dari request body
                         "id_program" => $item['id_program'], //menset id_program yang diambil dari request body
@@ -101,6 +118,18 @@ class DonasiController extends Controller
             $data['data'] = null;
         }
         return $data; //menampilkan data yang baru disave/simpan
+    }
+
+    //update donasi (detail donasi)
+    public function update($id) //deklarasi update
+    {
+        $donasi = Donasi::find($id); //mengambil data berdasarkan id
+
+        if ($donasi) { //jika data ada maka data akan dieksekusi
+            # code...
+
+
+        }
     }
 
     //delete donasi
@@ -156,9 +185,27 @@ class DonasiController extends Controller
                         AND '" . $request->tgl_sampai . "'"
         );
 
-
         //perintah cetak pdf
         $pdf = PDF::loadview('laporan_donasi', ['donasi' => $donasi])->setPaper('A4', 'potrait');
+        return $pdf->stream();
+    }
+
+    //cetak tanda bukti
+    public function cetak_tanda(Request $request)
+    {
+        //menampilkan hasil donasi
+        $donasi = DB::select(
+            "SELECT * FROM detail_donasis
+                    JOIN donasis
+                        ON donasis.id_donasi = detail_donasis.id_donasi
+                    JOIN programs
+                        ON programs.id_program  = detail_donasis.id_program
+                    JOIN muzakis
+                        ON muzakis.id_muzaki = donasis.id_muzaki"
+        );
+
+        //perintah cetak pdf
+        $pdf = PDF::loadview('tandaterima', ['donasi' => $donasi])->setPaper('A4', 'potrait');
         return $pdf->stream();
     }
 }
