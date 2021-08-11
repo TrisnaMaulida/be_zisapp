@@ -36,19 +36,6 @@
             margin-top: 10px;
         }
     </style>
-
-    <!-- Call JQuery Library -->
-    <script src="../bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
-
-    <!-- Call DataTables Library -->
-    <script src="../bower_components/PrintArea/demo/jquery-1.10.2.js" type="text/JavaScript" language="javascript"></script>
-    <script src="../bower_components/PrintArea/demo/jquery-ui-1.10.4.custom.js"></script>
-    <script src="../bower_components/PrintArea/demo/jquery.PrintArea.js" type="text/javascript"></script>
-
-    <!-- Data Tables CSS -->
-    <link rel="stylesheet" type="text/css" href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-    <!-- <link rel="stylesheet" type="text/css" href="../bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="../bower_components/chosen/chosen.min.css"> -->
 </head>
 
 <body>
