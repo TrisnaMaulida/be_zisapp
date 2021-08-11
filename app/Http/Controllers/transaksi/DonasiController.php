@@ -21,12 +21,7 @@ class DonasiController extends Controller
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Detail Donasi"; //menampilkan pesan
 
-        $data['data'] = DB::select("SELECT * FROM detail_donasis LEFT JOIN donasis ON detail_donasis.id_donasi = donasis.id_donasi
-                                                        LEFT JOIN programs ON detail_donasis.id_program = programs.id_program
-                                                        LEFT JOIN muzakis ON donasis.id_muzaki = muzakis.id_muzaki
-                                                        LEFT JOIN banks ON donasis.id_bank = banks.id_bank
-                                                        LEFT JOIN penggunas ON penggunas.id_pengguna = donasis.id_pengguna");
-        //perintah menampilkan enam table (relasi) -> relasi antara table donasis, table penggunas, table muzakis, table bank dan table periodes
+        $data['data'] = Donasi::all(); //mengambil semua data donasi
         return $data; //menampilkan data relasi yang sudah dibuat
     }
 
@@ -41,7 +36,7 @@ class DonasiController extends Controller
                                                         LEFT JOIN muzakis ON donasis.id_muzaki = muzakis.id_muzaki
                                                         LEFT JOIN banks ON donasis.id_bank = banks.id_bank
                                                         LEFT JOIN penggunas ON penggunas.id_pengguna = donasis.id_pengguna
-                                                        /*WHERE detail_donasis.id_donasi = '" . $id . "*/ ");
+                                                        WHERE detail_donasis.id_donasi = '" . $id . " ");
         //perintah menampilkan enam table (relasi) -> relasi antara table donasis, table penggunas, table muzakis, table bank dan table periodes
         return $data; //menampilkan data relasi yang sudah dibuat
 
