@@ -15,7 +15,9 @@ class ProgramController extends Controller
 
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Program"; //menampilkan pesan
-        $data['data'] = Program::all(); //megambil semua data program
+        $data['data'] = DB::select("SELECT * FROM programs LEFT JOIN banks ON programs.id_bank = banks.id_bank");
+        //perintah menampilkan dua table (relasi) -> relasi antara table program dan table bank
+        //$data['data'] = Program::all(); //megambil semua data program
         return $data; //menampilkan index
     }
 
@@ -46,6 +48,7 @@ class ProgramController extends Controller
         }
 
         $program = new Program;
+        $program->id_bank = $request->id_bank; //menset id_bank
         $program->kode_program = $next_id;
         $program->nama_program = $request->nama_program; //menset nama_program yang diambil dari request body
 
@@ -72,6 +75,7 @@ class ProgramController extends Controller
         if ($program) { //jika data yang diambil ada maka akan dieksekusi
             # code...
             //menset nilai yang baru/update
+            $program->id_bank = $request->id_bank;
             $program->nama_program = $request->nama_program;
 
             $update = $program->update(); //menyimpan perubahan data pada database 

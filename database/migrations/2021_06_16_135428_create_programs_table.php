@@ -15,6 +15,7 @@ class CreateProgramsTable extends Migration
     {
         Schema::create('programs', function (Blueprint $table) {
             $table->increments("id_program");
+            $table->integer("id_bank"); //untuk relasi dengan table bank
             $table->integer("kode_program"); //generate kode otomatis (101001)
             $table->string("nama_program");
             $table->timestamps();
