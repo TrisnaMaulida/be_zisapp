@@ -21,8 +21,7 @@ class DonasiController extends Controller
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Donasi"; //menampilkan pesan
 
-        $data['data'] = DB::select("SELECT * FROM donasis LEFT JOIN banks ON donasis.id_bank = banks.id_bank
-                                                            LEFT JOIN muzakis ON donasis.id_muzaki =  muzakis.id_muzakis"); //mengambil relasi donasi, bank dan muzaki
+        $data['data'] = DB::select("SELECT * FROM donasis LEFT JOIN muzakis ON donasis.id_muzaki =  muzakis.id_muzakis"); //mengambil relasi donasi, bank dan muzaki
         return $data; //menampilkan data relasi yang sudah dibuat
     }
 
