@@ -22,7 +22,6 @@ class CreateDonasisTable extends Migration
             $table->integer("metode");
             $table->integer("status_donasi");
             $table->integer("id_muzaki");
-            $table->integer("id_bank");
             $table->integer("id_pengguna");
             $table->timestamps();
         });

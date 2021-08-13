@@ -34,7 +34,6 @@ class DonasiController extends Controller
         $data['data'] = DB::select("SELECT * FROM detail_donasis LEFT JOIN donasis ON detail_donasis.id_donasi = donasis.id_donasi
                                                         LEFT JOIN programs ON detail_donasis.id_program = programs.id_program
                                                         LEFT JOIN muzakis ON donasis.id_muzaki = muzakis.id_muzaki
-                                                        LEFT JOIN banks ON donasis.id_bank = banks.id_bank
                                                         LEFT JOIN penggunas ON penggunas.id_pengguna = donasis.id_pengguna
                                                         WHERE detail_donasis.id_donasi = '" . $id . " ");
         //perintah menampilkan enam table (relasi) -> relasi antara table donasis, table penggunas, table muzakis, table bank dan table periodes
@@ -74,7 +73,6 @@ class DonasiController extends Controller
         $donasi->metode = $request->metode; //menset metode yang diambil dari request body
         $donasi->status_donasi = 1; //agar status langsung ter-create
         $donasi->id_muzaki = $request->id_muzaki; //menset id_muzaki yang diambil dari request body
-        $donasi->id_bank = $request->id_bank; //menset id_bank yang diambil dari request body
         $donasi->id_pengguna = $request->id_pengguna; //menset id_pengguna yang diambil dari request body
 
         $simpan_donasi = $donasi->save(); //menyimpan data pengguna ke database
@@ -116,15 +114,33 @@ class DonasiController extends Controller
     }
 
     //update donasi (detail donasi)
-    public function update($id) //deklarasi update
+    public function update(Request $request, $id) //deklarasi update
     {
-        $donasi = Donasi::find($id); //mengambil data berdasarkan id
+        $donasi_detail = DetailDonasi::find($id); //mengambil data berdasarkan id
 
-        if ($donasi) { //jika data ada maka data akan dieksekusi
+        if ($donasi_detail) { //jika data ada maka data akan dieksekusi
             # code...
+            //menset nilai yang baru/update
+            $donasi_detail->id_program = $request->id_program;
+            $donasi_detail->jumlah_donasi = $request->jumlah_donasi;
 
-
+            $data['data'] = $donasi_detail; //menampilkan data detail donasi
+            $update = $donasi_detail->update(); //menyimpan perubahan data pada database
+            if ($update) { //jika data berhasil diupdate
+                $data['status'] = true;
+                $data['message'] = "Berhasil di Update";
+                $data['data'] = $donasi_detail;
+            } else { //jika data gagal diupdate
+                $data['status'] = false;
+                $data['message'] = "Gagal Update";
+                $data['data'] = null;
+            }
+        } else { //jika datanya tidak ada
+            $data['status'] = false;
+            $data['message'] = "Data Tidak Ada";
+            $data['data'] = null;
         }
+        return $data; //menampilkan hasil update (berhasil/gagal/data tidak ada)
     }
 
     //delete donasi
