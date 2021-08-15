@@ -194,10 +194,7 @@ class DonasiController extends Controller
                     JOIN programs
                         ON programs.id_program  = detail_donasis.id_program
                     JOIN muzakis
-                        ON muzakis.id_muzaki = donasis.id_muzaki
-                    WHERE donasis.created_at
-                    BETWEEN '" . $request->tgl_dari . "'
-                        AND '" . $request->tgl_sampai . "'"
+                        ON muzakis.id_muzaki = donasis.id_muzaki"
         );
 
         //perintah cetak pdf
@@ -206,21 +203,14 @@ class DonasiController extends Controller
     }
 
     //cetak tanda bukti
-    public function cetak_tanda(Request $request)
+    public function cetak_tanda(Request $request, $id)
     {
-        //menampilkan hasil donasi
-        $donasi = DB::select(
-            "SELECT * FROM detail_donasis
-                    JOIN donasis
-                        ON donasis.id_donasi = detail_donasis.id_donasi
-                    JOIN programs
-                        ON programs.id_program  = detail_donasis.id_program
-                    JOIN muzakis
-                        ON muzakis.id_muzaki = donasis.id_muzaki"
-        );
+        //menampilkan hasil detail donasi
+        $donasi1 = DB::select("SELECT * FROM donasis LEFT JOIN muzakis ON donasis.id_muzaki =  muzakis.id_muzaki
+        WHERE detail_donasis.id_donasi = '" . $id . "");
 
-        //perintah cetak pdf
-        $pdf = PDF::loadview('tandaterima', ['donasi' => $donasi])->setPaper('A4', 'potrait');
+        //perintah cetak tanda terima pdf
+        $pdf = PDF::loadview('tandaterima', ['donasi1' => $donasi1])->setPaper('A4', 'potrait');
         return $pdf->stream();
     }
 }
