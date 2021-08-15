@@ -75,6 +75,7 @@ class DonasiController extends Controller
         $donasi->id_muzaki = $request->id_muzaki; //menset id_muzaki yang diambil dari request body
         $donasi->id_pengguna = $request->id_pengguna; //menset id_pengguna yang diambil dari request body
 
+        //var_dump($request);
         $simpan_donasi = $donasi->save(); //menyimpan data pengguna ke database
 
         if ($simpan_donasi) { //jika penyimpanan berhasil
@@ -111,6 +112,7 @@ class DonasiController extends Controller
             $data['data'] = null;
         }
         return $data; //menampilkan data yang baru disave/simpan
+        //die();
     }
 
     //update donasi (detail donasi)
