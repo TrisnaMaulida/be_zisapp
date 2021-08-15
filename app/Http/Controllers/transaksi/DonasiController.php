@@ -30,13 +30,9 @@ class DonasiController extends Controller
     {
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Detail Donasi"; //menampilkan pesan
+        $data['data'] = DB::select("SELECT * FROM donasis LEFT JOIN muzakis ON donasis.id_muzaki =  muzakis.id_muzaki
+                                                            WHERE detail_donasis.id_donasi = '" . $id . ""); //mengambil relasi donasi dan muzaki
 
-        $data['data'] = DB::select("SELECT * FROM detail_donasis LEFT JOIN donasis ON detail_donasis.id_donasi = donasis.id_donasi
-                                                        LEFT JOIN programs ON detail_donasis.id_program = programs.id_program
-                                                        LEFT JOIN muzakis ON donasis.id_muzaki = muzakis.id_muzaki
-                                                        LEFT JOIN penggunas ON penggunas.id_pengguna = donasis.id_pengguna
-                                                        WHERE detail_donasis.id_donasi = '" . $id . " ");
-        //perintah menampilkan enam table (relasi) -> relasi antara table donasis, table penggunas, table muzakis, table bank dan table periodes
         return $data; //menampilkan data relasi yang sudah dibuat
 
     }
