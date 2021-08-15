@@ -57,38 +57,7 @@ Route::post('program/{id}', 'master\ProgramController@show');
 Route::put('program/{id}', 'master\ProgramController@update');
 Route::delete('program/{id}', 'master\ProgramController@delete');
 
-//Kantor API
-Route::get('kantor', 'master\KantorController@index');
-Route::post('kantor', 'master\KantorController@create');
-Route::put('kantor/{id}', 'master\KantorController@update');
-Route::delete('kantor/{id}', 'master\KantorController@delete');
-
-//Akun API
-Route::get('akun', 'master\AkunController@index');
-Route::post('akun', 'master\AkunController@create');
-Route::put('akun/{id}', 'master\AkunController@update');
-Route::delete('akun/{id}', 'master\AkunController@delete');
-
-//Kas API
-Route::get('kas', 'master\KasController@index');
-Route::post('kas', 'master\KasController@create');
-Route::put('kas/{id}', 'master\KasController@update');
-Route::delete('kas/{id}', 'master\KasController@delete');
-
-//Kategori API
-Route::get('kategori', 'master\KategoriController@index');
-Route::post('kaategori', 'master\KategoriController@create');
-Route::put('kategori/{id}', 'master\KategoriController@update');
-Route::delete('kategori/{id}', 'master\KategoriController@delete');
-
-
 /* Route API Transaksi*/
-
-//Periode API
-Route::get('periode', 'transaksi\PeriodeController@index');
-Route::post('periode', 'transaksi\PeriodeController@create');
-Route::put('periode/{id}', 'transaksi\PeriodeController@update');
-Route::delete('periode/{id}', 'transaksi\PeriodeController@delete');
 
 //Donasi API
 Route::get('donasi/{id}', 'transaksi\DonasiController@show');
