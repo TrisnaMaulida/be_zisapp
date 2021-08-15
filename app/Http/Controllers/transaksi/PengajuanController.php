@@ -21,7 +21,7 @@ class PengajuanController extends Controller
         return $data; //menampilkan data relasi yang sudah dibuat
     }
 
-    //get pengguna by id
+    //get pengajuan by id
     public function show($id) //deklarasi fungsi show
     {
         $data['status'] = 200; //menampilkan status

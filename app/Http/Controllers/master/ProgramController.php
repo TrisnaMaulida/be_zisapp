@@ -21,7 +21,7 @@ class ProgramController extends Controller
         return $data; //menampilkan index
     }
 
-    //get pengguna by id
+    //get program by id
     public function show($id) //deklarasi fungsi show
     {
         $data['status'] = 200; //menampilkan status
