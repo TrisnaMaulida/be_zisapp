@@ -83,27 +83,33 @@ class DonasiController extends Controller
             $detail = $request->detail_donasi;
             $final_data = [];
 
-            foreach ($detail as $item) {
-                if ($item != null) {
-                    array_push($final_data, array(
-                        "id_donasi" => $id_donasi, //menset id_donasi yang diambil dari request body
-                        "id_program" => $item['id_program'], //menset id_program yang diambil dari request body
-                        "jumlah_donasi" => $item['jumlah_donasi'], //menset jumlah_donasi yang diambil dari request body
-                        "keterangan" => $item['keterangan'], //menset keterangan yang diambil dari request body
-                    ));
-                }     //push data ke array
+            if ($detail) { //jika datanya ada maka akan di ambil
+                foreach ($detail as $item) {
+                    if ($item != null) {
+                        array_push($final_data, array(
+                            "id_donasi" => $id_donasi, //menset id_donasi yang diambil dari request body
+                            "id_program" => $item['id_program'], //menset id_program yang diambil dari request body
+                            "jumlah_donasi" => $item['jumlah_donasi'], //menset jumlah_donasi yang diambil dari request body
+                            "keterangan" => $item['keterangan'], //menset keterangan yang diambil dari request body
+                        ));
+                    }     //push data ke array
 
-            }
+                }
 
-            $simpan_detaildonasi = DetailDonasi::insert($final_data); //menyimpan data detai donasi ke dataabase
-            if ($simpan_detaildonasi) { //jika penyimpanan berhasil
-                # code...
-                $data['status'] = true;
-                $data['message'] = "Berhasil Menambahkan Detail Donasi";
-                $data['data'] = $simpan_detaildonasi;
-            } else { //jika penyimpanan gagal
+                $simpan_detaildonasi = DetailDonasi::insert($final_data); //menyimpan data detai donasi ke dataabase
+                if ($simpan_detaildonasi) { //jika penyimpanan berhasil
+                    # code...
+                    $data['status'] = true;
+                    $data['message'] = "Berhasil Menambahkan Detail Donasi";
+                    $data['data'] = $simpan_detaildonasi;
+                } else { //jika penyimpanan gagal
+                    $data['status'] = false;
+                    $data['message'] = "Gagal Menambahkan Detail Donasi";
+                    $data['data'] = null;
+                }
+            } else { //jika datanya tidak ada
                 $data['status'] = false;
-                $data['message'] = "Gagal Menambahkan Detail Donasi";
+                $data['message'] = "Data Tidak Ada";
                 $data['data'] = null;
             }
         } else { //jika penyimpanan gagal
