@@ -203,14 +203,13 @@ class DonasiController extends Controller
     }
 
     //cetak tanda bukti
-    public function cetak_tanda(Request $request, $id)
+    public function cetak_tanda(Request $request)
     {
         //menampilkan hasil detail donasi
-        $donasi1 = DB::select("SELECT * FROM donasis LEFT JOIN muzakis ON donasis.id_muzaki =  muzakis.id_muzaki
-        WHERE detail_donasis.id_donasi = '" . $id . "");
+        $donasi1 = DB::select("SELECT * FROM donasis LEFT JOIN muzakis ON donasis.id_muzaki =  muzakis.id_muzaki");
 
         //perintah cetak tanda terima pdf
-        $pdf = PDF::loadview('tandaterima', ['donasi1' => $donasi1])->setPaper('A4', 'potrait');
+        $pdf = PDF::loadview('buktiterima', ['donasi1' => $donasi1])->setPaper('A4', 'potrait');
         return $pdf->stream();
     }
 }
