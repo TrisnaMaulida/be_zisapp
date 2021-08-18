@@ -25,13 +25,26 @@ class DonasiController extends Controller
         return $data; //menampilkan data relasi yang sudah dibuat
     }
 
+    //get donasi by detail_donasi
+    public function detaildonasi($id) //deklarasi fungsi show get by id
+    {
+        $data['status'] = true; //menampilkan status
+        $data['message'] = "Data Detail Donasi"; //menampilkan pesan
+        $data['data'] =  DB::select("SELECT * FROM detail_donasis JOIN donasis ON donasis.id_donasi = detail_donasis.id_donasi
+                                                                    JOIN programs ON programs.id_program  = detail_donasis.id_program
+                                                                    JOIN muzakis ON muzakis.id_muzaki = donasis.id_muzaki
+                                                                    WHERE donasis.id_donasi = " . $id . "");
+
+        return $data; //menampilkan data relasi yang sudah dibuat
+    }
+
     //get donasi by id
     public function show($id) //deklarasi fungsi show get by id
     {
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Detail Donasi"; //menampilkan pesan
         $data['data'] = DB::select("SELECT * FROM donasis LEFT JOIN muzakis ON donasis.id_muzaki =  muzakis.id_muzaki
-                                                            WHERE detail_donasis.id_donasi = '" . $id . ""); //mengambil relasi donasi dan muzaki
+                                                            WHERE detail_donasis.id_donasi = " . $id . ""); //mengambil relasi donasi dan muzaki
 
         return $data; //menampilkan data relasi yang sudah dibuat
 
