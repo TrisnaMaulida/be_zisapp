@@ -57,7 +57,10 @@
                 <td colspan="5">Telah diterima dari</td>
             </tr>
             <tr>
-                <td>Nama Donator</td>
+                <td>{{$nama_donatur}}</td>
+            </tr>
+            <tr>
+                <td>{{$npwz}}</td>
             </tr>
             <tr>
                 <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;">Tanggal Transaksi</td>
@@ -66,26 +69,28 @@
                 <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">Uang Sejumlah</td>
             </tr>
             <tbody>
-                @php $i=1 @endphp
-                @foreach($detaidonasi as @item)
+                @php $total_donasi=0 @endphp
+                @foreach($donasi1 as $item)
+                @php $total_donasi=($total_donasi+$item->jumlah_donasi) @endphp
                 <tr>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;">{{$item->tgl_donasi}}</td>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">{{$item->metode}}</td>
-                    <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;">{{$item->program}}</td>
-                    <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">{{$item->jumlah_donasi}}</td>
+                    <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;">{{$item->id_program}}</td>
+                    <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;">{{$item->jumlah_donasi}}</td>
                 </tr>
                 @endforeach
             </tbody>
+
             <tr>
-                <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;" colspan="4">Total</td>
-                <td id="ttl_donasi" style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;" colspan="3"></td>
+                <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;" colspan="3">Total</td>
+                <td id="ttl_donasi" style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;" colspan="3">{{$total_donasi}}</td>
             </tr>
         </table>
         <br>
         <table border="0" width="100%">
             <tr>
                 <td></td>
-                <td style="border: 1px solid black; text-align: center" width="120px">Penerima</td>
+                <td style="text-align: center" width="120px">Penerima</td>
             </tr>
 
             <tr>
@@ -95,13 +100,13 @@
                     <p style="text-align: center;"><i>(Semoga Allah menerima harta yang telah kau berikan (dikeluarkan), dan memberi
                             <br>keberkahan harta yang masih dalam genggaman, dan menjadikannya suci.)</i></p>
                 </td>
-                <td style="border-right: 1px solid black; border-top: 1px solid black; border-left: 1px solid black; text-align: center" width="120px">
+                <td style="text-align: center" width="120px">
                 </td>
             </tr>
             <tr>
                 <td></td>
-                <td id="petugas" style="border-bottom: 1px solid black; border-right: 1px solid black; border-left: 1px solid black; text-align: center" width="160px">
-                    Blank petugas
+                <td style="text-align: center" width="160px">
+                    {{$petugas}}
                 </td>
             </tr>
             <tr>
