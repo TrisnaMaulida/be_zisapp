@@ -61,7 +61,7 @@ Route::delete('program/{id}', 'master\ProgramController@delete');
 
 //Donasi API
 Route::get('donasi/{id}', 'transaksi\DonasiController@show');
-Route::get('donasi/{id}', 'transaksi\DonasiController@detaildonasi');
+Route::get('detaildonasi/{id}', 'transaksi\DonasiController@detaildonasi');
 Route::get('donasi', 'transaksi\DonasiController@index');
 Route::get('laporan/cetak_pdf', 'transaksi\DonasiController@cetak_pdf'); //cetak pdf laporan
 Route::get('tandaterima/cetak_tanda', 'transaksi\DonasiController@cetak_tanda'); //cetak pdf tanda bukti
