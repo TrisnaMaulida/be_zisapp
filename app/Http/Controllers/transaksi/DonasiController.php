@@ -89,7 +89,6 @@ class DonasiController extends Controller
 
         if ($simpan_donasi) { //jika penyimpanan berhasil
             # code...
-            $data['data'] = $donasi;
             $detail = $request->detail_donasi;
             $final_data = [];
 
@@ -111,7 +110,7 @@ class DonasiController extends Controller
                     # code...
                     $data['status'] = true;
                     $data['message'] = "Berhasil Menambahkan Detail Donasi";
-                    $data['data'] = $simpan_detaildonasi;
+                    $data['data'] = $donasi;
                 } else { //jika penyimpanan gagal
                     $data['status'] = false;
                     $data['message'] = "Gagal Menambahkan Detail Donasi";
