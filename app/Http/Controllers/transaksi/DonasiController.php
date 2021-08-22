@@ -229,14 +229,26 @@ class DonasiController extends Controller
             
             WHERE donasis.id_donasi = " . $request->id_donasi . "");
 
+        $donasi2 = DB::select("SELECT * FROM detail_donasis
+        JOIN donasis
+            ON donasis.id_donasi = detail_donasis.id_donasi
+        JOIN muzakis
+            ON muzakis.id_muzaki = donasis.id_muzaki
+        JOIN penggunas
+            ON penggunas.id_pengguna = donasis.id_pengguna
+            
+            WHERE donasis.id_donasi = " . $request->id_donasi . "");
+
+        // var_dump(json_encode($donasi2[0]->nama_muzaki));
+        // die();
         //perintah cetak tanda terima pdf
         $pdf = PDF::loadview(
             'buktiterima', //nama file pdfnya
             [
                 'donasi1' => $donasi1,
-                'nama_donatur' => $request->nama_muzaki,
-                'npwz' => $request->npwz,
-                'petugas' => $request->nama_pengguna
+                'nama_donatur' => $donasi2[0]->nama_muzaki,
+                'npwz' => $donasi2[0]->npwz,
+                'petugas' => $donasi2[0]->nama_pengguna
             ]
         )->setPaper('A4', 'potrait');
         return $pdf->stream();
