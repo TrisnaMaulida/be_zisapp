@@ -89,7 +89,7 @@ class DonasiController extends Controller
 
         if ($simpan_donasi) { //jika penyimpanan berhasil
             # code...
-            $data['data'] = $simpan_donasi;
+            $data['data'] = $donasi;
             $detail = $request->detail_donasi;
             $final_data = [];
 
