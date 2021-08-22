@@ -64,9 +64,9 @@
             </tr>
             <tr>
                 <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;">Tanggal Transaksi</td>
-                <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">Jenis Pembayaran</td>
+                <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;">Jenis Pembayaran</td>
                 <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;">Program</td>
-                <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">Uang Sejumlah</td>
+                <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;">Uang Sejumlah</td>
             </tr>
             <tbody>
                 @php $total_donasi=0 @endphp
@@ -120,9 +120,7 @@
         </table>
 
     </div>
-    <div class="ml-1 mt-1 row col-md-2">
-        <button>Cetak</button>
-    </div>
+
 </body>
 
 </html>
