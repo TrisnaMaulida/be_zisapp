@@ -15,6 +15,7 @@ use GuzzleHttp\Psr7\FnStream;
 
 class DonasiController extends Controller
 {
+
     //get donasi
     public function index() //deklarasi fungsi index
     {
