@@ -104,7 +104,11 @@
             </tr>
             <tr>
                 <td></td>
-                <td style="text-align: center">Penerima</td>
+                <td style="text-align: center">Purwokerto, {{date('d-M-Y', strtotime($item->tgl_donasi))}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align: center">Petugas Penerima</td>
             </tr>
             <tr>
                 <td></td>
