@@ -73,7 +73,7 @@ Route::delete('donasi/{id}', 'transaksi\DonasiController@delete');
 
 //Pengajuan API
 Route::get('pengajuan', 'transaksi\PengajuanController@index');
-Route::get('laporan/cetak_pdf', 'transaksi\PengajuanController@cetak_pdf'); //cetak pdf
+// Route::get('laporan/cetak_pdf', 'transaksi\PengajuanController@cetak_pdf'); //cetak pdf
 Route::post('pengajuan', 'transaksi\PengajuanController@create');
 Route::put('pengajuan/{id}', 'transaksi\PengajuanController@update');
 Route::get('pengajuan/{id}', 'transaksi\PengajuanController@show');

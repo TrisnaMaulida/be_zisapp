@@ -215,18 +215,26 @@ class DonasiController extends Controller
             "SELECT * FROM detail_donasis
                     JOIN donasis
                         ON donasis.id_donasi = detail_donasis.id_donasi
-                    JOIN programs
-                        ON programs.id_program  = detail_donasis.id_program
                     JOIN muzakis
-                        ON muzakis.id_muzaki = donasis.id_muzaki"
+                        ON muzakis.id_muzaki = donasis.id_muzaki
+                        WHERE donasis.created_at
+                    BETWEEN '" . $request->tgl_dari . "'
+                        AND '" . $request->tgl_sampai . "'"
+        );
+
+        //menampilkan data berdasarkan nama
+        $donasi1 = DB::select(
+            "SELECT * FROM donasis LEFT JOIN muzakis ON donasis.id_muzaki =  muzakis.id_muzaki 
+                        -- WHERE donasis.id_muzaki = '" . $request->id_muzaki . "'
+                        "
         );
 
         //perintah cetak pdf
-        $pdf = PDF::loadview('laporan_donasi', ['donasi' => $donasi])->setPaper('A4', 'potrait');
+        $pdf = PDF::loadview('laporan_donasi', ['donasi' => $donasi1])->setPaper('A4', 'potrait');
         return $pdf->stream();
     }
 
-    //cetak tanda bukti
+    //cetak tanda bukti donasi
     public function cetak_tanda(Request $request)
     {
         //menampilkan hasil detail donasi
@@ -240,9 +248,7 @@ class DonasiController extends Controller
             
             WHERE donasis.id_donasi = " . $request->id_donasi . "");
 
-        $donasi2 = DB::select("SELECT * FROM detail_donasis
-        JOIN donasis
-            ON donasis.id_donasi = detail_donasis.id_donasi
+        $donasi2 = DB::select("SELECT * FROM donasis
         JOIN muzakis
             ON muzakis.id_muzaki = donasis.id_muzaki
         JOIN penggunas
