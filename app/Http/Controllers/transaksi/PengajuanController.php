@@ -147,4 +147,45 @@ class PengajuanController extends Controller
         $pdf = PDF::loadview('laporan_pengajuan', ['pengajuan' => $pengajuan])->setPaper('A4', 'potrait');
         return $pdf->stream();
     }
+
+    public function upload(Request $request, $id)
+    {
+        $file = $request->file('image');
+
+        //mendapatkan nama file
+        $nama_file = $file->getClientOriginalName();
+
+        //mendapatkan extention file
+        $extention = $file->getClientOriginalExtension();
+
+        //mendapatkan ukuran file
+        $ukuran_file = $file->getSize();
+
+        //proses Upload file
+        $destinationPath = 'uploads';
+        $file->move($destinationPath, $file->getClientOriginalName());
+
+        $pengajuan = Pengajuan::find($id); //mengambil data berdasarkan id
+        if ($pengajuan) { //jika data yang diambil ada maka akan dieksekusi\
+            $pengajuan->status_pengajuan = $request->status_pengajuan;
+            $pengajuan->buktirealisasi = "http://localhost:8000/uploads/" . $nama_file . "." . $extention;
+
+            $update = $pengajuan->update(); //menyimpan perubahan data pada database
+            if ($update) { //jika berhasil update
+                # code...
+                $data['status'] = true;
+                $data['message'] = "File Berhasil diunggah";
+                $data['data'] = $file;
+            } else { //jika gagal update
+                $data['status'] = false;
+                $data['message'] = "File Gagal diunggah";
+                $data['data'] = null;
+            }
+        } else {
+            $data['status'] = false;
+            $data['message'] = "Data Tidak Ada";
+            $data['data'] = null;
+        }
+        return $data; //menampilkan file berhasil upload
+    }
 }

@@ -66,8 +66,10 @@
                 <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">Uang Sejumlah</td>
             </tr>
             <tbody>
-                @php $i=1 @endphp
-                @foreach($detaidonasi as @item)
+                @php $total_donasi=0 @endphp
+                @foreach($donasi1 as $item)
+                @php $total_donasi=($total_donasi+$item->jumlah_donasi) @endphp
+
                 <tr>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;">{{$item->tgl_donasi}}</td>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">{{$item->metode}}</td>
@@ -78,7 +80,7 @@
             </tbody>
             <tr>
                 <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;" colspan="4">Total</td>
-                <td id="ttl_donasi" style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;" colspan="3"></td>
+                <td id="ttl_donasi" style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;" colspan="3">Rp. {{number_format($item->total_donasi, 0, ',', '.')}}</td>
             </tr>
         </table>
         <br>

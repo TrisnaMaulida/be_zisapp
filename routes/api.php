@@ -62,6 +62,7 @@ Route::delete('program/{id}', 'master\ProgramController@delete');
 //Donasi API
 Route::get('donasi/{id}', 'transaksi\DonasiController@show');
 Route::get('detaildonasi/{id}', 'transaksi\DonasiController@detaildonasi');
+Route::get('donasi/{id}', 'transaksi\DonasiController@showmuzaki'); //show bt id muzaki
 Route::get('donasi', 'transaksi\DonasiController@index');
 Route::get('laporan/cetak_pdf', 'transaksi\DonasiController@cetak_pdf'); //cetak pdf laporan
 Route::get('tandaterima/cetak_tanda', 'transaksi\DonasiController@cetak_tanda'); //cetak pdf tanda bukti
@@ -69,10 +70,13 @@ Route::post('donasi', 'transaksi\DonasiController@create');
 Route::put('donasi/{id}', 'transaksi\DonasiController@update');
 Route::delete('donasi/{id}', 'transaksi\DonasiController@delete');
 
+
 //Pengajuan API
 Route::get('pengajuan', 'transaksi\PengajuanController@index');
-Route::get('laporan/cetak_pdf', 'transaksi\PengajuanController@cetak_pdf'); //cetak pdf
+// Route::get('laporan/cetak_pdf', 'transaksi\PengajuanController@cetak_pdf'); //cetak pdf
 Route::post('pengajuan', 'transaksi\PengajuanController@create');
 Route::put('pengajuan/{id}', 'transaksi\PengajuanController@update');
 Route::get('pengajuan/{id}', 'transaksi\PengajuanController@show');
 Route::delete('pengajuan/{id}', 'transaksi\PengajuanController@delete');
+Route::post('pengajuanupload/{id}', 'transaksi\PengajuanController@upload'); //upload file
+Route::get('cobaupload', 'transaksi\PengajuanController@form');
