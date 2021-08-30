@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Donasi extends Model
 {
-    protected $date = ['tgl_donasi'];
+    protected $date = ['tgl_donasi', 'timestamp'];
 }

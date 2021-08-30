@@ -21,9 +21,10 @@ class CreatePengajuansTable extends Migration
             $table->bigInteger('jumlah_pengajuan');
             $table->integer('jenis_pengajuan'); //konsumtif/produktif
             $table->integer('asnaf');
-            $table->bigInteger('jumlah_realisasi')->nullable()->change();
-            $table->date('tgl_realisasi')->nullable()->change();
+            $table->bigInteger('jumlah_realisasi');
+            $table->date('tgl_realisasi');
             $table->integer('status_pengajuan'); //proses/realisasi/ditolak
+            $table->string('buktirealisasi');
             $table->timestamps();
         });
     }

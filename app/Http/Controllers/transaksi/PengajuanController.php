@@ -81,6 +81,7 @@ class PengajuanController extends Controller
             $pengajuan->jumlah_realisasi = $request->jumlah_realisasi;
             $pengajuan->tgl_realisasi = $request->tgl_realisasi;
             $pengajuan->status_pengajuan = $request->status_pengajuan;
+            $pengajuan->buktipengajuan = $request->buktipengajuan;
 
             $data['data'] = $pengajuan; //menampilkan data pengajuan
             $update = $pengajuan->update(); //menyimpan perubahan data pada database
@@ -146,5 +147,23 @@ class PengajuanController extends Controller
         //perintah cetak pdf
         $pdf = PDF::loadview('laporan_pengajuan', ['pengajuan' => $pengajuan])->setPaper('A4', 'potrait');
         return $pdf->stream();
+    }
+
+    public function upload(Request $request)
+    {
+        $file = $request->file('image');
+
+        //mendapatkan nama file
+        $nama_file = $file->getClientOriginalName();
+
+        //mendapatkan extention file
+        $extention = $file->getClientOriginalExtension();
+
+        //mendapatkan ukuran file
+        $ukuran_file = $file->getSize();
+
+        //proses Upload file
+        $destinationPath = 'uploads';
+        $file->move($destinationPath, $file->getClientOriginalName());
     }
 }

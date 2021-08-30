@@ -259,7 +259,8 @@ class DonasiController extends Controller
                 'donasi1' => $donasi1,
                 'nama_donatur' => $donasi2[0]->nama_muzaki,
                 'npwz' => $donasi2[0]->npwz,
-                'petugas' => $donasi2[0]->nama_pengguna
+                'petugas' => $donasi2[0]->nama_pengguna,
+                'no_donasi' => $donasi2[0]->no_donasi
             ]
         )->setPaper('A4', 'potrait');
         return $pdf->stream();
