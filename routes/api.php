@@ -78,5 +78,5 @@ Route::post('pengajuan', 'transaksi\PengajuanController@create');
 Route::put('pengajuan/{id}', 'transaksi\PengajuanController@update');
 Route::get('pengajuan/{id}', 'transaksi\PengajuanController@show');
 Route::delete('pengajuan/{id}', 'transaksi\PengajuanController@delete');
-Route::post('pengajuanupload', 'transaksi\PengajuanController@upload');
+Route::post('pengajuanupload/{id}', 'transaksi\PengajuanController@upload'); //upload file
 Route::get('cobaupload', 'transaksi\PengajuanController@form');

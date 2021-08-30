@@ -81,7 +81,6 @@ class PengajuanController extends Controller
             $pengajuan->jumlah_realisasi = $request->jumlah_realisasi;
             $pengajuan->tgl_realisasi = $request->tgl_realisasi;
             $pengajuan->status_pengajuan = $request->status_pengajuan;
-            $pengajuan->buktipengajuan = $request->buktipengajuan;
 
             $data['data'] = $pengajuan; //menampilkan data pengajuan
             $update = $pengajuan->update(); //menyimpan perubahan data pada database
@@ -149,7 +148,7 @@ class PengajuanController extends Controller
         return $pdf->stream();
     }
 
-    public function upload(Request $request)
+    public function upload(Request $request, $id)
     {
         $file = $request->file('image');
 
@@ -165,5 +164,28 @@ class PengajuanController extends Controller
         //proses Upload file
         $destinationPath = 'uploads';
         $file->move($destinationPath, $file->getClientOriginalName());
+
+        $pengajuan = Pengajuan::find($id); //mengambil data berdasarkan id
+        if ($pengajuan) { //jika data yang diambil ada maka akan dieksekusi\
+            $pengajuan->status_pengajuan = $request->status_pengajuan;
+            $pengajuan->buktirealisasi = "http://localhost:8000/uploads/" . $nama_file . "." . $extention;
+
+            $update = $pengajuan->update(); //menyimpan perubahan data pada database
+            if ($update) { //jika berhasil update
+                # code...
+                $data['status'] = true;
+                $data['message'] = "File Berhasil diunggah";
+                $data['data'] = $file;
+            } else { //jika gagal update
+                $data['status'] = false;
+                $data['message'] = "File Gagal diunggah";
+                $data['data'] = null;
+            }
+        } else {
+            $data['status'] = false;
+            $data['message'] = "Data Tidak Ada";
+            $data['data'] = null;
+        }
+        return $data; //menampilkan file berhasil upload
     }
 }
