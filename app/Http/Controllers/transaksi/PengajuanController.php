@@ -167,7 +167,7 @@ class PengajuanController extends Controller
 
         $pengajuan = Pengajuan::find($id); //mengambil data berdasarkan id
         if ($pengajuan) { //jika data yang diambil ada maka akan dieksekusi\
-            $pengajuan->status_pengajuan = $request->status_pengajuan;
+            $pengajuan->status_pengajuan = 4; //ketika sudah upload file maka status akan menjadi "diterima" atau 4
             $pengajuan->buktirealisasi = "http://localhost:8000/uploads/" . $nama_file . "." . $extention;
 
             $update = $pengajuan->update(); //menyimpan perubahan data pada database
