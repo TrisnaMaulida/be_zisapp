@@ -223,14 +223,13 @@ class DonasiController extends Controller
         );
 
         //menampilkan data berdasarkan nama muzaki (idnya muzaki)
-        $donasi1 = DB::select(
+        $donasi = DB::select(
             "SELECT * FROM donasis LEFT JOIN muzakis ON donasis.id_muzaki =  muzakis.id_muzaki 
-                        WHERE donasis.id_muzaki = '" . $request->id_muzaki . "'
-                        "
+                        WHERE donasis.id_muzaki = '" . $request->id_muzaki . "'"
         );
 
         // //menampilkan data berdasarkan program (id_program)
-        // $donasi2 = DB::select(
+        // $donasi = DB::select(
         //     "SELECT * FROM detail_donasis JOIN programs ON programs.id_program  = detail_donasis.id_program
 
         //     WHERE detail_donasis.id_program = " . $request->id_program . ""
@@ -238,7 +237,7 @@ class DonasiController extends Controller
 
 
         //perintah cetak pdf
-        $pdf = PDF::loadview('laporan_donasi', ['donasi' => $donasi1])->setPaper('A4', 'potrait');
+        $pdf = PDF::loadview('laporan_donasi', ['donasi' => $donasi])->setPaper('A4', 'potrait');
         return $pdf->stream();
     }
 

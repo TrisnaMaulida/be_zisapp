@@ -36,6 +36,8 @@ Route::get('muzaki/{id}', 'master\MuzakiController@show');
 Route::post('muzaki', 'master\MuzakiController@create');
 Route::put('muzaki/{id}', 'master\MuzakiController@update');
 Route::delete('muzaki/{id}', 'master\MuzakiController@delete');
+Route::get('laporanmuzaki/cetak_pdf', 'master\MuzakiController@cetak_pdf'); //cetak pdf laporan
+
 
 //Mustahik API
 Route::get('mustahik', 'master\MustahikController@index');
@@ -62,7 +64,7 @@ Route::delete('program/{id}', 'master\ProgramController@delete');
 //Donasi API
 Route::get('donasi/{id}', 'transaksi\DonasiController@show');
 Route::get('detaildonasi/{id}', 'transaksi\DonasiController@detaildonasi');
-Route::get('donasi/{id}', 'transaksi\DonasiController@showmuzaki'); //show bt id muzaki
+Route::get('donasi/{id}', 'transaksi\DonasiController@showmuzaki'); //show by id muzaki
 Route::get('donasi', 'transaksi\DonasiController@index');
 Route::get('laporan/cetak_pdf', 'transaksi\DonasiController@cetak_pdf'); //cetak pdf laporan
 Route::get('tandaterima/cetak_tanda', 'transaksi\DonasiController@cetak_tanda'); //cetak pdf tanda bukti
@@ -73,7 +75,7 @@ Route::delete('donasi/{id}', 'transaksi\DonasiController@delete');
 
 //Pengajuan API
 Route::get('pengajuan', 'transaksi\PengajuanController@index');
-// Route::get('laporan/cetak_pdf', 'transaksi\PengajuanController@cetak_pdf'); //cetak pdf
+Route::get('laporanpengajuan/cetak_pdf', 'transaksi\PengajuanController@cetak_pdf'); //cetak pdf
 Route::post('pengajuan', 'transaksi\PengajuanController@create');
 Route::put('pengajuan/{id}', 'transaksi\PengajuanController@update');
 Route::get('pengajuan/{id}', 'transaksi\PengajuanController@show');
