@@ -36,8 +36,8 @@ Route::get('muzaki/{id}', 'master\MuzakiController@show');
 Route::post('muzaki', 'master\MuzakiController@create');
 Route::put('muzaki/{id}', 'master\MuzakiController@update');
 Route::delete('muzaki/{id}', 'master\MuzakiController@delete');
-Route::get('laporanmuzaki/cetak_pdf', 'master\MuzakiController@cetak_pdf'); //cetak pdf laporan
-
+Route::get('laporanmuzaki/cetak_pdf', 'master\MuzakiController@cetak_pdf'); //cetak pdf laporan by id dan status
+Route::get('laporanmuzaki_all/cetakpdf', 'master\MuzakiController@cetakpdf'); //cetak pdf laporan all muzaki
 
 //Mustahik API
 Route::get('mustahik', 'master\MustahikController@index');
@@ -45,6 +45,8 @@ Route::post('mustahik', 'master\MustahikController@create');
 Route::get('mustahik/{id}', 'master\MustahikController@show');
 Route::put('mustahik/{id}', 'master\MustahikController@update');
 Route::delete('mustahik/{id}', 'master\MustahikController@delete');
+Route::get('laporanmustahik/cetak_pdf', 'master\MustahikController@cetak_pdf'); //cetak pdf laporan by id, kategori dan asnaf
+Route::get('laporanmustahik_all/cetakpdf', 'master\MustahikController@cetakpdf'); //cetak pdf laporan all mustahik
 
 //Bank API
 Route::get('bank', 'master\BankController@index');

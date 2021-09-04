@@ -237,7 +237,7 @@ class DonasiController extends Controller
 
 
         //perintah cetak pdf
-        $pdf = PDF::loadview('laporan_donasi', ['donasi' => $donasi])->setPaper('A4', 'potrait');
+        $pdf = PDF::loadview('laporan/laporan_donasi', ['donasi' => $donasi])->setPaper('A4', 'potrait');
         return $pdf->stream();
     }
 

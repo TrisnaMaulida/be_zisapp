@@ -151,9 +151,17 @@ class PengajuanController extends Controller
                     WHERE pengajuans.id_mustahik = '" . $request->id_mustahik . "' "
         );
 
+        //menampilkan data berdasarkan status
+        $pengajuan = DB::select(
+            "SELECT * FROM pengajuans
+                    JOIN mustahiks
+                        ON mustahiks.id_mustahik = pengajuans.id_mustahik
+                    WHERE pengajuans.status_pengajuan = '" . $request->status_pengajuan . "' "
+        );
+
 
         //perintah cetak pdf
-        $pdf = PDF::loadview('laporan_pengajuan', ['pengajuan' => $pengajuan])->setPaper('A4', 'potrait');
+        $pdf = PDF::loadview('laporan/laporan_pengajuan', ['pengajuan' => $pengajuan])->setPaper('A4', 'potrait');
         return $pdf->stream();
     }
 

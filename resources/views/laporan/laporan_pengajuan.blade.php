@@ -35,6 +35,7 @@
 </head>
 
 <body>
+    <center><img src="image/kopsurat.jpg" width="80%"></center>
     <h3 align="center">Laporan Pengajuan Zakat Infaq dan Shodaqoh</h3>
     <h3 align="center">Laz Al Irsyad Al Islamiyah Purwokerto</h3>
     <h3 align="center">Periode(1 - 30 Mei 2021)</h3>
@@ -45,8 +46,8 @@
                 <tr>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">No.</td>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">No. Pengajuan</td>
-                    <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">Kegiatan</td>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">Penerima</td>
+                    <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">Kegiatan</td>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">Realisasi Dana</td>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">Tanggal Realisasi</td>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">Status</td>
@@ -58,10 +59,14 @@
                 <tr>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">{{$i++}}</td>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">{{$item->no_pengajuan}}</td>
-                    <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">{{$item->pengajuan_kegiatan}}</td>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">{{$item->nama_mustahik}}</td>
+                    <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">{{$item->pengajuan_kegiatan}}</td>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">Rp. {{number_format($item->jumlah_realisasi, 0, ',', '.')}}</td>
+                    @if($item->tgl_realisasi== null)
+                    <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">Belum Realisasi</td>
+                    @else
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">{{date('d-M-Y', strtotime($item->tgl_realisasi))}}</td>
+                    @endif
                     @if($item->status_pengajuan == 1)
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">Proses</td>
                     @elseif($item->status_pengajuan == 2)

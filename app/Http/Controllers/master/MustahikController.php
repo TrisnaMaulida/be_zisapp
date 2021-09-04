@@ -5,7 +5,9 @@ namespace App\Http\Controllers\master;
 use DB;
 use App\Mustahik;
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\FuncCall;
 
 class MustahikController extends Controller
 {
@@ -129,5 +131,41 @@ class MustahikController extends Controller
         }
 
         return $data; //menampilkan hasil data yang dihapus (berhasil/gagal/tidak ada)
+    }
+
+    //cetak seluruh data mustahik
+    public function cetakpdf()
+    {
+        //menampilkan semua data mustahik
+        $mustahik = DB::select(
+            "SELECT * FROM mustahiks"
+        );
+
+        //perintah cetak pdf
+        $pdf = PDF::loadview('laporan/laporan_mustahik', ['mustahik' => $mustahik])->setPaper('A4', 'potrait');
+        return $pdf->stream();
+    }
+
+    //cetak pdf
+    public function cetak_pdf(Request $request)
+    {
+        //menampilkan data mustahik berdasarkan id
+        $mustahik = DB::select(
+            "SELECT * FROM mustahiks WHERE mustahiks.id_mustahik = '" . $request->id_mustahik . "' "
+        );
+
+        //menampilkan data mustahik berdasarkan kategori
+        $mustahik = DB::select(
+            "SELECT * FROM mustahiks WHERE mustahiks.kategori_mustahik = '" . $request->kategori_mustahik . "' "
+        );
+
+        //menampilkan data mustahik berdasarkan asnaf
+        $mustahik = DB::select(
+            "SELECT * FROM mustahiks WHERE mustahiks.asnaf = '" . $request->asnaf . "' "
+        );
+
+        //perintah cetak pdf
+        $pdf = PDF::loadview('laporan/laporan_mustahik', ['mustahik' => $mustahik])->setPaper('A4', 'potrait');
+        return $pdf->stream();
     }
 }
