@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Laporan Donasi</title>
+    <title>Laporan Muzaki</title>
     <style>
         @font-face {
             font-family: "sqr";
@@ -36,7 +36,7 @@
 
 <body>
     <center><img src="image/kopsurat.jpg" width="80%"></center>
-    <h3 align="center">Laporan Muzaki Zakat Infaq dan Shodaqoh</h3>
+    <h3 align="center">Laporan Muzaki</h3>
     <h3 align="center">Laz Al Irsyad Al Islamiyah Purwokerto</h3>
     <h3 align="center">Periode(disini diubah ya)</h3>
 

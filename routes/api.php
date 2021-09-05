@@ -53,6 +53,7 @@ Route::get('bank', 'master\BankController@index');
 Route::post('bank', 'master\BankController@create');
 Route::put('bank/{id}', 'master\BankController@update');
 Route::delete('bank/{id}', 'master\BankController@delete');
+Route::get('laporanbank/cetakpdf', 'master\BankController@cetakpdf'); //mencetak pdf laporan all bank
 
 //Program API
 Route::get('program', 'master\ProgramController@index');
@@ -60,6 +61,8 @@ Route::post('program', 'master\ProgramController@create');
 Route::post('program/{id}', 'master\ProgramController@show');
 Route::put('program/{id}', 'master\ProgramController@update');
 Route::delete('program/{id}', 'master\ProgramController@delete');
+Route::get('laporanprogram_all/cetakpdf', 'master\ProgramController@cetakpdf'); //mencetak pdf laporan all program
+Route::get('laporanprogram/cetak_pdf', 'master\ProgramController@cetak_pdf'); //cetak pdf laporan by id_bank
 
 /* Route API Transaksi*/
 

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\master;
 
+use DB;
 use App\Bank;
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class BankController extends Controller
 {
@@ -99,5 +100,18 @@ class BankController extends Controller
         }
 
         return $data; //menampilkan hasil data yang dihapus (berhasil/gagal/tidak ada)
+    }
+
+    //cetak seluruh data bank
+    public function cetakpdf()
+    {
+        //menampilkan semua data bank
+        $bank = DB::select(
+            "SELECT * FROM banks"
+        );
+
+        //perintah cetak pdf
+        $pdf = PDF::loadview('laporan/laporan_bank', ['bank' => $bank])->setPaper('A4', 'potrait');
+        return $pdf->stream();
     }
 }

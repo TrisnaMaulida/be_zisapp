@@ -38,7 +38,7 @@
     <center><img src="image/kopsurat.jpg" width="80%"></center>
     <h3 align="center">Laporan Penerimaan Zakat Infaq dan Shodaqoh</h3>
     <h3 align="center">Laz Al Irsyad Al Islamiyah Purwokerto</h3>
-    <h3 align="center">Periode(1 - 30 Mei 2021)</h3>
+    <h3 align="center">Periode(sesuai tanggal yang dinputkan)</h3>
 
     <div class="mt-1 row col-md-8" id="cetak">
         <table border="1" width="100%">
