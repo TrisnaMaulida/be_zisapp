@@ -7,6 +7,8 @@ use App\Muzaki;
 use App\Pengguna;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
+
 
 class MuzakiController extends Controller
 {
@@ -132,5 +134,38 @@ class MuzakiController extends Controller
         }
 
         return $data; //menampilkan hasil data yang dihapus (berhasil/gagal/tidak ada)
+    }
+
+    //cetak pdf
+    public function cetak_pdf(Request $request)
+    {
+
+        //menampilkan data berdasarkan id_muzaki
+        $muzaki = DB::select(
+            "SELECT * FROM muzakis WHERE muzakis.id_muzaki = '" . $request->id_muzaki . "'
+            "
+        );
+        //menampilkan data berdasarkan status_muzaki
+        $muzaki = DB::select(
+            "SELECT * FROM muzakis WHERE muzakis.id_muzaki = '" . $request->status_muzaki . "'
+            "
+        );
+
+        //perintah cetak pdf
+        $pdf = PDF::loadview('laporan/laporan_muzaki', ['muzaki' => $muzaki])->setPaper('A4', 'potrait');
+        return $pdf->stream();
+    }
+
+    //cetak seluruh data muzaki
+    public function cetakpdf()
+    {
+        //menampilkan semua data muzaki
+        $muzaki = DB::select(
+            "SELECT * FROM muzakis"
+        );
+
+        //perintah cetak pdf
+        $pdf = PDF::loadview('laporan/laporan_muzaki', ['muzaki' => $muzaki])->setPaper('A4', 'potrait');
+        return $pdf->stream();
     }
 }

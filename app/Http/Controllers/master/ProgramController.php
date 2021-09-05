@@ -4,8 +4,9 @@ namespace App\Http\Controllers\master;
 
 use App\Http\Controllers\Controller;
 use App\Program;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use DB;
 
 class ProgramController extends Controller
 {
@@ -123,5 +124,34 @@ class ProgramController extends Controller
         }
 
         return $data; //menampilkan hasil data yang dihapus (berhasil/gagal/tidak ada)
+    }
+
+    //cetak pdf (all)
+    public function cetakpdf()
+    {
+        //menampilkan semua data program
+        $program = DB::select(
+            "SELECT * FROM programs JOIN banks ON banks.id_bank = programs.id_bank"
+        );
+
+        //perintah cetak pdf
+        $pdf = PDF::loadview('laporan/laporan_program', ['program' => $program])->setPaper('A4', 'potrait');
+        return $pdf->stream();
+    }
+
+    //cetak pdf 
+    public function cetak_pdf(Request $request)
+    {
+        //menampilkan berdasarkan id bank
+        $program = DB::select(
+            "SELECT * FROM programs
+                JOIN banks
+                    ON banks.id_bank = programs.id_bank
+                WHERE programs.id_bank = '" . $request->id_bank . "' "
+        );
+
+        //perintah cetak pdf
+        $pdf = PDF::loadview('laporan/laporan_program', ['program' => $program])->setPaper('A4', 'potrait');
+        return $pdf->stream();
     }
 }
