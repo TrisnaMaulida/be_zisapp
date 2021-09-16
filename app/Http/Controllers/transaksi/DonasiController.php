@@ -43,8 +43,7 @@ class DonasiController extends Controller
     {
         $data['status'] = true; //menampilkan status
         $data['message'] = "Group By Nama Muzaki"; //menampilkan pesan
-        $data['data'] = DB::select("SELECT muzakis.nama_muzaki, donasis.id_donasi FROM detail_donasis 
-                                                            JOIN donasis ON donasis.id_donasi = detail_donasis.id_donasi
+        $data['data'] = DB::select("SELECT muzakis.nama_muzaki, donasis.id_donasi FROM donasis 
                                                             JOIN muzakis ON muzakis.id_muzaki = donasis.id_muzaki 
                                                             GROUP BY muzakis.nama_muzaki");
         //menggroupkan donasi berdasarkan
