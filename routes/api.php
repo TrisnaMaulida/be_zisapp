@@ -69,7 +69,8 @@ Route::get('laporanprogram/cetak_pdf', 'master\ProgramController@cetak_pdf'); //
 //Donasi API
 Route::get('donasi/{id}', 'transaksi\DonasiController@show');
 Route::get('detaildonasi/{id}', 'transaksi\DonasiController@detaildonasi');
-Route::get('donasibymuzaki', 'transaksi\DonasiController@showmuzaki'); //show by id muzaki
+Route::get('donasibymuzaki', 'transaksi\DonasiController@showmuzaki'); //show by group muzaki
+Route::get('donasibynpwz/{id}', 'transaksi\DonasiController@shownpwz'); //show by npwz
 Route::get('donasi', 'transaksi\DonasiController@index');
 Route::get('laporan/cetak_pdf', 'transaksi\DonasiController@cetak_pdf'); //cetak pdf laporan
 Route::get('tandaterima/cetak_tanda', 'transaksi\DonasiController@cetak_tanda'); //cetak pdf tanda bukti
