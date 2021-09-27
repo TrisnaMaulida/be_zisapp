@@ -15,7 +15,7 @@ class CreateMustahiksTable extends Migration
     {
         Schema::create('mustahiks', function (Blueprint $table) {
             $table->increments('id_mustahik');
-            $table->integer('kode_mustahik'); //generate kode otomatis (1840010001)
+            $table->string('kode_mustahik'); //generate kode otomatis (1840010001)
             $table->string('nama_mustahik');
             $table->string('alamat_mustahik');
             $table->integer('asnaf');
