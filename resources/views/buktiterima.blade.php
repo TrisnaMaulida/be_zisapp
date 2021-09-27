@@ -52,6 +52,9 @@
                 <td align="center" style="border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;">SK Menteri Agama RI no. 949 Tahun 2020</td>
             </tr>
             <tr>
+                <td align="left" colspan="2">{{$no_donasi}}</td>
+            </tr>
+            <tr>
                 <td align="left" colspan="2"><i>Bismillahirrahmannirrahim<i></td>
             </tr>
         </table>

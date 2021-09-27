@@ -86,21 +86,19 @@ class DonasiController extends Controller
         //buat id donasi berdasarkan datetime
         $date = new DateTime();
         $id_donasi = $date->getTimestamp();
-        //pilih default id ketika ada kasus belum ada data sama sekali
-        $next_id = "DNS-18000001"; //18 itu tahun
+
+        //pilih default id ketika ada kasus dalam data sama sekali
+        $next_id = "DNS-" . date('m') . date('Y') . "00000001";
 
         $max_donasi = DB::table("donasis")->max('no_donasi'); //ambil id terbesar > DNS-18000001
 
         if ($max_donasi) { //jika sudah ada data genarate id baru
             # code...
-            $tahun = $request->input('tahun'); //request tahun dari frontend
-            $pecah_dulu = str_split($max_donasi, 8); //misal "DNS-1800001" hasilnya jadi ["DNS-1800","0001"]
-            $pecah_tahun = str_split($pecah_dulu[0], 4);
+            $pecah_dulu = str_split($max_donasi, 13); //misal "DNS-0920210000001" hasilnya jadi ["DNS-", "0920210000001"]
             $increment_id = $pecah_dulu[1];
-            $hasil_tahun = $tahun . "00";
             $result = sprintf("%'.4d", $increment_id + 1);
 
-            $next_id = $pecah_tahun[0] . $hasil_tahun . $result;
+            $next_id = $pecah_dulu[0] . $result;
         }
 
         $donasi = new Donasi; //inisalisasi atau menciptakan objek baru
