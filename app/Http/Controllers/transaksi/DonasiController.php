@@ -35,7 +35,6 @@ class DonasiController extends Controller
                                                                     JOIN programs ON programs.id_program  = detail_donasis.id_program
                                                                     JOIN muzakis ON muzakis.id_muzaki = donasis.id_muzaki
                                                                     WHERE donasis.id_donasi = " . $id . "");
-
         return $data; //menampilkan data relasi yang sudah dibuat
     }
     //get donasi by group muzaki
@@ -43,7 +42,7 @@ class DonasiController extends Controller
     {
         $data['status'] = true; //menampilkan status
         $data['message'] = "Group By Nama Muzaki"; //menampilkan pesan
-        $data['data'] = DB::select("SELECT muzakis.nama_muzaki, donasis.id_donasi FROM donasis 
+        $data['data'] = DB::select("SELECT muzakis.nama_muzaki, muzakis.npwz, muzakis.jk, muzakis.alamat_muzaki, donasis.id_donasi FROM donasis 
                                                             JOIN muzakis ON muzakis.id_muzaki = donasis.id_muzaki 
                                                             GROUP BY muzakis.nama_muzaki");
         //menggroupkan donasi berdasarkan
@@ -52,14 +51,20 @@ class DonasiController extends Controller
     }
 
     //get donasi by npwz
-    public function shownpwz($id)
+    public function shownpwz($npwz)
     {
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Donasi Berdasarkan NPWZ";
-        $data['data'] = DB::select("SELECT * FROM detail_donasis JOIN donasis ON donasis.id_donasi = detail_donasis.id_donasi
+        $detail1 = DB::select("SELECT * FROM detail_donasis JOIN donasis ON donasis.id_donasi = detail_donasis.id_donasi
                                                                     JOIN programs ON programs.id_program = detail_donasis.id_program
                                                                     JOIN muzakis ON muzakis.id_muzaki = donasis.id_muzaki
-                                                                    WHERE muzakis.npwz = " . $id . " ");
+                                                                    WHERE muzakis.npwz = " . $npwz . " ");
+
+        $detail2 = DB::select("SELECT * FROM donasis JOIN muzakis ON muzakis.id_muzaki = donasis.id_muzaki WHERE muzakis.npwz = " . $npwz . "");
+        $data['data'] = $detail1;
+        $data['nama'] = $detail2[0]->nama_muzaki;
+        $data['npwz'] = $detail2[0]->npwz;
+
         return $data; //menampilkan relasi yang sudah dibuat
     }
 
@@ -69,7 +74,7 @@ class DonasiController extends Controller
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Detail Donasi"; //menampilkan pesan
         $data['data'] = DB::select("SELECT * FROM donasis LEFT JOIN muzakis ON donasis.id_muzaki =  muzakis.id_muzaki
-                                                            WHERE donasis.id_donasi = " . $id . ""); //mengambil relasi donasi dan muzaki
+                                                            WHERE muzakis.npwz = " . $id . ""); //mengambil relasi donasi dan muzaki
 
         return $data; //menampilkan data relasi yang sudah dibuat
 
@@ -81,21 +86,19 @@ class DonasiController extends Controller
         //buat id donasi berdasarkan datetime
         $date = new DateTime();
         $id_donasi = $date->getTimestamp();
-        //pilih default id ketika ada kasus belum ada data sama sekali
-        $next_id = "DNS-18000001"; //18 itu tahun
+
+        //pilih default id ketika ada kasus dalam data sama sekali
+        $next_id = "DNS-" . date('m') . date('Y') . "00000001";
 
         $max_donasi = DB::table("donasis")->max('no_donasi'); //ambil id terbesar > DNS-18000001
 
         if ($max_donasi) { //jika sudah ada data genarate id baru
             # code...
-            $tahun = $request->input('tahun'); //request tahun dari frontend
-            $pecah_dulu = str_split($max_donasi, 8); //misal "DNS-1800001" hasilnya jadi ["DNS-1800","0001"]
-            $pecah_tahun = str_split($pecah_dulu[0], 4);
+            $pecah_dulu = str_split($max_donasi, 13); //misal "DNS-0920210000001" hasilnya jadi ["DNS-", "0920210000001"]
             $increment_id = $pecah_dulu[1];
-            $hasil_tahun = $tahun . "00";
             $result = sprintf("%'.4d", $increment_id + 1);
 
-            $next_id = $pecah_tahun[0] . $hasil_tahun . $result;
+            $next_id = $pecah_dulu[0] . $result;
         }
 
         $donasi = new Donasi; //inisalisasi atau menciptakan objek baru

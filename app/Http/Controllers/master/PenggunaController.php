@@ -91,13 +91,13 @@ class PenggunaController extends Controller
     {
 
         //pilih default id ketika ada kasus belum ada data sama sekali
-        $next_id = "LZAI180001";
+        $next_id = "LZAI" . date('m') . date('Y') . "0001";
 
         $max_pengguna = DB::table("penggunas")->max('kode_pengguna'); // ambil id terbesar > LZAIO180001
 
         if ($max_pengguna) { // jika sudah ada data generate id baru
 
-            $pecah_dulu = str_split($max_pengguna, 6); // misal "LZAI180000" hasilnya jadi ["LZAI18","0001"]
+            $pecah_dulu = str_split($max_pengguna, 10); // misal "LZAI180000" hasilnya jadi ["LZAI18","0001"]
             $increment_id = $pecah_dulu[1];
             $result = sprintf("%'.04d", $increment_id + 1);
 

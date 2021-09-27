@@ -15,7 +15,7 @@ class CreateDonasisTable extends Migration
     {
         Schema::create('donasis', function (Blueprint $table) {
             $table->increments("id_donasi", 16);
-            $table->text("no_donasi");
+            $table->string("no_donasi");
             $table->string("no_bukti");
             $table->date("tgl_donasi");
             $table->decimal("total_donasi", $precision = 8, $scale = 2);

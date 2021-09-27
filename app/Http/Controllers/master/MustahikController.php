@@ -33,13 +33,13 @@ class MustahikController extends Controller
     public function create(Request $request) //pendeklarasian fungsi create
     {
         //pilih default id ketika ada kasus belum ada data sama sekali
-        $next_id = "1840010001";
+        $next_id = "DL.MUS.I." . date('m') . date('Y') . "00000001";
 
         $max_mustahik = DB::table("mustahiks")->max('kode_mustahik'); // ambil id terbesar > 1840010001
 
         if ($max_mustahik) { // jika sudah ada data generate id baru 
 
-            $pecah_dulu = str_split($max_mustahik, 6); // misal "1840010000" hasilnya jadi ["184001,"0001"]
+            $pecah_dulu = str_split($max_mustahik, 14); // misal "1840010000" hasilnya jadi ["184001,"0001"]
             $increment_id = $pecah_dulu[1];
             $result = sprintf("%'.04d", $increment_id + 1);
 

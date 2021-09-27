@@ -35,13 +35,13 @@ class MuzakiController extends Controller
     public function create(Request $request) //pendeklarasian fungsi create
     {
         //pilih default id ketika ada kasus belum ada data sama sekali
-        $next_id = "1011110001";
+        $next_id = "DL.MUZ.I." . date('m') . date('Y') . "00000001";
 
         $max_muzaki = DB::table("muzakis")->max('npwz'); // ambil id terbesar > 1011110001
 
         if ($max_muzaki) { // jika sudah ada data generate id baru 
 
-            $pecah_dulu = str_split($max_muzaki, 6); // misal "1011110000" hasilnya jadi ["101111","0001"]
+            $pecah_dulu = str_split($max_muzaki, 14); // misal "1011110000" hasilnya jadi ["101111","0001"]
             $increment_id = $pecah_dulu[1];
             $result = sprintf("%'.04d", $increment_id + 1);
 

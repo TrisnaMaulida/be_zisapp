@@ -52,6 +52,9 @@
                 <td align="center" style="border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;">SK Menteri Agama RI no. 949 Tahun 2020</td>
             </tr>
             <tr>
+                <td align="left" colspan="2">{{$no_donasi}}</td>
+            </tr>
+            <tr>
                 <td align="left" colspan="2"><i>Bismillahirrahmannirrahim<i></td>
             </tr>
         </table>
@@ -67,7 +70,7 @@
             <tr>
                 <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;"><b> Transaksi</b></td>
                 <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;"><b>Jenis Pembayaran</b></td>
-                <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;"><b>Program</b></td>
+                <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;"><b>Keterangan</b></td>
                 <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;" colspan="3"><b> Sejumlah</b></td>
             </tr>
             <tbody>
@@ -81,7 +84,7 @@
                     @else
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid;">Mutasi Bank</td>
                     @endif
-                    <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;">{{$item->nama_program}}</td>
+                    <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;">{{$item->keterangan}}</td>
                     <td style="text-align: center; border-top: 1px black solid; border-left: 1px black solid; border-right: 1px black solid; border-bottom: 1px black solid;" colspan="3">Rp. {{number_format($item->jumlah_donasi, 0, ',', '.')}}</td>
                 </tr>
                 @endforeach
