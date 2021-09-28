@@ -35,7 +35,7 @@ class MuzakiController extends Controller
     public function create(Request $request) //pendeklarasian fungsi create
     {
         //pilih default id ketika ada kasus belum ada data sama sekali
-        $next_id = "DL.MUZ.I." . date('m') . date('Y') . "00000001";
+        $next_id = "DL_MUZ_I_" . date('m') . date('Y') . "00000001";
 
         $max_muzaki = DB::table("muzakis")->max('npwz'); // ambil id terbesar > 1011110001
 

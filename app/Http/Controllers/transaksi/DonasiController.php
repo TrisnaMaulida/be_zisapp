@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Barryvdh\DomPDF\Facade as PDF;
 use GuzzleHttp\Psr7\FnStream;
+use SebastianBergmann\Environment\Console;
 
 class DonasiController extends Controller
 {
@@ -34,7 +35,7 @@ class DonasiController extends Controller
         $data['data'] =  DB::select("SELECT * FROM detail_donasis JOIN donasis ON donasis.id_donasi = detail_donasis.id_donasi
                                                                     JOIN programs ON programs.id_program  = detail_donasis.id_program
                                                                     JOIN muzakis ON muzakis.id_muzaki = donasis.id_muzaki
-                                                                    WHERE donasis.id_donasi = " . $id . "");
+                                                                    WHERE donasis.id_donasi = ' . $id . '");
         return $data; //menampilkan data relasi yang sudah dibuat
     }
     //get donasi by group muzaki
@@ -42,15 +43,18 @@ class DonasiController extends Controller
     {
         $data['status'] = true; //menampilkan status
         $data['message'] = "Group By Nama Muzaki"; //menampilkan pesan
-        $data['data'] = DB::select("SELECT muzakis.nama_muzaki, muzakis.npwz, muzakis.jk, muzakis.alamat_muzaki, donasis.id_donasi FROM donasis 
-                                                            JOIN muzakis ON muzakis.id_muzaki = donasis.id_muzaki 
-                                                            GROUP BY muzakis.nama_muzaki");
+        $data['data'] = DB::table('donasis')
+            ->select('muzakis.nama_muzaki', 'muzakis.npwz', 'muzakis.jk', 'muzakis.alamat_muzaki', 'donasis.id_donasi')
+            ->Join('muzakis', 'muzakis.id_muzaki', '=', 'donasis.id_muzaki')
+            ->groupBy('muzakis.nama_muzaki')
+            ->get();
+
         //menggroupkan donasi berdasarkan
         return $data; //menampilkan data relasi yang sudah dibuat
 
     }
 
-    //get donasi by npwz
+    //get donasi by npwz0
     public function shownpwz($npwz)
     {
         $data['status'] = true; //menampilkan status
@@ -58,9 +62,9 @@ class DonasiController extends Controller
         $detail1 = DB::select("SELECT * FROM detail_donasis JOIN donasis ON donasis.id_donasi = detail_donasis.id_donasi
                                                                     JOIN programs ON programs.id_program = detail_donasis.id_program
                                                                     JOIN muzakis ON muzakis.id_muzaki = donasis.id_muzaki
-                                                                    WHERE muzakis.npwz = " . $npwz . " ");
+                                                                    WHERE muzakis.npwz = '" . $npwz . "' ");
 
-        $detail2 = DB::select("SELECT * FROM donasis JOIN muzakis ON muzakis.id_muzaki = donasis.id_muzaki WHERE muzakis.npwz = " . $npwz . "");
+        $detail2 = DB::select("SELECT * FROM donasis JOIN muzakis ON muzakis.id_muzaki = donasis.id_muzaki WHERE muzakis.npwz = '" . $npwz . "'");
         $data['data'] = $detail1;
         $data['nama'] = $detail2[0]->nama_muzaki;
         $data['npwz'] = $detail2[0]->npwz;
@@ -74,7 +78,7 @@ class DonasiController extends Controller
         $data['status'] = true; //menampilkan status
         $data['message'] = "Data Detail Donasi"; //menampilkan pesan
         $data['data'] = DB::select("SELECT * FROM donasis LEFT JOIN muzakis ON donasis.id_muzaki =  muzakis.id_muzaki
-                                                            WHERE muzakis.npwz = " . $id . ""); //mengambil relasi donasi dan muzaki
+                                                            WHERE muzakis.npwz = '" . $id . "'"); //mengambil relasi donasi dan muzaki
 
         return $data; //menampilkan data relasi yang sudah dibuat
 
