@@ -64,6 +64,18 @@ Route::delete('program/{id}', 'master\ProgramController@delete');
 Route::get('laporanprogram_all/cetakpdf', 'master\ProgramController@cetakpdf'); //mencetak pdf laporan all program
 Route::get('laporanprogram/cetak_pdf', 'master\ProgramController@cetak_pdf'); //cetak pdf laporan by id_bank
 
+//Kat Akun API
+Route::get('katakun', 'master\KatAkunController@index');
+Route::post('katakun', 'master\KatAkunController@create');
+Route::put('katakun/{id}', 'master\KatAkunController@update');
+Route::delete('katakun/{id}', 'master\KatAkunController@delete');
+
+//SubKat API
+Route::get('subkat', 'master\SubKatAkunController@index');
+Route::post('subkat', 'master\SubKatAkunController@create');
+Route::put('subkat/{id}', 'master\SubKatAkunController@update');
+Route::delete('subkat/{id}', 'master\SubKatAkunController@delete');
+
 /* Route API Transaksi*/
 
 //Donasi API
@@ -74,6 +86,7 @@ Route::get('donasibynpwz/{id}', 'transaksi\DonasiController@shownpwz'); //show b
 Route::get('donasi', 'transaksi\DonasiController@index');
 Route::get('laporan/cetak_pdf', 'transaksi\DonasiController@cetak_pdf'); //cetak pdf laporan
 Route::get('tandaterima/cetak_tanda', 'transaksi\DonasiController@cetak_tanda'); //cetak pdf tanda bukti
+Route::get('tandaterima1/cetak_tanda1', 'transaksi\DonasiController@cetak_tanda1'); //cetak pdf tanda bukti
 Route::post('donasi', 'transaksi\DonasiController@create');
 Route::put('donasi/{id}', 'transaksi\DonasiController@update');
 Route::delete('donasi/{id}', 'transaksi\DonasiController@delete');
@@ -88,3 +101,4 @@ Route::get('pengajuan/{id}', 'transaksi\PengajuanController@show');
 Route::delete('pengajuan/{id}', 'transaksi\PengajuanController@delete');
 Route::post('pengajuanupload/{id}', 'transaksi\PengajuanController@upload'); //upload file
 Route::get('cobaupload', 'transaksi\PengajuanController@form');
+Route::get('tampil/{id}', 'transaksi\PengajuanController@tampil'); //menampilkan bukti realisasi dan deskripsi kegiatan

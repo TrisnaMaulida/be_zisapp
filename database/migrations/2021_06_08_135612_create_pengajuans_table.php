@@ -24,6 +24,7 @@ class CreatePengajuansTable extends Migration
             $table->bigInteger('jumlah_realisasi');
             $table->date('tgl_realisasi');
             $table->integer('status_pengajuan'); //proses/realisasi/ditolak
+            $table->string('deskripsi_kegiatan');
             $table->string('buktirealisasi');
             $table->timestamps();
         });

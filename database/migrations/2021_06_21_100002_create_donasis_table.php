@@ -14,7 +14,7 @@ class CreateDonasisTable extends Migration
     public function up()
     {
         Schema::create('donasis', function (Blueprint $table) {
-            $table->increments("id_donasi", 16);
+            $table->integer("id_donasi");
             $table->string("no_donasi");
             $table->string("no_bukti");
             $table->date("tgl_donasi");
