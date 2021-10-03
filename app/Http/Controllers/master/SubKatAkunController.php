@@ -14,8 +14,8 @@ class SubKatAkunController extends Controller
     //get sub kat akun
     public function index() //deklarasi fungsi index
     {
-        // $data['status'] = true; //menampilkan status
-        // $data['message'] = "Data Sub Kat Akun"; //menampilkan pesan
+        $data['status'] = true; //menampilkan status
+        $data['message'] = "Data Sub Kat Akun"; //menampilkan pesan
         $data['data'] = DB::select("SELECT * FROM sub_kat_akuns LEFT JOIN kat_akuns ON sub_kat_akuns.id_kat_akun = kat_akuns.id_kat_akun");
         //menampilkan dua table (relasi) -> realisasi antara table sub_kat_akuns dengan kat_akuns 
         return $data; //menampilkan hasil dari proses pengambilan data
