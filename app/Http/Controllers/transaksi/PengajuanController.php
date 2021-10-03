@@ -30,17 +30,26 @@ class PengajuanController extends Controller
         return $data; //menampilkan data relasi yang telah dibuat
     }
 
+    //get pengajuan by id nampilin gambar dan deskripsi kegiatan
+    public function tampil($id)
+    {
+        $data['status'] = 200; //menampilkan status
+        $data['message'] =  "Detail Pengajuan"; //menampilkan pesan
+        $data['data'] = DB::select("SELECT buktirealisasi, deskripsi_kegiatan FROM pengajuans");
+        return $data;
+    }
+
     //create pengajjuan
     public function create(Request $request) //deklarasi fungsi create
     {
         //pilih default id ketika ada kasus belum ada data sama sekali
-        $next_id = "PJN-1800001";
+        $next_id = "PJN-" . date('m') . date('Y') . "00000001";
 
         $max_pengguna = DB::table("pengajuans")->max('no_pengajuan'); //ambil id terbesar -> PJN-1800001 
 
         if ($max_pengguna) { //jika sudah ada data generate id baru
             # code...
-            $pecah_dulu = str_split($max_pengguna, 7); //misal "PJN-1800001" hasilnya jadi ["PJN-1800", "001"]
+            $pecah_dulu = str_split($max_pengguna, 13); //misal "PJN-1800001" hasilnya jadi ["PJN-1800", "001"]
             $increment_id = $pecah_dulu[1];
             $result = sprintf("%'.04d", $increment_id + 1);
 
@@ -185,8 +194,8 @@ class PengajuanController extends Controller
         $pengajuan = Pengajuan::find($id); //mengambil data berdasarkan id
         if ($pengajuan) { //jika data yang diambil ada maka akan dieksekusi\
             $pengajuan->status_pengajuan = 4; //ketika sudah upload file maka status akan menjadi "diterima" atau 4
+            $pengajuan->deskripsi_kegiatan = $request->deskripsi_kegiatan; //menset deskripsi kegiatan
             $pengajuan->buktirealisasi = "http://localhost:8000/uploads/" . $nama_file . "." . $extention;
-
             $update = $pengajuan->update(); //menyimpan perubahan data pada database
             if ($update) { //jika berhasil update
                 # code...

@@ -87,9 +87,13 @@ class DonasiController extends Controller
     //create donasi
     public function create(Request $request) //pendeklarasian fungsi create
     {
-        //buat id donasi berdasarkan datetime
-        $date = new DateTime();
-        $id_donasi = $date->getTimestamp();
+        //buat id donasi
+        $rid_donasi = DB::select('select max(id_donasi) as id from donasis');
+
+        foreach ($rid_donasi as $row) {
+            $id_donasi = $row->id;
+        }
+        $id_donasi++;
 
         //pilih default id ketika ada kasus dalam data sama sekali
         $next_id = "DNS-" . date('m') . date('Y') . "00000001";
@@ -98,9 +102,9 @@ class DonasiController extends Controller
 
         if ($max_donasi) { //jika sudah ada data genarate id baru
             # code...
-            $pecah_dulu = str_split($max_donasi, 13); //misal "DNS-0920210000001" hasilnya jadi ["DNS-", "0920210000001"]
+            $pecah_dulu = str_split($max_donasi, 10); //misal "DNS-0920210000001" hasilnya jadi ["DNS-", "0920210000001"]
             $increment_id = $pecah_dulu[1];
-            $result = sprintf("%'.4d", $increment_id + 1);
+            $result = sprintf("%'.08d", $increment_id + 1);
 
             $next_id = $pecah_dulu[0] . $result;
         }
@@ -116,7 +120,7 @@ class DonasiController extends Controller
         $donasi->id_muzaki = $request->id_muzaki; //menset id_muzaki yang diambil dari request body
         $donasi->id_pengguna = $request->id_pengguna; //menset id_pengguna yang diambil dari request body
 
-        //var_dump($request);
+        // //var_dump($request);
         $simpan_donasi = $donasi->save(); //menyimpan data pengguna ke database
 
         if ($simpan_donasi) { //jika penyimpanan berhasil
@@ -274,7 +278,7 @@ class DonasiController extends Controller
         JOIN muzakis
             ON muzakis.id_muzaki = donasis.id_muzaki
             
-            WHERE donasis.id_donasi = " . $request->id_donasi . "");
+            WHERE donasis.id_donasi = '" . $request->id_donasi . "'");
 
         $donasi2 = DB::select("SELECT * FROM donasis
         JOIN muzakis
@@ -282,7 +286,7 @@ class DonasiController extends Controller
         JOIN penggunas
             ON penggunas.id_pengguna = donasis.id_pengguna
             
-            WHERE donasis.id_donasi = " . $request->id_donasi . "");
+            WHERE donasis.id_donasi = '" . $request->id_donasi . "'");
 
         // var_dump(json_encode($donasi2[0]->nama_muzaki));
         // die();
@@ -298,5 +302,44 @@ class DonasiController extends Controller
             ]
         )->setPaper('A4', 'potrait');
         return $pdf->stream();
+    }
+
+    //cetak tanda bukti donasi per tanggal
+    public function cetak_tanda1(Request $request)
+    {
+        //menampilkan hasil detail donasi berdasarkan tanggal
+        $donasi1 = DB::select("SELECT * FROM donasis 
+        JOIN detail_donasis
+            ON detail_donasis.id_donasi = donasis.id_donasi 
+        JOIN programs 
+            ON programs.id_program = detail_donasis.id_program 
+        JOIN muzakis 
+            ON muzakis.id_muzaki = donasis.id_muzaki 
+
+            WHERE donasis.tgl_donasi = '" . $request->tgl_donasi . "' ");
+
+        $donasi2 = DB::select("SELECT * FROM donasis
+        JOIN muzakis
+            ON muzakis.id_muzaki = donasis.id_muzaki
+        JOIN penggunas
+            ON penggunas.id_pengguna = donasis.id_pengguna
+            
+            WHERE donasis.tgl_donasi = '" . $request->tgl_donasi . "' ");
+
+        // var_dump(json_encode($donasi2[0]->nama_muzaki));
+        // die();
+        //perintah cetak tanda terima pdf
+        $pdf = PDF::loadview(
+            'buktiterima', //nama file pdfnya
+            [
+                'donasi1' => $donasi1,
+                'nama_donatur' => $donasi2[0]->nama_muzaki,
+                'npwz' => $donasi2[0]->npwz,
+                'petugas' => $donasi2[0]->nama_pengguna,
+                'no_donasi' => $donasi2[0]->no_donasi
+            ],
+        )->setPaper('A4', 'potrait');
+        return $pdf->stream();
+        //return $donasi1;
     }
 }
