@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubKatAkuns extends Migration
+class CreateAkuns extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateSubKatAkuns extends Migration
      */
     public function up()
     {
-        Schema::create('sub_kat_akuns', function (Blueprint $table) {
-            $table->increments('id_sub_kat_akun');
-            $table->integer('id_kat_akun');
-            $table->string('kode_sub_kat_akun');
-            $table->string('nama_sub_kat_akun');
+        Schema::create('akuns', function (Blueprint $table) {
+            $table->increments('id_akun');
+            $table->string('nama_akun');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateSubKatAkuns extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub_kat_akuns');
+        Schema::dropIfExists('akuns');
     }
 }
