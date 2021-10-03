@@ -64,7 +64,7 @@ Route::delete('program/{id}', 'master\ProgramController@delete');
 Route::get('laporanprogram_all/cetakpdf', 'master\ProgramController@cetakpdf'); //mencetak pdf laporan all program
 Route::get('laporanprogram/cetak_pdf', 'master\ProgramController@cetak_pdf'); //cetak pdf laporan by id_bank
 
-//Kat Akun API
+//Kat Akun API 
 Route::get('katakun', 'master\KatAkunController@index');
 Route::post('katakun', 'master\KatAkunController@create');
 Route::put('katakun/{id}', 'master\KatAkunController@update');
@@ -75,6 +75,13 @@ Route::get('subkat', 'master\SubKatAkunController@index');
 Route::post('subkat', 'master\SubKatAkunController@create');
 Route::put('subkat/{id}', 'master\SubKatAkunController@update');
 Route::delete('subkat/{id}', 'master\SubKatAkunController@delete');
+
+//Sub Sub Kat API
+Route::get('subsubkat', 'master\SubSubKatAkunController@index');
+Route::post('subsubkat', 'master\SubSubKatAkunController@create');
+Route::put('subsubkat/{id}', 'master\SubSubKatAkunController@update');
+Route::delete('subsubkat/{id}', 'master\SubSubKatAkunController@delete');
+
 
 /* Route API Transaksi*/
 

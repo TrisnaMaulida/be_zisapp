@@ -15,8 +15,8 @@ class CreateSubKatAkuns extends Migration
     {
         Schema::create('sub_kat_akuns', function (Blueprint $table) {
             $table->increments('id_sub_kat_akun');
-            $table->integer('kategori');
-            $table->integer('kode_sub_kat_akun');
+            $table->integer('id_kat_akun');
+            $table->string('kode_sub_kat_akun');
             $table->string('nama_sub_kat_akun');
             $table->timestamps();
         });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\master;
 use App\Http\Controllers\Controller;
 use App\KatAkun;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KatAkunController extends Controller
 {
@@ -20,10 +21,23 @@ class KatAkunController extends Controller
     //create Kat Akun
     public function create(Request $request) //deklarasi fungsi create
     {
+        //pilih default id ketika ada kasus belum ada data sama sekali
+        $next_id = "KAT_AKN_" . date('m') . date('Y') . "00000001";
+
+        $max_kat_akun = DB::table("kat_akuns")->max('kode_kat_akun'); // ambil id terbesar > 1011110001
+
+        if ($max_kat_akun) { // jika sudah ada data generate id baru 
+
+            $pecah_dulu = str_split($max_kat_akun, 14); // misal "1011110000" hasilnya jadi ["101111","0001"]
+            $increment_id = $pecah_dulu[1];
+            $result = sprintf("%'.08d", $increment_id + 1);
+            $next_id = $pecah_dulu[0] . $result;
+        }
+
         $katakun = new KatAkun; //inisialisasi object baru
         $katakun->kategori = $request->kategori; //menset kategori yang diambil dari request body
         $katakun->nama_kat_akun = $request->nama_kat_akun; //menset nama_sub_kat_akun yang diambil dari request body
-        $katakun->kode_kat_akun = $request->kode_kat_akun; //menset kode_sub_kat_akun
+        $katakun->kode_kat_akun = $next_id; //menset kode_sub_kat_akun
 
         $simpan = $katakun->save(); //menyimpan data ke database
         if ($simpan) { //jika penyimpanan berhasil
