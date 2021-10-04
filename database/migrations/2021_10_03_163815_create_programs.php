@@ -16,6 +16,7 @@ class CreatePrograms extends Migration
         Schema::create('programs', function (Blueprint $table) {
             $table->increments('id_program');
             $table->integer('id_sub_akun_program');
+            $table->integer('id_bank');
             $table->string('nama_program');
             $table->timestamps();
         });
