@@ -13,10 +13,11 @@ class ProgramController extends Controller
     public function index() //deklarasi fungsi index
     {
         $data['status'] = true; //menampilkan status
-        $data['message'] = "Data Sub Akun"; //menampilkan pesan
+        $data['message'] = "Data Program"; //menampilkan pesan
         $data['data'] = DB::select("SELECT * FROM programs JOIN sub_akun_programs ON programs.id_sub_akun_program = sub_akun_programs.id_sub_akun_program
                                                         JOIN sub_akuns ON sub_akuns.id_sub_akun = sub_akun_programs.id_sub_akun
-                                                        JOIN akuns ON akuns.id_akun=sub_akuns.id_akun");
+                                                        JOIN akuns ON akuns.id_akun=sub_akuns.id_akun
+                                                        JOIN banks ON banks.id_bank=programs.id_bank");
 
         //relasi 4 table antara table akuns dengan tabel sub akun
         return $data; //menampilkan hasil dari proses pengambilan data
@@ -27,6 +28,7 @@ class ProgramController extends Controller
     {
         $program = new Program();  //inisialisasi atau menciptakan object baru
         $program->id_sub_akun_program = $request->id_sub_akun_program; //menset id_akun yang diambil dari request body
+        $program->id_bank = $request->id_bank;
         $program->nama_program = $request->nama_program; //menset nama_sub_akun yang diambil dari request body
 
 
@@ -54,6 +56,7 @@ class ProgramController extends Controller
             # code...
             //menset nilai yang baru/update
 
+            $program->id_bank = $request->id_bank;
             $program->nama_program = $request->nama_program;
 
             $data['data'] = $program; //menampilkan data akun
