@@ -2,40 +2,35 @@
 
 namespace App\Http\Controllers\master;
 
+use App\Akun;
 use App\Http\Controllers\Controller;
-use App\Program;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class ProgramController extends Controller
+class AkunController extends Controller
 {
-    //get Program
+    //get Akun
     public function index() //deklarasi fungsi index
     {
         $data['status'] = true; //menampilkan status
-        $data['message'] = "Data Sub Akun"; //menampilkan pesan
-        $data['data'] = DB::select("SELECT * FROM programs JOIN sub_akun_programs ON programs.id_sub_akun_program = sub_akun_programs.id_sub_akun_program
-                                                        JOIN sub_akuns ON sub_akuns.id_sub_akun = sub_akun_programs.id_sub_akun
-                                                        JOIN akuns ON akuns.id_akun=sub_akuns.id_akun");
-
-        //relasi 4 table antara table akuns dengan tabel sub akun
+        $data['message'] = "Data Akun"; //menampilkan pesan
+        $data['data'] = Akun::all(); //mengambil semua data akun
         return $data; //menampilkan hasil dari proses pengambilan data
     }
 
-    //create Program
+
+    //create Akun
     public function create(Request $request) //pendeklarasian fungsi create
     {
-        $program = new Program();  //inisialisasi atau menciptakan object baru
-        $program->id_sub_akun_program = $request->id_sub_akun_program; //menset id_akun yang diambil dari request body
-        $program->nama_program = $request->nama_program; //menset nama_sub_akun yang diambil dari request body
+        $akun = new Akun;  //inisialisasi atau menciptakan object baru
+        $akun->nama_akun = $request->nama_akun; //menset nama_akun yang diambil dari request body
 
 
-        $simpan = $program->save(); //menyimpan data pengguna ke database
+        $simpan = $akun->save(); //menyimpan data pengguna ke database
         if ($simpan) { //jika penyimpanan berhasil
             # code...
             $data['status'] = true;
             $data['message'] = "Data Akun Berhasil ditambahkan";
-            $data['data'] = $program;
+            $data['data'] = $akun;
         } else { //jika penyimpanan gagal
             $data['status'] = false;
             $data['message'] = "Gagal Menambahkan Data Akun";
@@ -45,24 +40,23 @@ class ProgramController extends Controller
         return $data; //menampilkan data yang baru di save/simpan
     }
 
-    //update Program
+    //update
     public function update(Request $request, $id) ////pendeklarasian fungsi
     {
-        $program = Program::find($id);
+        $akun = Akun::find($id);
 
-        if ($program) {
+        if ($akun) {
             # code...
             //menset nilai yang baru/update
+            $akun->nama_akun = $request->nama_akun;
 
-            $program->nama_program = $request->nama_program;
-
-            $data['data'] = $program; //menampilkan data akun
-            $update = $program->update(); //menyimpan perubahan data pada database
+            $data['data'] = $akun; //menampilkan data akun
+            $update = $akun->update(); //menyimpan perubahan data pada database
             if ($update) { //jika berhasil update 
                 # code...
                 $data['status'] = true;
                 $data['message'] = "Data Berhasil diUpdate";
-                $data['data'] = $program;
+                $data['data'] = $akun;
             } else { //jika gagal update
                 $data['status'] = false;
                 $data['message'] = "Data Gagal diUpdate";
@@ -77,19 +71,19 @@ class ProgramController extends Controller
         return $data; //menampilkan data yang berhasil diupdate (berhasil/gagal/data tidak ada)
     }
 
-    //delete Program
+    //delete akun
     public function delete($id) //deklarasi fungsi delete
     {
-        $program = Program::find($id); //mengambil data akun berdasarkan id
+        $akun = Akun::find($id); //mengambil data akun berdasarkan id
 
-        if ($program) { //mengecek data akun apakah ada atau tidak
+        if ($akun) { //mengecek data akun apakah ada atau tidak
             # code...
-            $delete = $program->delete(); //menghapus data akun
+            $delete = $akun->delete(); //menghapus data akun
             if ($delete) { //jika fungsi hapus berhasil
                 # code...
                 $data['status'] = true;
                 $data['message'] = "Data Berhasil di Hapus";
-                $data['data'] = $program;
+                $data['data'] = $akun;
             } else { //jika fungsi hapus gagal
                 $data['status'] = false;
                 $data['message'] = "Data Gagal di Hapus";

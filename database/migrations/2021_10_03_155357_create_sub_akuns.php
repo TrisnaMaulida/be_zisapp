@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProgramms extends Migration
+class CreateSubAkuns extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateProgramms extends Migration
      */
     public function up()
     {
-        Schema::create('programms', function (Blueprint $table) {
-            $table->increments('id_programm');
-            $table->integer('id_kategori');
-            $table->integer('kode_programm');
-            $table->string('nama_programm');
+        Schema::create('sub_akuns', function (Blueprint $table) {
+            $table->increments('id_sub_akun');
+            $table->integer('id_akun');
+            $table->string('nama_sub_akun');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateProgramms extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('programms');
+        Schema::dropIfExists('sub_akuns');
     }
 }
