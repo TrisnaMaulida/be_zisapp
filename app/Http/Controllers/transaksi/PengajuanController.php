@@ -195,7 +195,7 @@ class PengajuanController extends Controller
         if ($pengajuan) { //jika data yang diambil ada maka akan dieksekusi\
             $pengajuan->status_pengajuan = 4; //ketika sudah upload file maka status akan menjadi "diterima" atau 4
             $pengajuan->deskripsi_kegiatan = $request->deskripsi_kegiatan; //menset deskripsi kegiatan
-            $pengajuan->buktirealisasi = "http://localhost:8000/uploads/" . $nama_file . "." . $extention;
+            $pengajuan->buktirealisasi = "http://localhost:8000/uploads/" . $nama_file;
             $update = $pengajuan->update(); //menyimpan perubahan data pada database
             if ($update) { //jika berhasil update
                 # code...
