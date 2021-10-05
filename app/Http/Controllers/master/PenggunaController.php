@@ -133,6 +133,7 @@ class PenggunaController extends Controller
     {
 
         $pengguna = Pengguna::find($id); //mengambil data berdasarkan id
+        //$pengguna = md5($pengguna->password);
 
         if ($pengguna) { //jika data yang diambil ada maka akan dieksekusi
             # code...

@@ -87,13 +87,10 @@ class DonasiController extends Controller
     //create donasi
     public function create(Request $request) //pendeklarasian fungsi create
     {
-        //buat id donasi
-        $rid_donasi = DB::select('select max(id_donasi) as id from donasis');
 
-        foreach ($rid_donasi as $row) {
-            $id_donasi = $row->id;
-        }
-        $id_donasi++;
+        //buat id donasi
+        $rid_donasi = DB::table("donasis")->max('id_donasi');
+        $id_donasi = $rid_donasi + 1;
 
         //pilih default id ketika ada kasus dalam data sama sekali
         $next_id = "DNS-" . date('m') . date('Y') . "00000001";
@@ -121,6 +118,7 @@ class DonasiController extends Controller
         $donasi->id_pengguna = $request->id_pengguna; //menset id_pengguna yang diambil dari request body
 
         // //var_dump($request);
+        //return $donasi;
         $simpan_donasi = $donasi->save(); //menyimpan data pengguna ke database
 
         if ($simpan_donasi) { //jika penyimpanan berhasil
@@ -138,7 +136,6 @@ class DonasiController extends Controller
                             "keterangan" => $item['keterangan'], //menset keterangan yang diambil dari request body
                         ));
                     }     //push data ke array
-
                 }
 
                 $simpan_detaildonasi = DetailDonasi::insert($final_data); //menyimpan data detai donasi ke dataabase
@@ -146,7 +143,7 @@ class DonasiController extends Controller
                     # code...
                     $data['status'] = true;
                     $data['message'] = "Berhasil Menambahkan Detail Donasi";
-                    $data['data'] = $donasi;
+                    $data['data'] = $id_donasi;
                 } else { //jika penyimpanan gagal
                     $data['status'] = false;
                     $data['message'] = "Gagal Menambahkan Detail Donasi";
@@ -307,16 +304,16 @@ class DonasiController extends Controller
     //cetak tanda bukti donasi per tanggal
     public function cetak_tanda1(Request $request)
     {
-        //menampilkan hasil detail donasi berdasarkan tanggal
-        $donasi1 = DB::select("SELECT * FROM donasis 
-        JOIN detail_donasis
-            ON detail_donasis.id_donasi = donasis.id_donasi 
-        JOIN programs 
-            ON programs.id_program = detail_donasis.id_program 
-        JOIN muzakis 
-            ON muzakis.id_muzaki = donasis.id_muzaki 
-
-            WHERE donasis.tgl_donasi = '" . $request->tgl_donasi . "' ");
+        //menampilkan hasil detail donasi
+        $donasi1 = DB::select("SELECT * FROM detail_donasis
+        JOIN donasis
+            ON donasis.id_donasi = detail_donasis.id_donasi
+        JOIN programs
+            ON programs.id_program  = detail_donasis.id_program
+        JOIN muzakis
+            ON muzakis.id_muzaki = donasis.id_muzaki
+            
+            WHERE donasis.id_donasi = '" . $request->id_donasi . "'");
 
         $donasi2 = DB::select("SELECT * FROM donasis
         JOIN muzakis
@@ -324,7 +321,7 @@ class DonasiController extends Controller
         JOIN penggunas
             ON penggunas.id_pengguna = donasis.id_pengguna
             
-            WHERE donasis.tgl_donasi = '" . $request->tgl_donasi . "' ");
+            WHERE donasis.id_donasi = '" . $request->id_donasi . "'");
 
         // var_dump(json_encode($donasi2[0]->nama_muzaki));
         // die();
@@ -337,9 +334,8 @@ class DonasiController extends Controller
                 'npwz' => $donasi2[0]->npwz,
                 'petugas' => $donasi2[0]->nama_pengguna,
                 'no_donasi' => $donasi2[0]->no_donasi
-            ],
+            ]
         )->setPaper('A4', 'potrait');
         return $pdf->stream();
-        //return $donasi1;
     }
 }
