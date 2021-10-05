@@ -133,36 +133,36 @@ class PenggunaController extends Controller
     {
 
         $pengguna = Pengguna::find($id); //mengambil data berdasarkan id
-        $pengguna = md5($pengguna->password);
+        //$pengguna = md5($pengguna->password);
 
-        // if ($pengguna) { //jika data yang diambil ada maka akan dieksekusi
-        //     # code...
-        //     //menset nilai yang baru/update
-        //     $pengguna->nama_pengguna = $request->nama_pengguna;
-        //     $pengguna->alamat_pengguna = $request->alamat_pengguna;
-        //     $pengguna->telepon_pengguna = $request->telepon_pengguna;
-        //     $pengguna->leveluser = $request->leveluser;
-        //     $pengguna->username = $request->username;
-        //     $pengguna->password = md5($request->password);
-        //     $pengguna->status_pengguna = $request->status_pengguna;
+        if ($pengguna) { //jika data yang diambil ada maka akan dieksekusi
+            # code...
+            //menset nilai yang baru/update
+            $pengguna->nama_pengguna = $request->nama_pengguna;
+            $pengguna->alamat_pengguna = $request->alamat_pengguna;
+            $pengguna->telepon_pengguna = $request->telepon_pengguna;
+            $pengguna->leveluser = $request->leveluser;
+            $pengguna->username = $request->username;
+            $pengguna->password = md5($request->password);
+            $pengguna->status_pengguna = $request->status_pengguna;
 
-        //     $data['data'] = $pengguna; //menampilkan data pengguna
-        //     $update = $pengguna->update(); //menyimpan perubahan data pada database
-        //     if ($update) { //jika berhasil update
-        //         $data['status'] = true;
-        //         $data['message'] = "Berhasil di Update ";
-        //         $data['data'] = $pengguna;
-        //     } else { //jika gagal update
-        //         $data['status'] = false;
-        //         $data['message'] = "Gagal di Update ";
-        //         $data['data'] = null;
-        //     }
-        // } else { //jika datanya tidak ada
-        //     $data['status'] = false;
-        //     $data['message'] = "Data Tidak Ada";
-        //     $data['data'] = null;
-        // }
-        return $pengguna; //menampilkan data yang berhasil diupdate (berhasil/gagal/data tidak ada)
+            $data['data'] = $pengguna; //menampilkan data pengguna
+            $update = $pengguna->update(); //menyimpan perubahan data pada database
+            if ($update) { //jika berhasil update
+                $data['status'] = true;
+                $data['message'] = "Berhasil di Update ";
+                $data['data'] = $pengguna;
+            } else { //jika gagal update
+                $data['status'] = false;
+                $data['message'] = "Gagal di Update ";
+                $data['data'] = null;
+            }
+        } else { //jika datanya tidak ada
+            $data['status'] = false;
+            $data['message'] = "Data Tidak Ada";
+            $data['data'] = null;
+        }
+        return $data; //menampilkan data yang berhasil diupdate (berhasil/gagal/data tidak ada)
     }
 
     //delete pengguna
