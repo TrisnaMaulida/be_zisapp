@@ -93,7 +93,7 @@ Route::get('donasibynpwz/{id}', 'transaksi\DonasiController@shownpwz'); //show b
 Route::get('donasi', 'transaksi\DonasiController@index');
 Route::get('laporan/cetak_pdf', 'transaksi\DonasiController@cetak_pdf'); //cetak pdf laporan
 Route::get('tandaterima/cetak_tanda', 'transaksi\DonasiController@cetak_tanda'); //cetak pdf tanda bukti
-Route::get('tandaterima1/cetak_tanda1', 'transaksi\DonasiController@cetak_tanda1'); //cetak pdf tanda bukti
+Route::get('tandaterima1/cetak_tanda1', 'transaksi\DonasiController@cetak_tanda1'); //cetak pdf tanda bukti per tanggal
 Route::post('donasi', 'transaksi\DonasiController@create');
 Route::put('donasi/{id}', 'transaksi\DonasiController@update');
 Route::delete('donasi/{id}', 'transaksi\DonasiController@delete');
