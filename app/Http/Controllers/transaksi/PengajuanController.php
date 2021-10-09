@@ -181,11 +181,11 @@ class PengajuanController extends Controller
         //mendapatkan nama file
         $nama_file = $file->getClientOriginalName();
 
-        //mendapatkan extention file
-        $extention = $file->getClientOriginalExtension();
+        // //mendapatkan extention file
+        // $extention = $file->getClientOriginalExtension();
 
-        //mendapatkan ukuran file
-        $ukuran_file = $file->getSize();
+        // //mendapatkan ukuran file
+        // $ukuran_file = $file->getSize();
 
         //proses Upload file
         $destinationPath = 'uploads';
