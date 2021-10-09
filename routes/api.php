@@ -109,3 +109,8 @@ Route::delete('pengajuan/{id}', 'transaksi\PengajuanController@delete');
 Route::post('pengajuanupload/{id}', 'transaksi\PengajuanController@upload'); //upload file
 Route::get('cobaupload', 'transaksi\PengajuanController@form');
 Route::get('tampil/{id}', 'transaksi\PengajuanController@tampil'); //menampilkan bukti realisasi dan deskripsi kegiatan
+
+
+/* Route API Laporan*/
+Route::get('laporanharian', 'laporan\LaporanHarianController@index');
+Route::get('cetaklaporan', 'laporan\LaporanHarianController@cetakA1'); //cetak pdf tanda bukti
