@@ -128,22 +128,21 @@ class PenggunaController extends Controller
         return $data; //menampilkan data yang baru disave/simpan
     }
 
-    //update pengguna
-    public function update(request $request, $id) //pendeklarasian fungsi update
+    //update pengguna(profile)
+    public function update(Request $request, $id) //pendeklarasian fungsi update
     {
 
         $pengguna = Pengguna::find($id); //mengambil data berdasarkan id
         //$pengguna = md5($pengguna->password);
 
         if ($pengguna) { //jika data yang diambil ada maka akan dieksekusi
-            # code...
+            //     # code...
             //menset nilai yang baru/update
             $pengguna->nama_pengguna = $request->nama_pengguna;
             $pengguna->alamat_pengguna = $request->alamat_pengguna;
             $pengguna->telepon_pengguna = $request->telepon_pengguna;
             $pengguna->leveluser = $request->leveluser;
             $pengguna->username = $request->username;
-            $pengguna->password = md5($request->password);
             $pengguna->status_pengguna = $request->status_pengguna;
 
             $data['data'] = $pengguna; //menampilkan data pengguna
@@ -157,6 +156,25 @@ class PenggunaController extends Controller
                 $data['message'] = "Gagal di Update ";
                 $data['data'] = null;
             }
+        } else { //jika datanya tidak ada
+            $data['status'] = false;
+            $data['message'] = "Data Tidak Ada";
+            $data['data'] = null;
+        }
+        return $data; //menampilkan data yang berhasil diupdate (berhasil/gagal/data tidak ada)
+    }
+
+    public function updatepassword(Request $request, $id) //pendeklarasian fungsi update
+    {
+        $pengguna1 = Pengguna::find($id); //mengambil data berdasarkan id
+        if ($pengguna1) { //jika data yang diambil ada maka akan dieksekusi
+            # code...
+            //menset nilai yang baru/update
+            $pengguna1->password = md5($request->password); //mengenkripsi password
+
+            $data['status'] = true;
+            $data['message'] = "Password Berhasil di Perbarui";
+            $data['data'] = $pengguna1; //menampilkan data pengguna
         } else { //jika datanya tidak ada
             $data['status'] = false;
             $data['message'] = "Data Tidak Ada";

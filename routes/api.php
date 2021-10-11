@@ -28,6 +28,7 @@ Route::get('pengguna/{id}', 'master\PenggunaController@show');
 Route::get('pengguna', 'master\PenggunaController@index');
 Route::post('pengguna', 'master\PenggunaController@create');
 Route::put('pengguna/{id}', 'master\PenggunaController@update');
+Route::put('passwordpengguna/{id}', 'master\PenggunaController@updatepassword'); //update passwordnya aja
 Route::delete('pengguna/{id}', 'master\PenggunaController@delete');
 
 //Muzaki API
@@ -113,4 +114,5 @@ Route::get('tampil/{id}', 'transaksi\PengajuanController@tampil'); //menampilkan
 
 /* Route API Laporan*/
 Route::get('laporanharian', 'laporan\LaporanHarianController@index');
-Route::get('cetaklaporan', 'laporan\LaporanHarianController@cetakA1'); //cetak pdf tanda bukti
+Route::get('cetaklaporan', 'laporan\LaporanHarianController@cetakA1'); //cetak pdf laporan A1 'Penerimaan Kas ZIR/FO'
+Route::get('cetaklaporan2', 'laporan\LaporanHarianController@cetakA2'); //cetak pdf laporan A2 'Rekap Penerimaan'
