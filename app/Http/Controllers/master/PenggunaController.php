@@ -52,13 +52,12 @@ class PenggunaController extends Controller
                 if ($password == md5($request->password)) {
                     //login berhasil
                     $data['message'] = "Login Berhasil";
-                    $data['data'] = $password;
+                    $data['data'] = $pengguna;
                     $data['status'] = true;
-
                     return $data;
                 } else { //validasi berhasil dan login gagal
                     $data['message'] = "Username dan Password Salah";
-                    $data['data'] = $password;
+                    $data['data'] = null;
                     $data['status'] = false;
 
                     return $data;
