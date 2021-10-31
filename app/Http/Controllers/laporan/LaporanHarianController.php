@@ -20,7 +20,7 @@ class LaporanHarianController extends Controller
         $data['message'] = "Laporan Harian";
         $data['data'] = DB::table('detail_donasis')
             ->select('detail_donasis.id_program')
-            ->select('programs.nama_program', DB::raw('SUM(detail_donasis.jumlah_donasi) AS total'))
+            ->select('programs.nama_program', DB::raw('SUM(detail_donasis.jumlah_donasi) AS jumlah'))
             ->join('donasis', 'donasis.id_donasi', '=', 'detail_donasis.id_donasi')
             ->join('programs', 'programs.id_program', '=', 'detail_donasis.id_program')
             ->where('donasis.tgl_donasi', '=', $request->tgl_donasi) //biar bisa request tgl
@@ -33,7 +33,7 @@ class LaporanHarianController extends Controller
     {
         $laporan = DB::table('detail_donasis')
             ->select('detail_donasis.id_program')
-            ->select('programs.nama_program', DB::raw('SUM(detail_donasis.jumlah_donasi) AS total'))
+            ->select('programs.nama_program', DB::raw('SUM(detail_donasis.jumlah_donasi) AS jumlah'))
             ->join('donasis', 'donasis.id_donasi', '=', 'detail_donasis.id_donasi')
             ->join('programs', 'programs.id_program', '=', 'detail_donasis.id_program')
             ->where('donasis.tgl_donasi', '=', $request->tgl_donasi) //biar bisa request tgl
@@ -64,7 +64,7 @@ class LaporanHarianController extends Controller
     {
         $laporan = DB::table('detail_donasis')
             ->select('detail_donasis.id_program')
-            ->select('programs.nama_program', DB::raw('SUM(detail_donasis.jumlah_donasi) AS total'))
+            ->select('programs.nama_program', DB::raw('SUM(detail_donasis.jumlah_donasi) AS jumlah'))
             ->join('donasis', 'donasis.id_donasi', '=', 'detail_donasis.id_donasi')
             ->join('programs', 'programs.id_program', '=', 'detail_donasis.id_program')
             ->where('donasis.tgl_donasi', '=', $request->tgl_donasi) //biar bisa request tgl
