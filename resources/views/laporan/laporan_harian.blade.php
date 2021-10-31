@@ -111,43 +111,45 @@
                                 <td>
                                     <div>Rp. {{number_format(100000)}}</div>
                                 </td>
-                                <td contenteditable="true">isinya</td>
+
+                                <td contenteditable="true">{{$kertas_seratus}}</td>
                             </tr>
                             <tr align="right">
                                 <td>
                                     <div align="right">Rp. {{number_format(50000)}}</div>
                                 </td>
-                                <td contenteditable="true">&nbsp;</td>
+                                $request->50000
+                                <td contenteditable="true">{{$kertas_limapuluh}}</td>
                             </tr>
                             <tr align="right">
                                 <td>
                                     <div align="right">Rp. {{number_format(20000)}}</div>
                                 </td>
-                                <td contenteditable="true">&nbsp;</td>
+                                <td contenteditable="true">{{$kertas_duapuluh}}</td>
                             </tr>
                             <tr align="right">
                                 <td>
                                     <div align="right">Rp. {{number_format(10000)}}</div>
                                 </td>
-                                <td contenteditable="true">&nbsp;</td>
+                                <td contenteditable="true">{{$kertas_sepuluh}}</td>
                             </tr>
                             <tr align="right">
                                 <td>
                                     <div align="right">Rp. {{number_format(5000)}}</div>
                                 </td>
-                                <td contenteditable="true">&nbsp;</td>
+                                <td contenteditable="true">{{$kertas_limaribu}}</td>
                             </tr>
                             <tr align="right">
                                 <td>
                                     <div align="right">Rp. {{number_format(2000)}}</div>
                                 </td>
-                                <td contenteditable="true">&nbsp;</td>
+                                <td contenteditable="true">{{$kertas_duaribu}}</td>
                             </tr>
                             <tr align="right">
                                 <td>
                                     <div align="right">Rp. {{number_format(1000)}}</div>
                                 </td>
-                                <td contenteditable="true">&nbsp;</td>
+                                <td contenteditable="true">{{$kertas_seribu}}</td>
                             </tr>
                             <tr>
                                 <td>Pecahan Logam </td>
@@ -157,25 +159,25 @@
                                 <td>
                                     <div align="right">Rp. {{number_format(1000)}}</div>
                                 </td>
-                                <td contenteditable="true">&nbsp;</td>
+                                <td contenteditable="true">{{$logam_seribu}}</td>
                             </tr>
                             <tr align="right">
                                 <td>
                                     <div align="right">Rp. {{number_format(500)}}</div>
                                 </td>
-                                <td contenteditable="true">&nbsp;</td>
+                                <td contenteditable="true">{{$logam_limaratus}}</td>
                             </tr>
                             <tr align="right">
                                 <td>
                                     <div align="right">Rp. {{number_format(200)}}</div>
                                 </td>
-                                <td contenteditable="true">&nbsp;</td>
+                                <td contenteditable="true">{{$logam_duaratus}}</td>
                             </tr>
                             <tr align="right">
                                 <td>
                                     <div align="right">Rp. {{number_format(100)}}</div>
                                 </td>
-                                <td contenteditable="true">&nbsp;</td>
+                                <td contenteditable="true">{{$logam_seratus}}</td>
                             </tr>
                         </table>
         </div>
