@@ -19,6 +19,7 @@ class LaporanHarianController extends Controller
         $programs = DB::table('detail_donasis')
             ->select('detail_donasis.id_program')
             ->select('programs.nama_program', DB::raw('SUM(detail_donasis.jumlah_donasi) AS jumlah'))
+            ->select('programs.nama_program', DB::raw('SUM(detail_donasis.jumlah_donasi) AS total'))
             ->join('donasis', 'donasis.id_donasi', '=', 'detail_donasis.id_donasi')
             ->join('programs', 'programs.id_program', '=', 'detail_donasis.id_program')
             ->where('donasis.tgl_donasi', '=', $request->tgl_donasi) //biar bisa request tgl
@@ -27,7 +28,8 @@ class LaporanHarianController extends Controller
 
         $total = 0;
         foreach ($programs as $value) {
-            $total = $total + $value->jumlah;
+            //var_dump($value);
+            $total = $total + $value->total;
         }
         $data['status'] = true;
         $data['message'] = "Laporan Harian";
