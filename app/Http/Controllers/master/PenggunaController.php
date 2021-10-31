@@ -54,7 +54,6 @@ class PenggunaController extends Controller
                     $data['message'] = "Login Berhasil";
                     $data['data'] = $pengguna;
                     $data['status'] = true;
-
                     return $data;
                 } else { //validasi berhasil dan login gagal
                     $data['message'] = "Username dan Password Salah";
