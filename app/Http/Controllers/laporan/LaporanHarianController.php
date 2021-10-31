@@ -59,26 +59,32 @@ class LaporanHarianController extends Controller
                 WHERE donasis.tgl_donasi = '" . $request->tgl_donasi . "'");
 
 
-        $pdf = PDF::loadview(
-            'laporan/laporan_harian', //nama file pdfnya
-            [
-                'kertas_seratus' => $request->kertas_seratus,
-                'kertas_limapuluh' => $request->kertas_limapuluh,
-                'kertas_duapuluh' => $request->kertas_duapuluh,
-                'kertas_sepuluh' => $request->kertas_sepuluh,
-                'kertas_limaribu' => $request->kertas_limaribu,
-                'kertas_duaribu' => $request->kertas_duaribu,
-                'kertas_seribu' => $request->kertas_seribu,
-                'logam_seribu' => $request->logam_seribu,
-                'logam_limaratus' => $request->logam_limaratus,
-                'logam_duaratus' => $request->logam_duaratus,
-                'logam_seratus' => $request->logam_seratus,
-                'laporan' => $laporan,
-                'tgl_donasi' => $laporan2[0]->tgl_donasi
+        if ($laporan2) { //jika datanta ada 
+            # code...
+            $pdf = PDF::loadview(
+                'laporan/laporan_harian', //nama file pdfnya
+                [
+                    'kertas_seratus' => $request->kertas_seratus,
+                    'kertas_limapuluh' => $request->kertas_limapuluh,
+                    'kertas_duapuluh' => $request->kertas_duapuluh,
+                    'kertas_sepuluh' => $request->kertas_sepuluh,
+                    'kertas_limaribu' => $request->kertas_limaribu,
+                    'kertas_duaribu' => $request->kertas_duaribu,
+                    'kertas_seribu' => $request->kertas_seribu,
+                    'logam_seribu' => $request->logam_seribu,
+                    'logam_limaratus' => $request->logam_limaratus,
+                    'logam_duaratus' => $request->logam_duaratus,
+                    'logam_seratus' => $request->logam_seratus,
 
-            ]
-        )->setPaper('A4', 'potrait');
-        return $pdf->stream();
+                    'laporan' => $laporan,
+                    'tgl_donasi' => $laporan2[0]->tgl_donasi
+
+                ]
+            )->setPaper('A4', 'potrait');
+            return $pdf->stream();
+        } else {
+            return "Data Tidak Ditemukan";
+        }
     }
 
     public function cetakA2(Request $request)
