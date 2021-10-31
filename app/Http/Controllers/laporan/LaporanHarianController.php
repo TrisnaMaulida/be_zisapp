@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\LaporanHarian;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
-
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class LaporanHarianController extends Controller
 {
@@ -16,9 +16,7 @@ class LaporanHarianController extends Controller
     public function index(Request $request)
     {
         # code...
-        $data['status'] = true;
-        $data['message'] = "Laporan Harian";
-        $data['data'] = DB::table('detail_donasis')
+        $programs = DB::table('detail_donasis')
             ->select('detail_donasis.id_program')
             ->select('programs.nama_program', DB::raw('SUM(detail_donasis.jumlah_donasi) AS jumlah'))
             ->join('donasis', 'donasis.id_donasi', '=', 'detail_donasis.id_donasi')
@@ -26,6 +24,15 @@ class LaporanHarianController extends Controller
             ->where('donasis.tgl_donasi', '=', $request->tgl_donasi) //biar bisa request tgl
             ->groupBy('programs.nama_program')
             ->get();
+
+        $total = 0;
+        foreach ($programs as $value) {
+            $total = $total + $value->jumlah;
+        }
+        $data['status'] = true;
+        $data['message'] = "Laporan Harian";
+        $data['data'] = $programs;
+        $data['total'] = $total;
         return $data;
     }
 
@@ -34,6 +41,7 @@ class LaporanHarianController extends Controller
         $laporan = DB::table('detail_donasis')
             ->select('detail_donasis.id_program')
             ->select('programs.nama_program', DB::raw('SUM(detail_donasis.jumlah_donasi) AS jumlah'))
+            ->select('programs.nama_program', DB::raw('SUM(detail_donasis.jumlah_donasi) AS total'))
             ->join('donasis', 'donasis.id_donasi', '=', 'detail_donasis.id_donasi')
             ->join('programs', 'programs.id_program', '=', 'detail_donasis.id_program')
             ->where('donasis.tgl_donasi', '=', $request->tgl_donasi) //biar bisa request tgl
@@ -65,6 +73,7 @@ class LaporanHarianController extends Controller
         $laporan = DB::table('detail_donasis')
             ->select('detail_donasis.id_program')
             ->select('programs.nama_program', DB::raw('SUM(detail_donasis.jumlah_donasi) AS jumlah'))
+            ->select('programs.nama_program', DB::raw('SUM(detail_donasis.jumlah_donasi) AS total'))
             ->join('donasis', 'donasis.id_donasi', '=', 'detail_donasis.id_donasi')
             ->join('programs', 'programs.id_program', '=', 'detail_donasis.id_program')
             ->where('donasis.tgl_donasi', '=', $request->tgl_donasi) //biar bisa request tgl
