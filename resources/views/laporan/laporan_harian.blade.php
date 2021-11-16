@@ -38,7 +38,7 @@
                 </tr>
             </table>
 
-            <p align="justify">Bissmillahirrohmaanirohiim Pada Hari ini <span contenteditable="true">---</span> <?php echo date('d F Y', strtotime($tgl_donasi)) . ","; ?> Alhamdulillah telah diterima dana Zakat, Infaq dan Shodaqoh dengan rincian:</p>
+            <p align="justify">Bissmillahirrohmaanirohiim Pada Hari ini <span contenteditable="true">---</span> <?php echo date('d F Y') . ","; ?> Alhamdulillah telah diterima dana Zakat, Infaq dan Shodaqoh dengan rincian:</p>
             Dokumen Kuitansi Penerimaan:<span contenteditable="true">---</span>Lembar
             <br><br>
 
@@ -51,9 +51,9 @@
                                     <td>Keterangan</td>
                                     <td align="right">Jumlah</td>
                                 </tr>
-                                @php $total=0 @endphp
+                                @php $total_semua=0 @endphp
                                 @foreach($laporan as $item)
-                                @php $total=($total+$item->total) @endphp
+                                @php $total_semua=($total_semua+$item->total) @endphp
                                 <tr>
                                     <td>{{$item->nama_program}}</td>
                                     <td align="right">Rp. {{number_format ($item->total)}}</td>
@@ -64,14 +64,14 @@
                             <tfoot>
                                 <tr>
                                     <td>Total Penerimaan: </td>
-                                    <td align="right"><span id="total_penerimaan">Rp. {{number_format($total, 0, ',', '.')}}</span></td>
+                                    <td align="right"><span id="total_penerimaan">Rp. {{number_format($total_semua, 0, ',', '.')}}</span></td>
                                 </tr>
                             </tfoot>
                         </table>
                         <table width="100%">
                             <tr align="center">
                                 <td></td>
-                                <td align="right">Purwokerto, <?php echo date('d F Y', strtotime($tgl_donasi)); ?></td>
+                                <td align="right">Purwokerto, <?php echo date('d F Y'); ?></td>
                             </tr>
                             <tr align="center">
                                 <td>ZISR/FO</td>
