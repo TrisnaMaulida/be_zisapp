@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\LaporanHarian;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\DB as FacadesDB;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class LaporanHarianController extends Controller
@@ -50,16 +51,23 @@ class LaporanHarianController extends Controller
             ->groupBy('programs.nama_program')
             ->get();
 
-        $laporan2 = DB::select("SELECT * FROM donasis
-            JOIN muzakis
-                ON muzakis.id_muzaki = donasis.id_muzaki
-            JOIN penggunas
-                ON penggunas.id_pengguna = donasis.id_pengguna
-                
-                WHERE donasis.tgl_donasi = '" . $request->tgl_donasi . "'");
+        $total = 0;
+        foreach ($laporan as $value) {
+            //var_dump($value);
+            $total = $total + $value->total;
+        }
 
 
-        if ($laporan2) { //jika datanta ada 
+
+        // $laporan2 = DB::select("SELECT * FROM donasis
+        //     JOIN muzakis
+        //         ON muzakis.id_muzaki = donasis.id_muzaki
+        //     JOIN penggunas
+        //         ON penggunas.id_pengguna = donasis.id_pengguna
+
+        //         WHERE donasis.tgl_donasi = '" . $request->tgl_donasi . "'");
+
+        if ($laporan) { //jika datanya ada 
             # code...
             $pdf = PDF::loadview(
                 'laporan/laporan_harian', //nama file pdfnya
@@ -77,8 +85,8 @@ class LaporanHarianController extends Controller
                     'logam_seratus' => $request->logam_seratus,
 
                     'laporan' => $laporan,
-                    'tgl_donasi' => $laporan2[0]->tgl_donasi
-
+                    //'tgl_donasi' => $laporan[0]->tgl_donasi,
+                    'total_semua' => $laporan[0]->total
                 ]
             )->setPaper('A4', 'potrait');
             return $pdf->stream();
@@ -99,20 +107,21 @@ class LaporanHarianController extends Controller
             ->groupBy('programs.nama_program')
             ->get();
 
-        $laporan2 = DB::select("SELECT * FROM donasis
-            JOIN muzakis
-                ON muzakis.id_muzaki = donasis.id_muzaki
-            JOIN penggunas
-                ON penggunas.id_pengguna = donasis.id_pengguna
-                
-                WHERE donasis.tgl_donasi = '" . $request->tgl_donasi . "'");
+
+        // $laporan2 = DB::select("SELECT * FROM donasis
+        //     JOIN muzakis
+        //         ON muzakis.id_muzaki = donasis.id_muzaki
+        //     JOIN penggunas
+        //         ON penggunas.id_pengguna = donasis.id_pengguna
+
+        //         WHERE donasis.tgl_donasi = '" . $request->tgl_donasi . "'");
 
 
         $pdf = PDF::loadview(
             'laporan/laporan_harianA2', //nama file pdfnya
             [
                 'laporan' => $laporan,
-                'tgl_donasi' => $laporan2[0]->tgl_donasi
+                'tgl_donasi' => $laporan[0]->tgl_donasi
 
             ]
         )->setPaper('A4', 'potrait');
