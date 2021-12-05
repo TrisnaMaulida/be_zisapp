@@ -33,7 +33,7 @@
                         <p>LAPORAN PENERIMAAN HARIAN</p>
                     </td>
                     <td>
-                        <p>FORMULIR A2</p>
+                        <p>FORMULIR A3</p>
                     </td>
                 </tr>
             </table>
@@ -74,8 +74,8 @@
                                 <td align="right">Purwokerto, <?php echo date('d F Y'); ?></td>
                             </tr>
                             <tr align="center">
-                                <td>Kasir</td>
                                 <td>Keuangan</td>
+                                <td>Direktur</td>
                             </tr>
                             <tr>
                                 <td>&nbsp;</td>
@@ -94,8 +94,8 @@
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td id="zisrfo" align="center" contenteditable="true">Abdul Jalil</td>
-                                <td align="center" contenteditable="true">Surya Fajar Sidik</td>
+                                <td id="zisrfo" align="center" contenteditable="true">Surya Fajar Sidik</td>
+                                <td align="center" contenteditable="true">Samsul Bahri, S.Si. </td>
                             </tr>
                         </table>
 

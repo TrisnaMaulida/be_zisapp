@@ -116,3 +116,4 @@ Route::get('tampil/{id}', 'transaksi\PengajuanController@tampil'); //menampilkan
 Route::get('laporanharian', 'laporan\LaporanHarianController@index');
 Route::get('cetaklaporan', 'laporan\LaporanHarianController@cetakA1'); //cetak pdf laporan A1 'Penerimaan Kas ZIR/FO'
 Route::get('cetaklaporan2', 'laporan\LaporanHarianController@cetakA2'); //cetak pdf laporan A2 'Rekap Penerimaan'
+Route::get('cetaklaporan3', 'laporan\LaporanHarianController@cetakA3'); //cetak pdf laporan A3 'Rekap Penerimaan'

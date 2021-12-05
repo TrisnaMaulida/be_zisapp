@@ -94,8 +94,8 @@
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td id="zisrfo" align="center" contenteditable="true">---</td>
-                                <td align="center" contenteditable="true">---</td>
+                                <td id="zisrfo" align="center" contenteditable="true">Ayu Setyaningsih</td>
+                                <td align="center" contenteditable="true">Abdul Jalil</td>
                             </tr>
                         </table>
 
